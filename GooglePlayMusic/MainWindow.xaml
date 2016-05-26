@@ -1,0 +1,70 @@
+﻿<Window x:Class="GooglePlayMusic.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GooglePlayMusic.Common"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        Icon="{StaticResource GoogleMusicLogo}"
+        Loaded="MainWindow_OnLoaded"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50px"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50px"/>
+                    <ColumnDefinition Width="412*"/>
+                    <ColumnDefinition Width="125px"/>
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="3" Grid.Column="1" Margin="10" BorderBrush="{DynamicResource MaterialDesignPaper}" BorderThickness="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button Style="{DynamicResource MaterialDesignToolButton}" 
+                                Command="{Binding SearchCommand}" x:Name="SearchButton"
+                                CommandParameter="{Binding ElementName=SearchBox, Path=Text}"
+                                Height="24" Width="24">
+                            <materialDesign:PackIcon Kind="Magnify" Opacity="1" />
+                        </Button>
+                        <TextBox Grid.Column="1" Margin="5 0 0 0"
+                             local:HintAssist.Hint="Search" x:Name="SearchBox"
+                             Foreground="{DynamicResource MaterialDesignPaper}"
+                             materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
+                             MinWidth="200" VerticalAlignment="Center" />
+                    </Grid>
+                </Border>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                    <WrapPanel Orientation="Horizontal" x:Name="BaseStackPanel">
+                        <WrapPanel.Resources>
+                            <Style TargetType="Image">
+                                <Setter Property="Margin" Value="3.5"></Setter>
+                            </Style>
+                        </WrapPanel.Resources>
+
+                    </WrapPanel>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+        <local:LoadingOverlay x:Name="LoadingOverlay" Visibility="Visible"></local:LoadingOverlay>
+    </Grid>
+</Window>

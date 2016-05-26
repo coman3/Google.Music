@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooglePlayMusic", "GooglePlayMusic\GooglePlayMusic.csproj", "{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMusicApi", "GoogleMusicApi\GoogleMusicApi.csproj", "{86002119-AC89-4D4E-95DD-04FFE057F5E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMusicApiTests", "GoogleMusicApiTests\GoogleMusicApiTests.csproj", "{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}.Debug|x86.ActiveCfg = Debug|x86
+		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}.Debug|x86.Build.0 = Debug|x86
+		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}.Release|x86.ActiveCfg = Release|x86
+		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}.Release|x86.Build.0 = Release|x86
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Debug|x86.Build.0 = Debug|Any CPU
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Release|x86.ActiveCfg = Release|Any CPU
+		{86002119-AC89-4D4E-95DD-04FFE057F5E3}.Release|x86.Build.0 = Release|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Debug|x86.Build.0 = Debug|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Release|x86.ActiveCfg = Release|Any CPU
+		{AC07F0BE-E6A1-4C9E-9033-A9EA28A9E3E0}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
