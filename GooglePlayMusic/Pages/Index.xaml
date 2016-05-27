@@ -1,0 +1,54 @@
+﻿<Page x:Class="GooglePlayMusic.Pages.Index"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:common="clr-namespace:GooglePlayMusic.Common"
+      mc:Ignorable="d" 
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+      d:DesignHeight="371.186" d:DesignWidth="467.161"
+      Loaded="Index_OnLoaded"
+      SizeChanged="Page_OnSizeChanged"
+      Title="Index">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical" x:Name="BaseStackPanel" Margin="5">
+            <StackPanel Margin="10">
+                <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="0 4 0 0" x:Name="SituationTitle"></TextBlock>
+                <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0" x:Name="SituationDescription"></TextBlock>
+            </StackPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                <StackPanel Margin="20, 0" Orientation="Horizontal" x:Name="ListenNowSituationPanel">
+                    <StackPanel.Resources>
+                        <Style TargetType="common:Card">
+                            <Setter Property="Margin" Value="7"></Setter>
+                        </Style>
+                    </StackPanel.Resources>
+                </StackPanel>
+            </ScrollViewer>
+            <Border Padding="10, 0">
+                <WrapPanel Orientation="Horizontal" x:Name="ListenNowWrapPanel">
+                    <WrapPanel.Resources>
+                        <Style TargetType="common:Card">
+                            <Setter Property="Margin" Value="7"></Setter>
+                        </Style>
+                    </WrapPanel.Resources>
+                </WrapPanel>
+            </Border>
+        </StackPanel>
+        <common:LoadingOverlay Grid.Row="0" x:Name="LoadingOverlay" Visibility="Hidden" Opacity="1"></common:LoadingOverlay>
+    </Grid>
+
+
+</Page>

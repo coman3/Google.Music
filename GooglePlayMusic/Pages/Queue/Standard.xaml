@@ -1,0 +1,51 @@
+﻿<Page x:Class="GooglePlayMusic.Pages.Queue.Standard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GooglePlayMusic.Pages.Queue"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      TextElement.Foreground="White"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+      d:DesignHeight="300" d:DesignWidth="500"
+      Title="Standard">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100px"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Border Background="Black">
+                <Image Source="../../Content/illo_imfl.png" Stretch="UniformToFill" Opacity="0.4" x:Name="QueueImage"></Image>
+            </Border>
+            <StackPanel Margin="10, 20">
+                <TextBlock Margin="0, 0, 0, 5" Style="{StaticResource MaterialDesignBody2TextBlock}" x:Name="StatusLabel">Playing From:</TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="158*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Grid.Column="0">
+                        <materialDesign:PackIcon Kind="Folder" Width="24" Height="24" Margin="0, 0, 10, 0" x:Name="QueueIcon" />
+                        <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" x:Name="QueueTitleLabel">Nothing</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1">
+                        <Button Width="32" Height="32" Background="Transparent" Foreground="White" BorderBrush="Transparent"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                Margin="0 0 8 0" HorizontalAlignment="Left"
+                                x:Name="RefreshButton"
+                                Click="RefreshButton_Click"
+                                ToolTip="MaterialDesignFloatingActionMiniLightButton">
+                            <materialDesign:PackIcon Kind="Refresh"  Height="24" Width="24" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            
+        </Grid>
+    </Grid>
+</Page>

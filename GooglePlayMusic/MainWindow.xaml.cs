@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -15,6 +17,8 @@ using System.Windows.Shapes;
 using GoogleMusicApi;
 using GoogleMusicApi.Requests;
 using GooglePlayMusic.Common;
+using GooglePlayMusic.Managers;
+using NAudio.Wave;
 
 namespace GooglePlayMusic
 {
@@ -23,93 +27,62 @@ namespace GooglePlayMusic
     /// </summary>
     public partial class MainWindow : Window
     {
+        public double PopupQueueHeight => ActualHeight - 300;
+        public double PopupQueueWidth => Math.Min(ActualWidth - 450, 500);
+
         public MainWindow()
         {
-            if(SessionManager.MobileSession.IsAuthenticated)
-                InitializeComponent();
-            else throw new InvalidOperationException("Session Not Authenticated");
-            LoadingOverlay.Visibility = Visibility.Visible;
-            LoadingOverlay.SetSolid();
-            
-
-        }
-
-
-        private async void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            await LoadListenNowSituations();
-            LoadingOverlay.SetNonSoild();
-            await LoadListenNowData();
-            
-            LoadingOverlay.Visibility = Visibility.Hidden;
-        }
-
-        private async Task LoadListenNowSituations()
-        {
-            var data = await 
-                new ListListenNowSituations().GetAsync(new ListListenNowSituationsRequest(SessionManager.MobileSession));
-            if (data == null) return;
-            SessionManager.ListenNowSituationResponse = data;
-            SituationTitle.Text = data.PrimaryHeader;
-            SituationDescription.Text = data.SubHeader;
-            foreach (var situation in data.Situations)
+            WindowManager.NavigateToAction = page =>
             {
-                var card = new Card(new BitmapImage(new Uri(situation.ImageUrl)),
-                    situation.Title, situation.Description)
-                {
-                    Width = (BaseStackPanel.ActualWidth - (7 * 4 * 2 + 80)) /6,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    VerticalAlignment = VerticalAlignment.Top,
-                    MinWidth = 125
-                };
-                ListenNowSituationPanel.Children.Add(card);
-            }
-
+                ContentProvider.Source = page;
+            };
+            InitializeComponent();
+            PlaybackManager.OnBufferStateChange += PlaybackManager_OnBufferStateChange;
+            PlaybackManager.OnPlaybackStateChange += PlaybackManager_OnPlaybackStateChange;
         }
 
-        private async Task LoadListenNowData()
+        private void PlaybackManager_OnPlaybackStateChange(BufferedWaveProvider sender, PlaybackManager.StreamingPlaybackState state)
         {
-            var listenNowData = await new ListListenNowTracks().GetAsync(new GetRequest(SessionManager.MobileSession));
-            if (listenNowData == null) return;
-            foreach (var data in listenNowData.Items)
+            this.Dispatcher.Invoke(() => //Thread is not GUI Thread
             {
-                if (data.CompositeArtRefs != null && data.CompositeArtRefs.Length > 0)
+                switch (state)
                 {
-                    var item = new Card(new BitmapImage(new Uri(data.CompositeArtRefs.FirstOrDefault(x => x.AspectRatio == "1").Url)), data.Album != null ? data.Album.Title : data.RadioStation.Title, data.SuggestionText)
-                    {
-                        Width = (BaseStackPanel.ActualWidth - (7 * 4 * 2)) / 4,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        VerticalAlignment = VerticalAlignment.Center,
-                        MinWidth = 125
-
-
-                    };
-                    ListenNowWrapPanel.Children.Add(item);
+                    case PlaybackManager.StreamingPlaybackState.Playing:
+                        PlayPauseMusic.IsChecked = true;
+                        break;
+                    case PlaybackManager.StreamingPlaybackState.Paused:
+                        PlayPauseMusic.IsChecked = false;
+                        break;
                 }
-            }
+            });
         }
 
-        private void MainWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        private void PlaybackManager_OnBufferStateChange(NAudio.Wave.BufferedWaveProvider sender, double totalSecconds)
         {
-            ResizeListenNowSuggestionCards();
-            ResizeListenNowSituationCards();
-        }
-
-        private void ResizeListenNowSuggestionCards()
-        {
-
-            foreach (Control child in ListenNowWrapPanel.Children)
+            this.Dispatcher.Invoke(() =>  //Thread is not GUI Thread
             {
-                child.Width = (BaseStackPanel.ActualWidth - (7 * 4 * 2)) / 4;
-            }
+                TrackProgressBar.Maximum = TrackManager.CurrentTrack.DurationMillis / 1000;
+                TrackProgressBar.Value = PlaybackManager.TrackTimeSpan.TotalSeconds;
+
+                TrackBufferProgressBar.Maximum = TrackManager.CurrentTrack.DurationMillis / 1000;
+                TrackBufferProgressBar.Value = PlaybackManager.TrackTimeSpan.TotalSeconds + totalSecconds;
+                
+                Debug.WriteLine(PlaybackManager.TrackTimeSpan);
+            });
+
         }
-        private void ResizeListenNowSituationCards()
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
 
-            foreach (Control child in ListenNowSituationPanel.Children)
-            {
-                child.Width = (BaseStackPanel.ActualWidth - (7 * 4 * 2 + 20)) / 6;
-            }
+        }
+
+        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            var tb = sender as ToggleButton;
+            if (tb?.IsChecked == null) return;
+
+            PlaybackManager.SetState(tb.IsChecked.Value ? PlaybackState.Playing : PlaybackState.Paused);
         }
     }
 }
