@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Requests\ConfigRequest.cs" />
+    <Compile Include="Structure\ListListenNowSituationResponse.cs" />
     <Compile Include="Structure\ListListenNowTracksResponse.cs" />
     <Compile Include="Requests\ListRequests.cs" />
     <Compile Include="ResultListRequest.cs" />

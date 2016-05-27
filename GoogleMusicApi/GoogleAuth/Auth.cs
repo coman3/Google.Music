@@ -51,6 +51,7 @@ namespace GoogleMusicApi.GoogleAuth
                 }
                 catch (WebException e)
                 {
+                    if(e.Response == null) return new Dictionary<string, string>(0);
                     result = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
                 }
                 return GoogleKeyUtils.ParseAuthResponse(result);

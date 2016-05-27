@@ -20,9 +20,22 @@ namespace GooglePlayMusic.Common
     /// </summary>
     public partial class LoadingOverlay : UserControl
     {
+        
         public LoadingOverlay()
         {
             InitializeComponent();
+        }
+
+        public void SetSolid()
+        {
+            Grid.Background = Brushes.Black;
+        }
+        public void SetNonSoild()
+        {
+            Grid.Background = new SolidColorBrush(Colors.Black)
+            {
+                Opacity = 80,
+            };
         }
     }
 }

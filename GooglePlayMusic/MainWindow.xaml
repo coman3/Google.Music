@@ -11,11 +11,15 @@
         mc:Ignorable="d"
         Icon="{StaticResource GoogleMusicLogo}"
         Loaded="MainWindow_OnLoaded"
-        Title="MainWindow" Height="350" Width="525">
+        SizeChanged="MainWindow_OnSizeChanged"
+        Title="MainWindow" Height="356.674" Width="841.631">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -23,7 +27,8 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50px"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="229*"/>
+                <RowDefinition Height="100px"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}" >
                 <Grid.ColumnDefinitions>
@@ -41,30 +46,101 @@
                                 Command="{Binding SearchCommand}" x:Name="SearchButton"
                                 CommandParameter="{Binding ElementName=SearchBox, Path=Text}"
                                 Height="24" Width="24">
-                            <materialDesign:PackIcon Kind="Magnify" Opacity="1" />
+                            <materialDesign:PackIcon Kind="Magnify" Foreground="White" />
                         </Button>
                         <TextBox Grid.Column="1" Margin="5 0 0 0"
                              local:HintAssist.Hint="Search" x:Name="SearchBox"
-                             Foreground="{DynamicResource MaterialDesignPaper}"
+                             Foreground="White"
                              materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
                              MinWidth="200" VerticalAlignment="Center" />
                     </Grid>
                 </Border>
             </Grid>
-
             <Grid Grid.Row="1">
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                    <WrapPanel Orientation="Horizontal" x:Name="BaseStackPanel">
-                        <WrapPanel.Resources>
-                            <Style TargetType="Image">
-                                <Setter Property="Margin" Value="3.5"></Setter>
-                            </Style>
-                        </WrapPanel.Resources>
+                    <StackPanel Orientation="Vertical" x:Name="BaseStackPanel" Margin="5">
+                        <StackPanel Margin="10">
+                            <TextBlock Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="0 4 0 0" x:Name="SituationTitle"></TextBlock>
+                            <TextBlock Style="{StaticResource MaterialDesignBody1TextBlock}" Margin="0" x:Name="SituationDescription"></TextBlock>
+                        </StackPanel>
+                        <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                            <StackPanel Orientation="Horizontal" x:Name="ListenNowSituationPanel">
+                                <StackPanel.Resources>
+                                    <Style TargetType="local:Card">
+                                        <Setter Property="Margin" Value="7"></Setter>
+                                    </Style>
+                                </StackPanel.Resources>
 
-                    </WrapPanel>
+                            </StackPanel>
+                        </ScrollViewer>
+                        <WrapPanel Orientation="Horizontal" x:Name="ListenNowWrapPanel">
+                            <WrapPanel.Resources>
+                                <Style TargetType="local:Card">
+                                    <Setter Property="Margin" Value="7"></Setter>
+                                </Style>
+                            </WrapPanel.Resources>
+
+                        </WrapPanel>
+                    </StackPanel>
                 </ScrollViewer>
             </Grid>
+            <Grid Grid.Row="2" Margin="0,5,0,-5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8px"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="3">
+                    <ProgressBar BorderThickness="0" Value="75" Background="Transparent"/>
+                </Grid>
+                <StackPanel HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
+                    <Image ToolTip="Current Track Album Art" x:Name="SongImage"></Image>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="10px"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="1" FontSize="18px" HorizontalAlignment="Left" x:Name="SongTitleLabel"></Label>
+                        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Label FontSize="10px" Cursor="Hand" x:Name="SongAlbumLabel"></Label>
+                            <Label FontSize="10px" Cursor="Hand" x:Name="SongArtistLabel"></Label>
+                        </StackPanel>
+
+                    </Grid>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="111,0,122,0" Grid.Column="1" Grid.Row="1">
+                    <Button BorderBrush="{DynamicResource MaterialDesignPaper}" Height="32" Width="32" Background="{DynamicResource MaterialDesignPaper}" Foreground="Black" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Margin="0 0 8 0" HorizontalAlignment="Left"
+                        ToolTip="Skip Track Back">
+                        <materialDesign:PackIcon Kind="SkipPrevious" Height="24" Width="24" />
+                    </Button>
+                    <ToggleButton Height="60"  Width="60" Style="{StaticResource MaterialDesignActionToggleButton}"
+                    	Margin="0,10,8,10" ToolTip="Play / Pause Music">
+                        <materialDesign:ToggleButtonAssist.OnContent>
+                            <materialDesign:PackIcon Kind="Pause" Width="32" Height="32" />
+                        </materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon Kind="Play" Width="32" Height="32" />
+                    </ToggleButton>
+                    <Button BorderBrush="{DynamicResource MaterialDesignPaper}" Height="32" Width="32" Background="{DynamicResource MaterialDesignPaper}" Foreground="Black" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Margin="0 0 8 0" HorizontalAlignment="Left"
+                        ToolTip="Skip Track">
+                        <materialDesign:PackIcon Kind="SkipNext" Height="24" Width="24" />
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal" Grid.Row="1">
+                    <Button BorderBrush="{DynamicResource MaterialDesignPaper}" Height="32" Width="32" Background="{DynamicResource MaterialDesignPaper}" Foreground="Black" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        Margin="0 0 8 0" HorizontalAlignment="Left"
+                        ToolTip="Current Playlist">
+                        <materialDesign:PackIcon Kind="PlaylistPlay" Height="24" Width="24" />
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Grid>
-        <local:LoadingOverlay x:Name="LoadingOverlay" Visibility="Visible"></local:LoadingOverlay>
+        <local:LoadingOverlay Grid.Row="0" x:Name="LoadingOverlay" Visibility="Hidden" Opacity="1"></local:LoadingOverlay>
     </Grid>
 </Window>

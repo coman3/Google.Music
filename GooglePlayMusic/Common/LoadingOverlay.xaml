@@ -13,7 +13,7 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="#CC000000">
+    <Grid Background="#CC000000" x:Name="Grid">
         <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
                      x:Name="DeterminateCircularProgress"
                      Value="0"

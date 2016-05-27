@@ -6,12 +6,8 @@ namespace GoogleMusicApi.Structure
     public class StationSeed
     {
         [JsonProperty("seeds")]
-        public StationSeedItem[] Seeds { get; set; }
-        
-    }
+        public StationSeed[] Seeds { get; set; }
 
-    public class StationSeedItem
-    {
         [JsonProperty("kind")]
         public string Kind { get; set; }
 

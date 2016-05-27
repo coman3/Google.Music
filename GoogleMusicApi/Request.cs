@@ -12,6 +12,8 @@ namespace GoogleMusicApi
 
         protected Request(Session session, ParsedRequest.RequestMethod method)
         {
+            UrlData = new WebRequestHeaders();
+            Headers = new WebRequestHeaders();
             Method = method;
             Session = session;
             Accept = "application/json";
