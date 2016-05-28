@@ -107,6 +107,9 @@
       <DependentUpon>Standard.xaml</DependentUpon>
     </Compile>
     <Compile Include="Managers\SessionManager.cs" />
+    <Compile Include="Pages\Test.xaml.cs">
+      <DependentUpon>Test.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\ReadFullyStream.cs" />
     <Compile Include="Managers\PlaybackManager.cs" />
     <Compile Include="Managers\TrackManager.cs" />
@@ -140,6 +143,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Queue\Standard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -81,8 +81,22 @@ namespace GooglePlayMusic
         {
             var tb = sender as ToggleButton;
             if (tb?.IsChecked == null) return;
+            if (PlaybackManager.PlaybackState == PlaybackManager.StreamingPlaybackState.Stopped)
+                PlaybackManager.PlayTrack(TrackManager.CurrentTrack = TrackManager.Queue.Dequeue());
+            else if(PlaybackManager.PlaybackState != PlaybackManager.StreamingPlaybackState.Buffering)
+                PlaybackManager.SetState(tb.IsChecked.Value ? PlaybackState.Playing : PlaybackState.Paused);
+            
+        }
 
-            PlaybackManager.SetState(tb.IsChecked.Value ? PlaybackState.Playing : PlaybackState.Paused);
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (PlaybackManager.PlaybackState != PlaybackManager.StreamingPlaybackState.Buffering)
+            {
+                PlaybackManager.SetState(PlaybackState.Stopped);
+                PlaybackManager.PlayTrack(TrackManager.CurrentTrack = TrackManager.Queue.Dequeue());
+            }
+                
+
         }
     }
 }

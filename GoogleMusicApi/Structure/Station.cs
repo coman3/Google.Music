@@ -5,6 +5,7 @@ namespace GoogleMusicApi.Structure
     [JsonObject]
     public class Station
     {
+        //TODO: Line:  Extream
         [JsonProperty("kind")]
         public string Kind { get; set; }
 

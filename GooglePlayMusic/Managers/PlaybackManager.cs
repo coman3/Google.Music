@@ -4,6 +4,8 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using System.Windows;
+using GoogleMusicApi.Requests;
+using GoogleMusicApi.Structure;
 using GooglePlayMusic.Utilities;
 using NAudio.Wave;
 using Timer = System.Timers.Timer;
@@ -52,9 +54,14 @@ namespace GooglePlayMusic.Managers
                     Debug.WriteLine("Creating WaveOut Device");
                     WaveOut = new WaveOut();
                     WaveOut.PlaybackStopped += OnPlaybackStopped;
+                    var currentVolume = 1f;
+                    if (VolumeProvider != null)
+                    {
+                        currentVolume = VolumeProvider.Volume;
+                    }
                     VolumeProvider = new VolumeWaveProvider16(_bufferedWaveProvider)
                     {
-                        Volume = 1
+                        Volume = currentVolume
                     };
                     WaveOut.Init(VolumeProvider);
                 }
@@ -70,7 +77,7 @@ namespace GooglePlayMusic.Managers
                     {
                         Pause();
                     }
-                    else if (bufferedSeconds > 4 && PlaybackState == StreamingPlaybackState.Buffering)
+                    else if (bufferedSeconds > 10 && PlaybackState == StreamingPlaybackState.Buffering)
                     {
                         Play();
                     }
@@ -103,6 +110,7 @@ namespace GooglePlayMusic.Managers
                     WaveOut = null;
                 }
                 _timer.Stop();
+                _bufferedWaveProvider = null;
                 // n.b. streaming thread may not yet have exited
                 Thread.Sleep(600);
                 ShowBufferState(0);
@@ -111,15 +119,18 @@ namespace GooglePlayMusic.Managers
 
         private static void Play()
         {
-            WaveOut.Play();
-            Debug.WriteLine("Started playing, waveOut.PlaybackState={0}", WaveOut.PlaybackState);
-            ChangePlaybackState(StreamingPlaybackState.Playing);
+            if (WaveOut != null)
+            {
+                WaveOut.Play();
+                Debug.WriteLine("Started playing, waveOut.PlaybackState={0}", WaveOut.PlaybackState);
+                ChangePlaybackState(StreamingPlaybackState.Playing);
+            }
         }
 
         private static void Pause()
         {
             ChangePlaybackState(StreamingPlaybackState.Buffering);
-            WaveOut.Pause();
+            WaveOut?.Pause();
             Debug.WriteLine("Paused to buffer, waveOut.PlaybackState={0}", WaveOut.PlaybackState);
         }
 
@@ -131,6 +142,14 @@ namespace GooglePlayMusic.Managers
         private static void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
             
+        }
+
+        public static void PlayTrack(Track track)
+        {
+            var streamUrl = new StreamUrlRequest().Get(new StreamUrlGetRequest(SessionManager.MobileSession, track));
+            if(string.IsNullOrEmpty(streamUrl)) return;
+            
+            PlayTrack(streamUrl);
         }
 
         public static void PlayTrack(string streamUrl)
@@ -146,23 +165,27 @@ namespace GooglePlayMusic.Managers
             else if (PlaybackState == StreamingPlaybackState.Paused)
             {
                 ChangePlaybackState(StreamingPlaybackState.Buffering);
-
-
             }
         }
 
-        public static void SetState(PlaybackState state)
+        public static void SetState(NAudio.Wave.PlaybackState state)
         {
-            if(PlaybackState == StreamingPlaybackState.Stopped) throw new InvalidOperationException("No Track Playing");
+            if(PlaybackState == StreamingPlaybackState.Stopped)
+                throw new InvalidOperationException("No Track Playing");
+
             if (state == NAudio.Wave.PlaybackState.Playing && PlaybackState == StreamingPlaybackState.Paused)
             {
                 WaveOut?.Play();
                 ChangePlaybackState(StreamingPlaybackState.Buffering);
             }
-            else if (state == NAudio.Wave.PlaybackState.Paused && (PlaybackState == StreamingPlaybackState.Playing || PlaybackState == StreamingPlaybackState.Buffering))
+            else if (state == NAudio.Wave.PlaybackState.Paused && (PlaybackState == StreamingPlaybackState.Playing))
             {
                 WaveOut?.Pause();
                 ChangePlaybackState(StreamingPlaybackState.Paused);
+            }
+            else if(state == NAudio.Wave.PlaybackState.Stopped)
+            {
+                StopPlayback();
             }
         }
 

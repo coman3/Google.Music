@@ -4,7 +4,7 @@ using GoogleMusicApi.Structure;
 
 namespace GooglePlayMusic.Managers
 {
-    public static class TrackManager
+    public class TrackManager
     {
         public static Track CurrentTrack { get; set; }
         public static Queue<Track> Queue { get; set; } = new Queue<Track>();

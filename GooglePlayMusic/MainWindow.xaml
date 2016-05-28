@@ -228,7 +228,7 @@
                             </materialDesign:ToggleButtonAssist.OnContent>
                             <materialDesign:PackIcon Kind="Play" Width="32" Height="32" />
                         </ToggleButton>
-                        <Button BorderBrush="{DynamicResource MaterialDesignPaper}" Height="32" Width="32" Background="{DynamicResource MaterialDesignPaper}" Foreground="Black" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                        <Button BorderBrush="{DynamicResource MaterialDesignPaper}" Height="32" Width="32" Click="ButtonBase_OnClick" Background="{DynamicResource MaterialDesignPaper}" Foreground="Black" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
                         Margin="0 0 8 0" HorizontalAlignment="Left"
                         ToolTip="Skip Track">
                             <materialDesign:PackIcon Kind="SkipNext" Height="24" Width="24" />
@@ -236,7 +236,7 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal" Grid.Row="1">
 
-                        <materialDesign:PopupBox Background="Pink" Margin="30, 0" PlacementMode="TopAndAlignRightEdges" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignPopupBoxNoPadding}">
+                        <materialDesign:PopupBox Margin="30, 0" PlacementMode="TopAndAlignRightEdges" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignPopupBoxNoPadding}">
                             <materialDesign:PopupBox.ToggleContent>
                                 <materialDesign:PackIcon Kind="PlaylistPlay" Width="24" Height="24" />
                             </materialDesign:PopupBox.ToggleContent>

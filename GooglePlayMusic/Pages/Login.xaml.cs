@@ -34,7 +34,7 @@ namespace GooglePlayMusic.Pages
             if (await SessionManager.MobileSession.LoginAsync(TextBoxUsername.Text, TextBoxPassword.Password))
             {
 
-                WindowManager.NavigateToPage(new Uri("/Pages/Index.xaml", UriKind.Relative));
+                WindowManager.NavigateToPage(new Uri("/Pages/Test.xaml", UriKind.Relative));
                 LoadingOverlay.Visibility = Visibility.Hidden;
             }
             else
