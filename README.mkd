@@ -1,1 +1,40 @@
-# Google.Music
+### Google.Music Desktop Application (Client) & API Written in C&#35
+
+An Unofficial Google Play Music API Engineered from:
+
+	- The Google Play Music Android App (GoogleMusicApi.Common.MobileClient)
+	- The music.google.com/ website (TODO: GoogleMusicApi.Common.WebClient)
+
+##API
+
+This repository contains a C# application designed to be used by the [Desktop Application](#Desktop Application)
+
+It Contains Many Features, but full documentation can be found in the [Wiki](https://github.com/coman3/Google.Music/wiki).
+
+The API consists of a MobileClient(GoogleMusicApi.Common.MobileClient) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
+Below is an example of logging in, collecting the GoogleMusicApi.Structure.Config synchronously and asynchronously:
+
+```
+var client = new MobileClient();
+if (client.Login("email", "password"))
+{
+    var situations = client.GetListenNowSituations();
+    var situationsAsync = await client.GetListenNowSituationsAsync();
+                
+    //Do Some Cool Stuff!
+}
+
+```
+
+
+##Desktop Application
+This repository contains a Desktop Application (**not completed / functional**) [GooglePlayMusic/GooglePlayMusic.csproj](GooglePlayMusic/GooglePlayMusic.csproj) that acts under a GoogleMusicApi.Common.MobileClient. 
+Features **will** include:
+
+	- Select Streaming Quality (Low, Medium, High)
+	- Cache Commonly played songs
+	- Set Buffer Length (how much of the stream to keep in memory while playing a track)
+	- Download Tracks (Possible that this will not be implemented due to Googles Terms of Use)
+	- Seamless playback 
+		- Play tracks on many local area network devices at the same time (For multiple speakers throughout house)
+		- Continue playback from phone (will need android app installed)
