@@ -55,7 +55,7 @@
     <Compile Include="Requests\ExecuteSearch.cs" />
     <Compile Include="Requests\GetConfig.cs" />
     <Compile Include="Requests\GetStreamUrl.cs" />
-    <Compile Include="Requests\RadioStationAnnotation.cs" />
+    <Compile Include="Requests\GetRadioStationAnnotation.cs" />
     <Compile Include="Structure\RequestSignal.cs" />
     <Compile Include="Requests\EditRadioStation.cs" />
     <Compile Include="Requests\Data\EditRadioStationRequest.cs" />

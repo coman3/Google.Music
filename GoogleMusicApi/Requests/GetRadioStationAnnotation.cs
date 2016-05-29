@@ -1,6 +1,6 @@
 ﻿namespace GoogleMusicApi.Requests
 {
-    public class RadioStationAnnotation :
+    public class GetRadioStationAnnotation :
         StructuredRequest<GetRadioStationAnnotationRequest, GetRadioStationAnnotationResponse>
     {
         public override string RelativeRequestUrl => "fetchradiostationannotation";

@@ -30,7 +30,7 @@ namespace GooglePlayMusic.Desktop.Pages
             }
             if (seed == null) return;
             
-            var annotaion = new RadioStationAnnotation().Get(new GetRadioStationAnnotationRequest(SessionManager.MobileSession, seed));
+            var annotaion = new GetRadioStationAnnotation().Get(new GetRadioStationAnnotationRequest(SessionManager.MobileSession, seed));
 
             var tracks =
                 new EditRadioStation().Get(new EditRadioStationRequest(SessionManager.MobileSession,
