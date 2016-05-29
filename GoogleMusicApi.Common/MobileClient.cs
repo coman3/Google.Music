@@ -95,34 +95,7 @@ namespace GoogleMusicApi.Common
         }
         #endregion
 
-        #region Config
-
-        /// <summary>
-        /// Get the Google Play Music configuration key / values
-        /// </summary>
-        /// <returns>Your current Google Play Music configuration</returns>
-        public Config GetConfig()
-        {
-            if (!CheckSession())
-                return null;
-            var request = MakeRequest<GetConfig>();
-            var data = request.Get(new GetRequest(Session));
-            return data;
-
-        }
-
-        /// <summary>
-        /// Runs <seealso cref="GetConfig"/> Asynchronously.
-        /// </summary>
-        /// <returns>The value returned from <seealso cref="GetConfig"/></returns>
-        public async Task<Config> GetConfigAsync()
-        {
-            return await Task.Factory.StartNew(GetConfig);
-        }
-
-        #endregion
-
-        #region Listen Now Suggestions
+        #region List Requests
 
         /// <summary>
         /// Gets the current Situations. Suggestions
@@ -144,7 +117,7 @@ namespace GoogleMusicApi.Common
         /// </returns>
         //TODO (Low): Find out what situation types exist
         //TODO (Medium): Convert the int[] to a SituationType[]
-        public ListListenNowSituationResponse GetListenNowSituations(params int[] situationType)
+        public ListListenNowSituationResponse ListListenNowSituations(params int[] situationType)
         {
             if (!CheckSession())
                 return null;
@@ -165,14 +138,14 @@ namespace GoogleMusicApi.Common
         }
 
         /// <summary>
-        /// Runs <seealso cref="GetListenNowSituations"/> Asynchronously.
+        /// Runs <seealso cref="ListListenNowSituations"/> Asynchronously.
         /// </summary>
         /// <param name="situationType">The situation types you wish to receive</param>
-        /// <returns>The value returned from <seealso cref="GetListenNowSituations"/></returns>
+        /// <returns>The value returned from <seealso cref="ListListenNowSituations"/></returns>
 
-        public async Task<ListListenNowSituationResponse> GetListenNowSituationsAsync(params int[] situationType)
+        public async Task<ListListenNowSituationResponse> ListListenNowSituationsAsync(params int[] situationType)
         {
-            return await Task.Factory.StartNew(() => GetListenNowSituations(situationType));
+            return await Task.Factory.StartNew(() => ListListenNowSituations(situationType));
         }
 
         /// <summary>
@@ -207,9 +180,6 @@ namespace GoogleMusicApi.Common
             return await Task.Factory.StartNew(ListListenNowTracks);
         }
 
-        #endregion
-
-        #region List Requests
 
         /// <summary>
         /// Gets a list of <see cref="Playlist"/>'s associated to the account
@@ -310,8 +280,111 @@ namespace GoogleMusicApi.Common
 
         #endregion
 
-        
+        #region Gets
 
+        /// <summary>
+        /// Get the Google Play Music configuration key / values
+        /// </summary>
+        /// <returns>Your current Google Play Music configuration</returns>
+        public Config GetConfig()
+        {
+            if (!CheckSession())
+                return null;
+            var request = MakeRequest<GetConfig>();
+            var data = request.Get(new GetRequest(Session));
+            return data;
+
+        }
+
+        /// <summary>
+        /// Runs <seealso cref="GetConfig"/> Asynchronously.
+        /// </summary>
+        /// <returns>The value returned from <seealso cref="GetConfig"/></returns>
+        public async Task<Config> GetConfigAsync()
+        {
+            return await Task.Factory.StartNew(GetConfig);
+        }
+
+        public GetRadioStationAnnotationResponse GetRadioStationAnnotation(StationSeed seed)
+        {
+            if (!CheckSession())
+                return null;
+            if (seed.CuratedStationId == null)
+                return null;
+
+            var request = MakeRequest<GetRadioStationAnnotation>();
+            var data = request.Get(new GetRadioStationAnnotationRequest(Session, seed));
+            return data;
+        } 
+
+        public async Task<GetRadioStationAnnotationResponse> GetRadioStationAnnotationAsync(StationSeed seed)
+        {
+            return await Task.Factory.StartNew(() => GetRadioStationAnnotation(seed));
+        } 
+
+        public string GetStreamUrl(Track track)
+        {
+            if (!CheckSession())
+                return null;
+            var request = MakeRequest<GetStreamUrl>();
+            var data = request.Get(new StreamUrlGetRequest(Session, track));
+            return data;
+        } 
+
+        public async Task<string> GetStreamUrlAsync(Track track)
+        {
+            return await Task.Factory.StartNew(() => GetStreamUrl(track));
+        } 
+
+        public Track GetTrack(string trackId)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<GetTrack>();
+            var data = request.Get(new GetTrackRequest(Session, trackId));
+            return data;
+        } 
+
+        public async Task<Track> GetTrackAsync(string trackId)
+        {
+            return await Task.Factory.StartNew(() => GetTrack(trackId));
+        }
+
+
+        #endregion
+
+        #region Other
+        public SearchResponse Search(string query)
+        {
+            if (!CheckSession())
+                return null;
+            var request = MakeRequest<ExecuteSearch>();
+            var data = request.Get(new SearchGetRequest(Session, query));
+            return data;
+        } 
+
+        public async Task<SearchResponse> SearchAsync(string query)
+        {
+            return await Task.Factory.StartNew(() => Search(query));
+        } 
+
+        public EditRadioStationReponse EditRadioStation(params EditRadioStationRequestMutation[] requestData)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<EditRadioStation>();
+            var data = request.Get(new EditRadioStationRequest(Session, requestData));
+            return data;
+        }
+
+        public async Task<EditRadioStationReponse> EditRadioStationAsync(params EditRadioStationRequestMutation[] requestData)
+        {
+            return await Task.Factory.StartNew(() => EditRadioStation(requestData));
+        } 
+
+        #endregion
 
     }
 }
