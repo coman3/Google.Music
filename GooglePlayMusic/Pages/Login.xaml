@@ -31,7 +31,7 @@
                 <materialDesign:PackIcon Kind="Account"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="dev.lvelden@gmail.com" x:Name="TextBoxUsername" common:HintAssist.Hint="Floating Hint"></TextBox>
                 <materialDesign:PackIcon Kind="Key"  Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                <PasswordBox Grid.Row="2" Grid.Column="1" Password="197355p!" x:Name="TextBoxPassword"></PasswordBox>
+                <PasswordBox Grid.Row="2" Grid.Column="1" Password="" x:Name="TextBoxPassword"></PasswordBox>
                 <Button x:Name="ButtonLogin" Grid.Row="4" Grid.Column="0" Click="ButtonLogin_Click" Grid.ColumnSpan="2" Margin="0,4" Height="Auto">Login</Button>
             </Grid>
         </Border>

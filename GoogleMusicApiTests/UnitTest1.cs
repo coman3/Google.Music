@@ -18,7 +18,7 @@ namespace GoogleMusicApiTests
         public void TestLogin()
         {
             Session = new MobileSession();
-            Session.Login("dev.lvelden@gmail.com", "197355p!");
+            Session.Login("dev.lvelden@gmail.com", "<Changed>");
             Assert.IsTrue(Session.IsAuthenticated);
         }
 
