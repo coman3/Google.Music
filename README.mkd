@@ -1,18 +1,18 @@
-### Google.Music Desktop Application (Client) & API Written in C&#35
+# Google.Music Desktop Application (Client) & API Written in C#
 
 An Unofficial Google Play Music API Engineered from:
 
 	- The Google Play Music Android App (GoogleMusicApi.Common.MobileClient)
 	- The music.google.com/ website (TODO: GoogleMusicApi.Common.WebClient)
 
-##API
+## API
 
-This repository contains a C# application designed to be used by the [DesktopApplication](#Desktop Application)
+This repository contains a C# API designed to be used by the [DesktopApplication](#Desktop Application) but can be used in any use case.
 
 It Contains Many Features, but full documentation can be found [Here (http://coman3.github.io/Google.Music/Docs/)](http://coman3.github.io/Google.Music/Docs/) or within the inbuilt documentation.
 
-The API consists of a MobileClient(GoogleMusicApi.Common.MobileClient) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
-Below is an example of logging in, collecting the GoogleMusicApi.Structure.Config synchronously and asynchronously:
+The API consists of a MobileClient (_GoogleMusicApi.Common.MobileClient_) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
+Below is an example of logging in, collecting the _GoogleMusicApi.Structure._Config synchronously and asynchronously:
 
 ```
 var client = new MobileClient();
@@ -27,8 +27,8 @@ if (client.Login("email", "password"))
 ```
 
 
-##Desktop Application
-This repository contains a Desktop Application (**not completed / functional**) [GooglePlayMusic/](GooglePlayMusic/GooglePlayMusic.csproj) that acts under a GoogleMusicApi.Common.MobileClient. 
+## Desktop Application
+This repository contains a Desktop Application (**not completed / functional**) [GooglePlayMusic/](GooglePlayMusic/GooglePlayMusic.csproj) that acts under a _GoogleMusicApi.Common.MobileClient_. 
 Features **will** include:
 
 	- Select Streaming Quality (Low, Medium, High)
@@ -38,3 +38,19 @@ Features **will** include:
 	- Seamless playback 
 		- Play tracks on many local area network devices at the same time (For multiple speakers throughout house)
 		- Continue playback from phone (will need android app installed)
+
+# Contributing 
+
+Any Contribution is greatly appreciated and will fully documented and credited. If you wish to contribute to this project,
+please fork this repository and submit pull requests, then i shall merge them as soon i get the chance. 
+*Any constant developers are also welcome to get in touch and ask to be added to the repository.*
+
+
+If you don't know what to do, there is a massive list of "TODO (<Priority>): " lines, specifying what needs to be done, plus bug testing is always greatly appreciated.
+
+Thanks for your help in advance :)
+
+# Get In Touch
+
+If you have any questions don't hesitate to message me on [Discord](https://discord.gg/012WlrsiVIhOjHvEx) or email me [dev.lvelden@gmail.com](malto:dev.lvelden@gmail.com). 
+also leaving and issue with the tag "Question" works :P
