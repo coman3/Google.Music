@@ -1,7 +1,7 @@
 ﻿using GoogleMusicApi;
 using GoogleMusicApi.Structure;
 
-namespace GooglePlayMusic.Managers
+namespace GooglePlayMusic.Desktop.Managers
 {
     public static class SessionManager
     {

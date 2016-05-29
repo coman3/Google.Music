@@ -16,11 +16,11 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GoogleMusicApi;
 using GoogleMusicApi.Requests;
-using GooglePlayMusic.Common;
-using GooglePlayMusic.Managers;
+using GooglePlayMusic.Desktop.Common;
+using GooglePlayMusic.Desktop.Managers;
 using NAudio.Wave;
 
-namespace GooglePlayMusic
+namespace GooglePlayMusic.Desktop
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

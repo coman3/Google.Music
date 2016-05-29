@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace GooglePlayMusic.Common
+namespace GooglePlayMusic.Desktop.Common
 {
     public static class HintAssist
     {

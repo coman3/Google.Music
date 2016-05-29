@@ -35,6 +35,29 @@ namespace GoogleMusicApi.Common
 
         }
 
+        #region Privates
+        private bool CheckSession()
+        {
+#if DEBUG
+            if (Session == null)
+                throw new InvalidOperationException("Session Not Set! Try logging in again.");
+            if (Session.AuthorizationToken == null)
+                throw new InvalidOperationException(
+                    "Session does not contain an Authorization Token! Try logging in again.");
+#else
+            if (Session?.AuthorizationToken != null) 
+                return true;
+#endif
+            return false;
+        }
+        private TReuqest MakeRequest<TReuqest>()
+            where TReuqest : StructuredRequest, new()
+        {
+            return new TReuqest();
+        }
+        #endregion
+
+        #region Account
 
         /// <summary>
         /// Login to Google Play Music with the specified email and password.
@@ -70,27 +93,7 @@ namespace GoogleMusicApi.Common
             return false;
 */
         }
-
-        private bool CheckSession()
-        {
-#if DEBUG
-            if (Session == null)
-                throw new InvalidOperationException("Session Not Set! Try logging in again.");
-            if (Session.AuthorizationToken == null)
-                throw new InvalidOperationException(
-                    "Session does not contain an Authorization Token! Try logging in again.");
-#else
-            if (Session?.AuthorizationToken != null) 
-                return true;
-#endif
-            return false;
-        }
-
-        private TReuqest MakeRequest<TReuqest>()
-            where TReuqest : StructuredRequest, new()
-        {
-            return new TReuqest();
-        }
+        #endregion
 
         #region Config
 
@@ -206,6 +209,8 @@ namespace GoogleMusicApi.Common
 
         #endregion
 
+        #region List Requests
+
         /// <summary>
         /// Gets a list of <see cref="Playlist"/>'s associated to the account
         /// </summary>
@@ -260,6 +265,7 @@ namespace GoogleMusicApi.Common
             return data;
 
         }
+
         /// <summary>
         /// Runs <seealso cref="ListPromotedTracks"/> Asynchronously.
         /// </summary>
@@ -268,7 +274,7 @@ namespace GoogleMusicApi.Common
         public async Task<ResultList<Track>> ListPromotedTracksAsync(int numberOfResults = 1000)
         {
             return await Task.Factory.StartNew(() => ListPromotedTracks(numberOfResults));
-        } 
+        }
 
         /// <summary>
         /// Gets a list of <see cref="StationCategory"/>'s.
@@ -292,6 +298,7 @@ namespace GoogleMusicApi.Common
             var data = request.Get(new GetRequest(Session));
             return data;
         }
+
         /// <summary>
         /// Runs <seealso cref="ListStationCategories"/> Asynchronously.
         /// </summary>
@@ -300,6 +307,11 @@ namespace GoogleMusicApi.Common
         {
             return await Task.Factory.StartNew(ListStationCategories);
         }
+
+        #endregion
+
+        
+
 
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GoogleMusicApi.Structure;
 
-namespace GooglePlayMusic.Managers
+namespace GooglePlayMusic.Desktop.Managers
 {
     public class TrackManager
     {

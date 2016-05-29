@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace GooglePlayMusic.Managers
+namespace GooglePlayMusic.Desktop.Managers
 {
     public static class WindowManager
     {

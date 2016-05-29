@@ -6,11 +6,11 @@ using System.Threading;
 using System.Windows;
 using GoogleMusicApi.Requests;
 using GoogleMusicApi.Structure;
-using GooglePlayMusic.Utilities;
+using GooglePlayMusic.Desktop.Utilities;
 using NAudio.Wave;
 using Timer = System.Timers.Timer;
 
-namespace GooglePlayMusic.Managers
+namespace GooglePlayMusic.Desktop.Managers
 {
     public static class PlaybackManager
     {
