@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>GoogleMusicApi.Common</id>
+    <version>1.0.0</version>
+    <authors>coman3 (Lachlan van der Velden)</authors>
+    <owners>coman3 (Lachlan van der Velden)</owners>
+    <licenseUrl>https://github.com/coman3/Google.Music/blob/master/LICENCE.mkd</licenseUrl>
+    <projectUrl>https://github.com/coman3/Google.Music</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/coman3/Google.Music/master/GooglePlayMusic/Content/googlePlayMusicLogo.png</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>An Unofficial Google Play Music API (Ease Of Use Wrapper)</description>
+    <releaseNotes>Initial Creation</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Google Play Music API</tags>
+    <dependencies>
+      <dependency id="GoogleMusicApi" version="1.0" />
+    </dependencies>
+  </metadata>
+</package>
