@@ -23,8 +23,8 @@ namespace GoogleMusicApi.Requests
 
             UrlData = new WebRequestHeaders
             {
-                new KeyValuePair<string, string>("alt", "json"),
-                new KeyValuePair<string, string>("hl", "en_AU")
+                new WebRequestHeader("alt", "json"),
+                new WebRequestHeader("hl", "en_AU")
             };
         }
 

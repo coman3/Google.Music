@@ -9,7 +9,7 @@ namespace GoogleMusicApi.Requests
 
         protected override ParsedRequest GetParsedRequest(GetRequest request)
         {
-            request.UrlData.Add(new KeyValuePair<string, string>("dv", 0.ToString()));
+            request.UrlData.Add(new WebRequestHeader("dv", 0.ToString()));
 
             return base.GetParsedRequest(request);
         }

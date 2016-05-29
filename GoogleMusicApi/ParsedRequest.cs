@@ -16,7 +16,7 @@ namespace GoogleMusicApi
 
         public ParsedRequest(string authToken, RequestMethod method)
             : this(method,
-                new WebRequestHeaders(new KeyValuePair<string, string>("Authorization", "GoogleLogin auth=" + authToken))
+                new WebRequestHeaders(new WebRequestHeader("Authorization", "GoogleLogin auth=" + authToken))
                 )
         {
         }

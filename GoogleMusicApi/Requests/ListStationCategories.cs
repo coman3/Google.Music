@@ -10,8 +10,8 @@ namespace GoogleMusicApi.Requests
 
         protected override ParsedRequest GetParsedRequest(GetRequest request)
         {
-            request.UrlData.Add(new KeyValuePair<string, string>("alt", "json"));
-            request.UrlData.Add(new KeyValuePair<string, string>("hl", "en_AU"));
+            request.UrlData.Add(new WebRequestHeader("alt", "json"));
+            request.UrlData.Add(new WebRequestHeader("hl", "en_AU"));
             return base.GetParsedRequest(request);
         }
     }

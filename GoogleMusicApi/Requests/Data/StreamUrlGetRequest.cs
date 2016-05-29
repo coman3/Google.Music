@@ -10,42 +10,54 @@ namespace GoogleMusicApi.Requests
 {
     public class StreamUrlGetRequest : GetRequest
     {
-        private readonly string _key = "34ee7983-5ee6-4147-aa86-443ea062abf774493d6a-2a15-43fe-aace-e78566927585\n";
-
-        public StreamUrlGetRequest(MobileSession session, Track track) : base(session)
+        private const string Key = "34ee7983-5ee6-4147-aa86-443ea062abf774493d6a-2a15-43fe-aace-e78566927585\n";
+        public string Salt { get; set; }
+        public Track Track { get; set; }
+        public StreamUrlGetRequest(MobileSession session, Track track, StreamQuality quality = StreamQuality.High, bool onWifi = true) : base(session)
         {
             Accept = "*/*";
             Track = track;
             Salt = GetSalt();
             var signature = GetSignature(track, Salt);
 
-            UrlData = new WebRequestHeaders
-            {
-                new KeyValuePair<string, string>(track.StoreId.StartsWith("T") ? "mjck" : "songid", track.StoreId),
-                //new KeyValuePair<string, string>("targetkbps", "63373"),
-                //new KeyValuePair<string, string>("audio_formats", "mp3"),
-                //new KeyValuePair<string, string>("dv", "2817"),//needed?
-                //new KeyValuePair<string, string>("p", "1"),//needed?
-                new KeyValuePair<string, string>("opt", "hi"),
-                new KeyValuePair<string, string>("net", "mob"),
-                new KeyValuePair<string, string>("pt", "e"), //needed?
-                new KeyValuePair<string, string>("slt", Salt),
-                new KeyValuePair<string, string>("sig", signature),
-                new KeyValuePair<string, string>("tier", "aa")
-            };
+            UrlData.Add(new WebRequestHeader(track.StoreId.StartsWith("T") ? "mjck" : "songid", track.StoreId));
+            UrlData.Add(new WebRequestHeader("opt", GetQualityString(quality)));
+            UrlData.Add(new WebRequestHeader("net", onWifi ? "net" : "mob"));
+            UrlData.Add(new WebRequestHeader("pt", "e")); //needed?
+            UrlData.Add(new WebRequestHeader("slt", Salt));
+            UrlData.Add(new WebRequestHeader("sig", signature));
+            UrlData.Add(new WebRequestHeader("tier", "aa"));
             Headers = new WebRequestHeaders
             {
-                new KeyValuePair<string, string>("X-Device-ID", session.AndroidId)
+                new WebRequestHeader("X-Device-ID", session.AndroidId)
             };
         }
 
-        public string Salt { get; set; }
-        public Track Track { get; set; }
+        private static string GetQualityString(StreamQuality quality)
+        {
+            string qualtity;
+            switch (quality)
+            {
+                case StreamQuality.Low:
+                    qualtity = "low";
+                    break;
+                case StreamQuality.Medium:
+                    qualtity = "nor";
+                    break;
+                case StreamQuality.High:
+                    qualtity = "hi";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(quality), quality, null);
+            }
+
+            return qualtity;
+        }
 
         private string GetSignature(Track track, string salt)
         {
             var songIdEncoded = Encoding.UTF8.GetBytes(track.StoreId);
-            var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(_key));
+            var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(Key));
             var saltEncoded = Encoding.UTF8.GetBytes(salt);
             byte[] data;
             using (var ms = new MemoryStream())

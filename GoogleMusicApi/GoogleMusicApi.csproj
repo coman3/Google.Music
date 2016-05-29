@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Requests\Data\SearchGetRequest.cs" />
     <Compile Include="Requests\Data\GetTrackRequest.cs" />
+    <Compile Include="Requests\Data\StreamQuality.cs" />
     <Compile Include="Requests\ExecuteSearch.cs" />
     <Compile Include="Requests\GetConfig.cs" />
     <Compile Include="Requests\GetStreamUrl.cs" />

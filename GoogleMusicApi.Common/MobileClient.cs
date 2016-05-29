@@ -15,6 +15,11 @@ namespace GoogleMusicApi.Common
     /// </summary>
     public class MobileClient : Client<MobileSession>
     {
+
+        /// <summary>
+        /// The <see cref="StreamQuality"/> in which to request from google while using <seealso cref="GetStreamUrl"/>
+        /// </summary>
+        public StreamQuality StreamQuality { get; set; }
         /// <summary>
         /// Create a new <see cref="MobileClient"/>.
         /// </summary>
@@ -22,7 +27,6 @@ namespace GoogleMusicApi.Common
         {
 
         }
-
         /// <summary>
         /// Create a <see cref="MobileClient"/> that has previously been logged in, using the specified Authorization Token.
         /// </summary>
@@ -32,7 +36,7 @@ namespace GoogleMusicApi.Common
         /// </remarks>
         public MobileClient(string token)
         {
-
+            throw new NotSupportedException("Token Loading is currently not supported!");
         }
 
         #region Privates
@@ -304,7 +308,20 @@ namespace GoogleMusicApi.Common
         {
             return await Task.Factory.StartNew(GetConfig);
         }
-
+        /// <summary>
+        /// Get information about the <see cref="StationSeed"/>
+        /// </summary>
+        /// <param name="seed">A <see cref="StationSeed"/> that MUST contain CuratedStationId.</param>
+        /// <returns>
+        /// An <see cref="GetRadioStationAnnotationResponse"/> of data associated to the <see cref="StationSeed"/>
+        /// This will include information such as:
+        ///     - Art
+        ///     - Title
+        ///     - Related Groups
+        ///         - Stations
+        ///         - Albums
+        ///         - Artists
+        /// </returns>
         public GetRadioStationAnnotationResponse GetRadioStationAnnotation(StationSeed seed)
         {
             if (!CheckSession())
@@ -314,28 +331,47 @@ namespace GoogleMusicApi.Common
 
             var request = MakeRequest<GetRadioStationAnnotation>();
             var data = request.Get(new GetRadioStationAnnotationRequest(Session, seed));
-            return data;
-        } 
-
+            return data
+                ;
+        }
+        /// <summary>
+        /// Runs <seealso cref="GetRadioStationAnnotation"/> Asynchronously.
+        /// </summary>
+        /// <param name="seed">A <see cref="StationSeed"/> that MUST contain CuratedStationId.</param>
+        /// <returns>The value returned from <seealso cref="GetRadioStationAnnotation"/></returns>
         public async Task<GetRadioStationAnnotationResponse> GetRadioStationAnnotationAsync(StationSeed seed)
         {
             return await Task.Factory.StartNew(() => GetRadioStationAnnotation(seed));
         } 
-
-        public string GetStreamUrl(Track track)
+        /// <summary>
+        /// Get the Stream <see cref="Uri"/> for the specified <see cref="Track"/>.
+        /// 
+        /// Quality settings are from StreamQuality in <see cref="MobileClient"/>.
+        /// </summary>
+        /// <param name="track">The <see cref="Track"/> you wish to get the stream Uri for.</param>
+        /// <returns>A <see cref="Uri"/> that locates to an MP3 Audio Stream</returns>
+        public Uri GetStreamUrl(Track track)
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<GetStreamUrl>();
-            var data = request.Get(new StreamUrlGetRequest(Session, track));
-            return data;
-        } 
-
-        public async Task<string> GetStreamUrlAsync(Track track)
+            var data = request.Get(new StreamUrlGetRequest(Session, track, StreamQuality));
+            return data == null ? null : new Uri(data);
+        }
+        /// <summary>
+        /// Runs <seealso cref="GetStreamUrl"/> Asynchronously.
+        /// </summary>
+        /// <param name = "track" > The <see cref="Track"/> you wish to get the stream Uri for.</param>
+        /// <returns>The value returned from <seealso cref="GetStreamUrl"/></returns>
+        public async Task<Uri> GetStreamUrlAsync(Track track)
         {
             return await Task.Factory.StartNew(() => GetStreamUrl(track));
         } 
-
+        /// <summary>
+        /// Gets information about a <see cref="Track"/> from a trackId.
+        /// </summary>
+        /// <param name="trackId">The track you wish to get information on</param>
+        /// <returns></returns>
         public Track GetTrack(string trackId)
         {
             if (!CheckSession())
@@ -344,8 +380,12 @@ namespace GoogleMusicApi.Common
             var request = MakeRequest<GetTrack>();
             var data = request.Get(new GetTrackRequest(Session, trackId));
             return data;
-        } 
-
+        }
+        /// <summary>
+        /// Runs <seealso cref="GetTrack"/> Asynchronously.
+        /// </summary>
+        /// <param name = "trackId" >The track you wish to get information on</param>
+        /// <returns>The value returned from <seealso cref="GetTrack"/></returns>
         public async Task<Track> GetTrackAsync(string trackId)
         {
             return await Task.Factory.StartNew(() => GetTrack(trackId));
@@ -355,6 +395,14 @@ namespace GoogleMusicApi.Common
         #endregion
 
         #region Other
+        /// <summary>
+        /// Search for a <see cref="Track"/> / <see cref="Album"/> / <see cref="Artist"/> / <see cref="Station"/> / <see cref="Genre"/>
+        /// </summary>
+        /// <param name="query">The google styled search query</param>
+        /// <returns>
+        ///  A <see cref="SearchResponse"/> which contains a large amount of data including any amount of the following:
+        /// <see cref="Track"/> / <see cref="Album"/> / <see cref="Artist"/> / <see cref="Station"/> / <see cref="Genre"/>
+        ///  </returns>
         public SearchResponse Search(string query)
         {
             if (!CheckSession())
@@ -362,13 +410,27 @@ namespace GoogleMusicApi.Common
             var request = MakeRequest<ExecuteSearch>();
             var data = request.Get(new SearchGetRequest(Session, query));
             return data;
-        } 
-
+        }
+        /// <summary>
+        /// Runs <seealso cref="Search"/> Asynchronously.
+        /// </summary>
+        /// <param name = "query" >The google styled search query</param>
+        /// <returns>The value returned from <seealso cref="Search"/></returns>
         public async Task<SearchResponse> SearchAsync(string query)
         {
             return await Task.Factory.StartNew(() => Search(query));
-        } 
+        }
 
+        /// <summary>
+        /// Sends a request to Create Or Get (<see cref="EditRadioStationRequestCreateOrGetMutation"/>) tracks from a <see cref="StationSeed"/>.
+        /// 
+        /// This Is still very experimental, and not guaranteed to work.
+        /// </summary>
+        /// <param name="requestData">The mutations you wish to execute</param>
+        /// <returns>
+        /// Data associated (<see cref="EditRadioStationReponse"/>) to the mutations you executed.
+        /// </returns>
+        //TODO (Medium): Check What other Mutations are possible.
         public EditRadioStationReponse EditRadioStation(params EditRadioStationRequestMutation[] requestData)
         {
             if (!CheckSession())
@@ -378,7 +440,11 @@ namespace GoogleMusicApi.Common
             var data = request.Get(new EditRadioStationRequest(Session, requestData));
             return data;
         }
-
+        /// <summary>
+        /// Runs <seealso cref="EditRadioStation"/> Asynchronously.
+        /// </summary>
+        /// <param name = "requestData" >The mutations you wish to execute</param>
+        /// <returns>The value returned from <seealso cref="EditRadioStation"/></returns>
         public async Task<EditRadioStationReponse> EditRadioStationAsync(params EditRadioStationRequestMutation[] requestData)
         {
             return await Task.Factory.StartNew(() => EditRadioStation(requestData));

@@ -14,12 +14,12 @@ namespace GoogleMusicApi.Requests
             Mutations = mutations;
             Headers = new WebRequestHeaders
             {
-                new KeyValuePair<string, string>("X-Device-ID", ((MobileSession) session).AndroidId)
+                new WebRequestHeader("X-Device-ID", ((MobileSession) session).AndroidId)
             };
             UrlData = new WebRequestHeaders
             {
-                new KeyValuePair<string, string>("alt", "json"),
-                new KeyValuePair<string, string>("hl", "en_AU")
+                new WebRequestHeader("alt", "json"),
+                new WebRequestHeader("hl", "en_AU")
             };
         }
 

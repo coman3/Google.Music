@@ -10,9 +10,9 @@ namespace GoogleMusicApi.Requests
     {
         public ListListenNowSituationsRequest(Session session) : base(session)
         {
-            UrlData.Add(new KeyValuePair<string, string>("alt", "json"));
-            UrlData.Add(new KeyValuePair<string, string>("hl", "en_AU"));
-            Headers.Add(new KeyValuePair<string, string>("X-Device-ID", ((MobileSession) session).AndroidId));
+            UrlData.Add(new WebRequestHeader("alt", "json"));
+            UrlData.Add(new WebRequestHeader("hl", "en_AU"));
+            Headers.Add(new WebRequestHeader("X-Device-ID", ((MobileSession) session).AndroidId));
         }
 
         [JsonProperty("requestSignals")]
