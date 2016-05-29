@@ -5,7 +5,6 @@ namespace GoogleMusicApi.Structure
     [JsonObject]
     public class SearchResult
     {
-
         [JsonProperty("score")]
         public float Score { get; set; }
 
@@ -41,6 +40,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("youtube_video")]
         public Video YoutubeVideo { get; set; }
-
     }
 }

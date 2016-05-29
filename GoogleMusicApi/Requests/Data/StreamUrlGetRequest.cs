@@ -10,9 +10,8 @@ namespace GoogleMusicApi.Requests
 {
     public class StreamUrlGetRequest : GetRequest
     {
-        private string _key = "34ee7983-5ee6-4147-aa86-443ea062abf774493d6a-2a15-43fe-aace-e78566927585\n";
-        public string Salt { get; set; }
-        public Track Track { get; set; }
+        private readonly string _key = "34ee7983-5ee6-4147-aa86-443ea062abf774493d6a-2a15-43fe-aace-e78566927585\n";
+
         public StreamUrlGetRequest(MobileSession session, Track track) : base(session)
         {
             Accept = "*/*";
@@ -29,17 +28,19 @@ namespace GoogleMusicApi.Requests
                 //new KeyValuePair<string, string>("p", "1"),//needed?
                 new KeyValuePair<string, string>("opt", "hi"),
                 new KeyValuePair<string, string>("net", "mob"),
-                new KeyValuePair<string, string>("pt", "e"),//needed?
+                new KeyValuePair<string, string>("pt", "e"), //needed?
                 new KeyValuePair<string, string>("slt", Salt),
                 new KeyValuePair<string, string>("sig", signature),
-                new KeyValuePair<string, string>("tier", "aa"),
-
+                new KeyValuePair<string, string>("tier", "aa")
             };
             Headers = new WebRequestHeaders
             {
-                new KeyValuePair<string, string>("X-Device-ID", session.AndroidId),
+                new KeyValuePair<string, string>("X-Device-ID", session.AndroidId)
             };
         }
+
+        public string Salt { get; set; }
+        public Track Track { get; set; }
 
         private string GetSignature(Track track, string salt)
         {
@@ -57,12 +58,12 @@ namespace GoogleMusicApi.Requests
             sig = sig.Replace('+', '-').Replace('/', '_').Replace("=", "");
             return sig;
         }
+
         private string GetSalt()
         {
             var timeSpan = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds*1000;
-            
-            return ((long)(timeSpan)).ToString(CultureInfo.InvariantCulture);
 
+            return ((long) timeSpan).ToString(CultureInfo.InvariantCulture);
         }
     }
 }

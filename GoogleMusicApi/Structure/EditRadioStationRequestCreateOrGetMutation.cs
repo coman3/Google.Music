@@ -27,6 +27,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("seed")]
         public StationSeed Seed { get; set; }
-
     }
 }

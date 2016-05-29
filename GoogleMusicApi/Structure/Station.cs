@@ -35,14 +35,17 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("description")]
         public string Description { get; set; }
+
         [JsonProperty("tracks")]
         public Track[] Tracks { get; set; }
+
         [JsonProperty("imageUrls")]
         public ArtReference[] ImageUrls { get; set; }
+
         [JsonProperty("compositeArtRefs")]
         public ArtReference[] CompositeArtRefs { get; set; }
+
         [JsonProperty("contentTypes")]
         public string[] ContentTypes { get; set; }
-
     }
 }

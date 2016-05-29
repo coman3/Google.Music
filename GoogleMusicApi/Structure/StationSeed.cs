@@ -47,6 +47,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("genre")]
         public Genre Genre { get; set; }
-
     }
 }

@@ -25,6 +25,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("situations")]
         public Situation[] Situations { get; set; }
-
     }
 }

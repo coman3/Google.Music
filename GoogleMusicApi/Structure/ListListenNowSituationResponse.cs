@@ -7,12 +7,15 @@ namespace GoogleMusicApi.Structure
     {
         [JsonProperty("distilledContextWrapper")]
         public DistilledContextWrapper DistilledContextWrapper { get; set; }
+
         [JsonProperty("primaryHeader")]
         public string PrimaryHeader { get; set; }
+
         [JsonProperty("subHeader")]
         public string SubHeader { get; set; }
+
         [JsonProperty("situations")]
-        public Situation[] Situations { get; set; } 
+        public Situation[] Situations { get; set; }
     }
 
     [JsonObject]

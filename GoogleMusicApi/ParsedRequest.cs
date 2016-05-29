@@ -7,18 +7,17 @@ namespace GoogleMusicApi
 {
     public class ParsedRequest
     {
-        public string Url { get; set; }
-        public RequestMethod Method { get; set; }
-        public int? ContentLength => ContentData?.Length;
-        public byte[] ContentData { get; set; }
-        public string ContentType { get; set; }
-        public string Accept { get; set; }
-        public string UserAgent { get; set; }
-        public WebRequestHeaders Headers { get; set; }
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
+        public enum RequestMethod
+        {
+            POST,
+            GET
+        }
 
         public ParsedRequest(string authToken, RequestMethod method)
             : this(method,
-                new WebRequestHeaders(new KeyValuePair<string, string>("Authorization", "GoogleLogin auth=" + authToken)))
+                new WebRequestHeaders(new KeyValuePair<string, string>("Authorization", "GoogleLogin auth=" + authToken))
+                )
         {
         }
 
@@ -29,14 +28,14 @@ namespace GoogleMusicApi
             ContentType = "application/json";
             Accept = "application/json";
             UserAgent = GoogleAuth.GoogleAuth.UserAgent;
-
         }
 
         public ParsedRequest(string authToken, Request request) : this(authToken, request.Method)
         {
-            if (request is PostRequest)
+            var postRequest = request as PostRequest;
+            if (postRequest != null)
             {
-                ContentData = ((PostRequest) request).GetRequestBody();
+                ContentData = postRequest.GetRequestBody();
             }
             if (request.Headers?.Count > 0)
             {
@@ -48,10 +47,18 @@ namespace GoogleMusicApi
             Accept = request.Accept;
         }
 
+        public string Url { get; set; }
+        public RequestMethod Method { get; set; }
+        public int? ContentLength => ContentData?.Length;
+        public byte[] ContentData { get; set; }
+        public string ContentType { get; set; }
+        public string Accept { get; set; }
+        public string UserAgent { get; set; }
+        public WebRequestHeaders Headers { get; set; }
+
 
         public HttpWebRequest GetWebRequest()
         {
-
             var request = (HttpWebRequest) WebRequest.Create(Url);
             foreach (var header in Headers)
             {
@@ -73,17 +80,10 @@ namespace GoogleMusicApi
 
             return request;
         }
+
         public async Task<HttpWebRequest> GetWebRequestAsync()
         {
             return await Task.Factory.StartNew(GetWebRequest);
-        }
-
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public enum RequestMethod
-        {
-
-            POST,
-            GET,
         }
     }
 }

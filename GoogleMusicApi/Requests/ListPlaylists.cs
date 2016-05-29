@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-using System.Globalization;
-using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Requests
 {

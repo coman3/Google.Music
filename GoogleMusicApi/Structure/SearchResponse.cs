@@ -10,8 +10,10 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("clusterOrder")]
         public string[] ClusterOrder { get; set; }
+
         [JsonProperty("entries")]
         public SearchResult[] Entries { get; set; }
+
         [JsonProperty("suggestedQuery")]
         public string SuggestedQuery { get; set; }
     }

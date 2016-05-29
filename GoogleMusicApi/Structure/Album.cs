@@ -43,6 +43,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("contentType")]
         public string ContentType { get; set; }
-
     }
 }

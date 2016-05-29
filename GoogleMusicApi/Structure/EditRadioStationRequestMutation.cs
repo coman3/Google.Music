@@ -17,6 +17,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("params")]
         public EditRadioStationRequestParameters Parameters { get; set; }
-
     }
 }

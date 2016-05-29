@@ -7,9 +7,11 @@ namespace GoogleMusicApi.Structure
     {
         [JsonProperty("kind")]
         public string Kind { get; set; }
+
         [JsonProperty("data")]
         public ConfigEntries Data { get; set; }
     }
+
     [JsonObject]
     public class ConfigEntries
     {
@@ -22,8 +24,10 @@ namespace GoogleMusicApi.Structure
     {
         [JsonProperty("kind")]
         public string Kind { get; set; }
+
         [JsonProperty("key")]
         public string Key { get; set; }
+
         [JsonProperty("value")]
         public string Value { get; set; }
     }

@@ -2,7 +2,6 @@
 {
     public class GetStreamUrl : StructuredRequest<StreamUrlGetRequest, string>
     {
-        
         public override string RelativeRequestUrl => "music/mplay";
 
         public override string Get(StreamUrlGetRequest data)

@@ -8,23 +8,23 @@ namespace GoogleMusicApi.Requests
     [JsonObject(MemberSerialization.OptIn)]
     public class EditRadioStationRequest : PostRequest
     {
-        [JsonProperty("mutations")]
-        public EditRadioStationRequestMutation[] Mutations { get; set; }
-
-
-        public EditRadioStationRequest(Session session, params EditRadioStationRequestMutation[] mutations) : base(session)
+        public EditRadioStationRequest(Session session, params EditRadioStationRequestMutation[] mutations)
+            : base(session)
         {
             Mutations = mutations;
             Headers = new WebRequestHeaders
             {
-                new KeyValuePair<string, string>("X-Device-ID", ((MobileSession)session).AndroidId)
+                new KeyValuePair<string, string>("X-Device-ID", ((MobileSession) session).AndroidId)
             };
             UrlData = new WebRequestHeaders
             {
                 new KeyValuePair<string, string>("alt", "json"),
-                new KeyValuePair<string, string>("hl", "en_AU"),
+                new KeyValuePair<string, string>("hl", "en_AU")
             };
         }
+
+        [JsonProperty("mutations")]
+        public EditRadioStationRequestMutation[] Mutations { get; set; }
 
         public override byte[] GetRequestBody()
         {

@@ -27,6 +27,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("inLibary")]
         public bool InLibary { get; set; }
-
     }
 }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
+﻿using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
-using GoogleMusicApi.GoogleAuth;
 
 namespace GoogleMusicApi
 {
@@ -33,7 +27,6 @@ namespace GoogleMusicApi
 
         public override bool Login(string email, string password)
         {
-
             AndroidId = GetMacAddress();
             var oAuth = new GoogleAuth.GoogleAuth(email, password, AndroidId);
             var result = oAuth.PerformMasterLogin();
@@ -53,7 +46,6 @@ namespace GoogleMusicApi
             return true;
         }
 
-        
 
         private static string GetMacAddress()
         {

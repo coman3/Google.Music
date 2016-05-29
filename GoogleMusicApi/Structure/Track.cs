@@ -83,6 +83,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("primaryVideo")]
         public Video PrimaryVideo { get; set; }
-
     }
 }

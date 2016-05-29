@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Requests
@@ -14,6 +13,5 @@ namespace GoogleMusicApi.Requests
 
             return base.GetParsedRequest(request);
         }
-        
     }
 }

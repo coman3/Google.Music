@@ -11,6 +11,7 @@ namespace GoogleMusicApi
         public const string BaseApiUrl = "https://mclients.googleapis.com/sj/v2.4/";
         public abstract string RelativeRequestUrl { get; }
     }
+
     public abstract class StructuredRequest<TRequest, TResponse> : StructuredRequest
         where TRequest : Request
     {
@@ -28,16 +29,18 @@ namespace GoogleMusicApi
                 return obj;
             }
         }
+
         public virtual async Task<TResponse> GetAsync(TRequest data)
         {
             return await Task.Factory.StartNew(() => Get(data));
         }
-        
+
         protected virtual ParsedRequest GetParsedRequest(TRequest request)
         {
             if (!request.Session.IsAuthenticated) throw new AuthenticationException("Not authenticated");
-            if (!(request.Session is MobileSession)) throw new NotSupportedException("Only a Mobile Session is supported");
-            var mobileSession = (MobileSession)request.Session;
+            if (!(request.Session is MobileSession))
+                throw new NotSupportedException("Only a Mobile Session is supported");
+            var mobileSession = (MobileSession) request.Session;
 
             return new ParsedRequest(mobileSession.AuthorizationToken, request)
             {

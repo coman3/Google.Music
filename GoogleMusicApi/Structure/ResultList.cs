@@ -11,14 +11,13 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("nextPageToken")]
         public string NextPageToken { get; set; }
+
         [JsonProperty("data")]
         public DataSet<T> Data { get; set; }
-
     }
 
     public class DataSet<T>
     {
-
         [JsonProperty("items")]
         public List<T> Items { get; set; }
     }

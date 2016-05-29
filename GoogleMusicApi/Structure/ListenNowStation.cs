@@ -16,6 +16,5 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("title")]
         public string Title { get; set; }
-
     }
 }

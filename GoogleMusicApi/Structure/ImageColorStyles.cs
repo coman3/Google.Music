@@ -7,8 +7,10 @@ namespace GoogleMusicApi.Structure
     {
         [JsonProperty("primary")]
         public ImageColorStyle Primary { get; set; }
+
         [JsonProperty("scrim")]
         public ImageColorStyle Scrim { get; set; }
+
         [JsonProperty("accent")]
         public ImageColorStyle Accent { get; set; }
     }
@@ -18,10 +20,11 @@ namespace GoogleMusicApi.Structure
     {
         [JsonProperty("red")]
         public int Red { get; set; }
+
         [JsonProperty("green")]
         public int Green { get; set; }
+
         [JsonProperty("blue")]
         public int Blue { get; set; }
-
     }
 }

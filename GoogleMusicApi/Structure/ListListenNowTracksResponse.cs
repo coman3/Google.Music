@@ -6,6 +6,7 @@ namespace GoogleMusicApi.Structure
     {
         [JsonProperty("kind")]
         public string Kind { get; set; }
+
         [JsonProperty("listennow_items")]
         public ListenNowItem[] Items { get; set; }
     }
