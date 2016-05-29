@@ -7,9 +7,9 @@ An Unofficial Google Play Music API Engineered from:
 
 ##API
 
-This repository contains a C# application designed to be used by the [Desktop Application](#Desktop Application)
+This repository contains a C# application designed to be used by the [DesktopApplication](#Desktop Application)
 
-It Contains Many Features, but full documentation can be found in the [Wiki](https://github.com/coman3/Google.Music/wiki).
+It Contains Many Features, but full documentation can be found in the [Wiki](https://github.com/coman3/Google.Music/wiki) or within the inbuilt documentation.
 
 The API consists of a MobileClient(GoogleMusicApi.Common.MobileClient) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
 Below is an example of logging in, collecting the GoogleMusicApi.Structure.Config synchronously and asynchronously:
@@ -28,7 +28,7 @@ if (client.Login("email", "password"))
 
 
 ##Desktop Application
-This repository contains a Desktop Application (**not completed / functional**) [GooglePlayMusic/GooglePlayMusic.csproj](GooglePlayMusic/GooglePlayMusic.csproj) that acts under a GoogleMusicApi.Common.MobileClient. 
+This repository contains a Desktop Application (**not completed / functional**) [GooglePlayMusic/](GooglePlayMusic/GooglePlayMusic.csproj) that acts under a GoogleMusicApi.Common.MobileClient. 
 Features **will** include:
 
 	- Select Streaming Quality (Low, Medium, High)
