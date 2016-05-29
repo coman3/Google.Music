@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<SDConfig>
+  <section guid="9e8e8bc4-bfdd-11e3-a297-170828518c08">
+    <item key="Theme" value="sharpDox" />
+    <item key="PrimaryColor" value="#F5F4F0" />
+    <item key="SecondaryColor" value="#F58026" />
+    <item key="DisableSequenceDiagrams" value="False" />
+  </section>
+  <section guid="feacbce2-8290-4d90-bb05-373b9d7dbbfc">
+    <item key="ConfigFileName" value="OutputConfiguration" />
+    <item key="ProjectName" value="Google.Music.Api.Common" />
+    <item key="ProjectUrl" value="http://coman3.github.io/Google.Music/Docs" />
+    <item key="Author" value="coman3 (Lachlan van der Velden)" />
+    <item key="AuthorUrl" value="coman3.me" />
+    <item key="VersionNumber" value="0.5" />
+    <LogoPath>
+      <Relative>..\..\..\..\..\desktop\googleplaymusiclogo.png</Relative>
+      <Full>C:\Users\Lachlan\Desktop\googlePlayMusicLogo.png</Full>
+    </LogoPath>
+    <InputFile>
+      <Relative>..\googleplaymusic.sln</Relative>
+      <Full>C:\Users\Lachlan\Documents\Visual Studio 2015\Projects\GooglePlayMusic\GooglePlayMusic.sln</Full>
+    </InputFile>
+    <OutputPath>
+      <Relative></Relative>
+      <Full>C:\Users\Lachlan\Documents\Visual Studio 2015\Projects\GooglePlayMusic\Docs</Full>
+    </OutputPath>
+    <item key="DocLanguage" value="en" />
+    <item key="ExcludePrivate" value="False" />
+    <item key="ExcludeProtected" value="False" />
+    <item key="ExcludeInternal" value="False" />
+    <item key="ExcludedIdentifiers" value="GooglePlayMusic.App;GooglePlayMusic.MainWindow..ctor;GooglePlayMusic.MainWindow.ButtonBase_OnClick(System.Object, System.Windows.RoutedEventArgs);GooglePlayMusic.MainWindow.MainWindow_OnLoaded(System.Object, System.Windows.RoutedEventArgs);GooglePlayMusic.MainWindow.PlaybackManager_OnBufferStateChange(NAudio.Wave.BufferedWaveProvider, System.Double);GooglePlayMusic.MainWindow.PlaybackManager_OnPlaybackStateChange(NAudio.Wave.BufferedWaveProvider, GooglePlayMusic.Managers.StreamingPlaybackState);GooglePlayMusic.MainWindow.ToggleButton_OnChecked(System.Object, System.Windows.RoutedEventArgs);property.GooglePlayMusic.MainWindow.PopupQueueHeight;property.GooglePlayMusic.MainWindow.PopupQueueWidth;GooglePlayMusic.MainWindow;GooglePlayMusic" />
+    <item key="ActivatedExporters" value="" />
+  </section>
+</SDConfig>

@@ -1,0 +1,1 @@
+{"Unknown":{"name":"OnQueueChangeHandler","namespace":"GooglePlayMusic.Managers","syntax":"public delegate OnQueueChangeHandler : MulticastDelegate","linkedSyntax":"public delegate [OnQueueChangeHandler](#/type/GooglePlayMusic.Managers.OnQueueChangeHandler) : MulticastDelegate","baseTypes":[{"id":"System.MulticastDelegate","name":"System.MulticastDelegate"}]}}
