@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi.Requests
@@ -14,12 +15,6 @@ namespace GoogleMusicApi.Requests
         [JsonProperty("situationType")]
         public int[] SituationType { get; set; }
 
-        [JsonObject]
-        public class RequestSignal
-        {
-            [JsonProperty("timeZoneOffsetSecs")]
-            public int TimeZoneOffsetSecs { get; set; }
-        }
 
         public ListListenNowSituationsRequest(Session session) : base(session)
         {

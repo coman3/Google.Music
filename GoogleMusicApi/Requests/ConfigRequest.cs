@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Requests
@@ -7,12 +8,16 @@ namespace GoogleMusicApi.Requests
     {
         public override string RelativeRequestUrl => "config";
 
-        public override string GetRequestUrl(Request request)
+        protected override ParsedRequest GetParsedRequest(Request request)
         {
-            request.UrlData = new WebRequestHeaders
-            {
-                new KeyValuePair<string, string>("dv", 0.ToString())
-            };
+            request.UrlData.Add(new KeyValuePair<string, string>("dv", 0.ToString()));
+
+            return base.GetParsedRequest(request);
+        }
+
+        protected override string GetRequestUrl(Request request)
+        {
+            
             return base.GetRequestUrl(request);
         }
     }

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Structure\RequestSignal.cs" />
     <Compile Include="Requests\EditRadioStation.cs" />
     <Compile Include="Requests\Data\EditRadioStationRequest.cs" />
     <Compile Include="Requests\Data\EditRadioStationReponse.cs" />

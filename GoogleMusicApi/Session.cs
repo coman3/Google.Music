@@ -12,6 +12,7 @@ namespace GoogleMusicApi
 {
     public abstract class Session
     {
+        public string AuthorizationToken { get; set; }
         public bool IsAuthenticated { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -27,7 +28,7 @@ namespace GoogleMusicApi
     public sealed class MobileSession : Session
     {
         public string MasterToken { get; set; }
-        public string AuthToken { get; set; }
+
         public string AndroidId { get; set; }
 
         public override bool Login(string email, string password)
@@ -46,7 +47,7 @@ namespace GoogleMusicApi
                 "38918a453d07199354f8b19af05ec6562ced5788"); //Login to google play music
 
             if (!result.ContainsKey("Auth")) return false;
-            AuthToken = result["Auth"];
+            AuthorizationToken = result["Auth"];
             IsAuthenticated = true; //Finished Auth
 
             return true;

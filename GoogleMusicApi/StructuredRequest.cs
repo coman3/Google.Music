@@ -32,24 +32,25 @@ namespace GoogleMusicApi
         {
             return await Task.Factory.StartNew(() => Get(data));
         }
-
-        public virtual string GetRequestUrl(Request request)
-        {
-            var urlParams = GetParams(request);
-            return BaseApiUrl + RelativeRequestUrl + urlParams;
-        }
-
-        public ParsedRequest GetParsedRequest(Request request)
+        
+        protected virtual ParsedRequest GetParsedRequest(Request request)
         {
             if (!request.Session.IsAuthenticated) throw new AuthenticationException("Not authenticated");
             if (!(request.Session is MobileSession)) throw new NotSupportedException("Only a Mobile Session is supported");
             var mobileSession = (MobileSession)request.Session;
 
-            return new ParsedRequest(mobileSession.AuthToken, request)
+            return new ParsedRequest(mobileSession.AuthorizationToken, request)
             {
                 Url = GetRequestUrl(request)
             };
         }
+
+        protected virtual string GetRequestUrl(Request request)
+        {
+            var urlParams = GetParams(request);
+            return BaseApiUrl + RelativeRequestUrl + urlParams;
+        }
+
 
         protected static string GetParams(Request request)
         {
