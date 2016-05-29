@@ -1,17 +1,17 @@
-# Google.Music Desktop Application (Client) & API Written in C#
+# Google.Music Desktop Application (Client) & API Written in C Sharp
 
 An Unofficial Google Play Music API Engineered from:
 
 	- The Google Play Music Android App (GoogleMusicApi.Common.MobileClient)
 	- The music.google.com/ website (TODO: GoogleMusicApi.Common.WebClient)
 
-## API [GooglePlayMusicApi/](GooglePlayMusicApi/) 
-### Common [GooglePlayMusicApi.Common/](GooglePlayMusicApi.Common/) 
+## API [GoogleMusicApi/](GoogleMusicApi/) 
+### Common [GoogleMusicApi.Common/](GoogleMusicApi.Common/) 
 Use this project for easy requests to Google Play Music.
-This project contains a C# API designed to be used by the [DesktopApplication](#Desktop Application) but can be used in any use case.
+This project contains a C# API designed to be used by the [DesktopApplication](#DesktopApplication) but can be used in any use case.
 
 The Common API consists of a MobileClient (_GoogleMusicApi.Common.MobileClient_) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
-Below is an example of logging in, collecting the _GoogleMusicApi.Structure._Config synchronously and asynchronously:
+Below is an example of logging in, collecting the _GoogleMusicApi.Structure.ListenNowSituations synchronously and asynchronously:
 
 ```
 var client = new MobileClient();
@@ -24,7 +24,7 @@ if (client.Login("email", "password"))
 }
 
 ```
-### Core [GooglePlayMusicApi/](GooglePlayMusicApi/)
+### Core [GoogleMusicApi/](GoogleMusicApi/)
 
 The core API contains the ability to construct custom requests (if a request is missing please post an issue). 
 This project is for advanced requests that are not supported by the Common API, and using this manually is not recommended unless you have an understanding of TCP HTTPs requests.
