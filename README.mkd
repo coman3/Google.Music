@@ -9,7 +9,7 @@ An Unofficial Google Play Music API Engineered from:
 
 This repository contains a C# application designed to be used by the [DesktopApplication](#Desktop Application)
 
-It Contains Many Features, but full documentation can be found in the [Wiki](https://github.com/coman3/Google.Music/wiki) or within the inbuilt documentation.
+It Contains Many Features, but full documentation can be found [Here (http://coman3.github.io/Google.Music/Docs/)](http://coman3.github.io/Google.Music/Docs/) or within the inbuilt documentation.
 
 The API consists of a MobileClient(GoogleMusicApi.Common.MobileClient) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
 Below is an example of logging in, collecting the GoogleMusicApi.Structure.Config synchronously and asynchronously:
