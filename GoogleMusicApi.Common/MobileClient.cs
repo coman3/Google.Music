@@ -299,7 +299,7 @@ namespace GoogleMusicApi.Common
         public async Task<ListStationCategoriesResponse> ListStationCategoriesAsync()
         {
             return await Task.Factory.StartNew(ListStationCategories);
-        }
-
+        } 
+        
     }
 }

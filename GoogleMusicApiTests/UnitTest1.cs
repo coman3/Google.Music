@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using GoogleMusicApi;
-using GoogleMusicApi.Common;
 using GoogleMusicApi.Requests;
 using GoogleMusicApi.Structure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,20 +15,8 @@ namespace GoogleMusicApiTests
         public Session Session { get; set; }
 
         [TestMethod]
-        public async void TestLoginAndGetConfig()
+        public void TestLogin()
         {
-            var client = new MobileClient();
-            if (client.Login("email", "password"))
-            {
-                var situations = client.GetListenNowSituations();
-                var situationsAsync = await client.GetListenNowSituationsAsync();
-                
-                //Do Some Cool Stuff!
-            }
-
-
-
-
             Session = new MobileSession();
             Session.Login("dev.lvelden@gmail.com", "<Changed>");
             Assert.IsTrue(Session.IsAuthenticated);

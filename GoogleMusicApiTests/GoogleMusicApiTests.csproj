@@ -58,10 +58,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GoogleMusicApi.Common\GoogleMusicApi.Common.csproj">
-      <Project>{D0C6A469-90BE-46AA-8BDE-14F5C69A9372}</Project>
-      <Name>GoogleMusicApi.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GoogleMusicApi\GoogleMusicApi.csproj">
       <Project>{86002119-ac89-4d4e-95dd-04ffe057f5e3}</Project>
       <Name>GoogleMusicApi</Name>
