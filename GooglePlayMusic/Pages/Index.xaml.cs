@@ -38,7 +38,7 @@ namespace GooglePlayMusic.Pages
             var streamRequest = new ListPromotedTracks().Get(new ResultListRequest(SessionManager.MobileSession));
             foreach (var track in streamRequest.Data.Items)
             {
-                var url = new StreamUrlRequest().Get(new StreamUrlGetRequest(SessionManager.MobileSession, track));
+                var url = new GetStreamUrl().Get(new StreamUrlGetRequest(SessionManager.MobileSession, track));
                 TrackManager.CurrentTrack = track;
                 PlaybackManager.PlayTrack(url);
                 break;

@@ -146,7 +146,7 @@ namespace GooglePlayMusic.Managers
 
         public static void PlayTrack(Track track)
         {
-            var streamUrl = new StreamUrlRequest().Get(new StreamUrlGetRequest(SessionManager.MobileSession, track));
+            var streamUrl = new GetStreamUrl().Get(new StreamUrlGetRequest(SessionManager.MobileSession, track));
             if(string.IsNullOrEmpty(streamUrl)) return;
             
             PlayTrack(streamUrl);

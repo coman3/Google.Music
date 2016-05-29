@@ -7,7 +7,7 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("kind")]
         public string Kind { get; set; }
         [JsonProperty("root")]
-        public StationCategory Root { get; set; }
+        public StationCategory[] Root { get; set; }
     }
     public class StationCategory
     {

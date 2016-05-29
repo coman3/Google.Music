@@ -8,14 +8,11 @@ namespace GoogleMusicApi.Requests
     {
         public override string RelativeRequestUrl => "browse/stationcatergories";
 
-        public override string GetRequestUrl(Request request)
+        protected override ParsedRequest GetParsedRequest(GetRequest request)
         {
-            request.UrlData = new WebRequestHeaders
-            {
-                new KeyValuePair<string, string>("alt", "json"),
-                new KeyValuePair<string, string>("hl", "en_AU")
-            };
-            return base.GetRequestUrl(request);
+            request.UrlData.Add(new KeyValuePair<string, string>("alt", "json"));
+            request.UrlData.Add(new KeyValuePair<string, string>("hl", "en_AU"));
+            return base.GetParsedRequest(request);
         }
     }
 }

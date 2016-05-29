@@ -102,7 +102,7 @@ namespace GoogleMusicApi.Common
         {
             if (!CheckSession())
                 return null;
-            var request = MakeRequest<ConfigRequest>();
+            var request = MakeRequest<GetConfig>();
             var data = request.Get(new GetRequest(Session));
             return data;
 
@@ -206,6 +206,100 @@ namespace GoogleMusicApi.Common
 
         #endregion
 
+        /// <summary>
+        /// Gets a list of <see cref="Playlist"/>'s associated to the account
+        /// </summary>
+        /// <param name="numberOfResults">How many playlists you wish to receive</param>
+        /// <returns>
+        /// A DataSet of <see cref="Playlist"/>'s
+        /// 
+        /// Future - TODO (Medium): Add Support for NextPageToken
+        /// </returns>
+        public ResultList<Playlist> ListPlaylists(int numberOfResults = 50)
+        {
+            if (!CheckSession())
+                return null;
+            var request = MakeRequest<ListPlaylists>();
+            var data = request.Get(new ResultListRequest(Session)
+            {
+                MaxResults = numberOfResults
+            });
+            return data;
+        }
 
+        /// <summary>
+        /// Runs <seealso cref="ListPlaylists"/> Asynchronously.
+        /// </summary>
+        /// <param name="numberOfResults">How many playlists you wish to receive</param>
+        /// <returns>The value returned from <seealso cref="ListPlaylists"/></returns>
+        public async Task<ResultList<Playlist>> ListPlaylistsAsync(int numberOfResults = 50)
+        {
+            return await Task.Factory.StartNew(() => ListPlaylists(numberOfResults));
+        }
+
+        /// <summary>
+        /// Gets a list of promoted <see cref="Track"/>'s
+        /// </summary>
+        /// <param name="numberOfResults">How many playlists you wish to receive</param>
+        /// <returns>
+        /// A DataSet of <see cref="Playlist"/>'s
+        /// Future - TODO (Low): Maybe Thumbs Up List?
+        /// Future - TODO (Medium): Add Support for NextPageToken
+        /// </returns>
+
+        public ResultList<Track> ListPromotedTracks(int numberOfResults = 1000)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<ListPromotedTracks>();
+            var data = request.Get(new ResultListRequest(Session)
+            {
+                MaxResults = numberOfResults
+            });
+            return data;
+
+        }
+        /// <summary>
+        /// Runs <seealso cref="ListPromotedTracks"/> Asynchronously.
+        /// </summary>
+        /// <param name="numberOfResults">How many playlists you wish to receive</param>
+        /// <returns>The value returned from <seealso cref="ListPromotedTracks"/></returns>
+        public async Task<ResultList<Track>> ListPromotedTracksAsync(int numberOfResults = 1000)
+        {
+            return await Task.Factory.StartNew(() => ListPromotedTracks(numberOfResults));
+        } 
+
+        /// <summary>
+        /// Gets a list of <see cref="StationCategory"/>'s.
+        /// This is the same as "Browse Stations" on the mobile interface
+        /// </summary>
+        /// <returns>
+        /// Information like:
+        ///   - "Root"
+        ///     - "Genres"
+        ///         - "..."
+        ///     - "Activities"
+        ///         - "..."
+        ///     - "Moods"
+        ///         -"..."
+        /// </returns>
+        public ListStationCategoriesResponse ListStationCategories()
+        {
+            if (!CheckSession())
+                return null;
+            var request = MakeRequest<ListStationCategories>();
+            var data = request.Get(new GetRequest(Session));
+            return data;
+        }
+        /// <summary>
+        /// Runs <seealso cref="ListStationCategories"/> Asynchronously.
+        /// </summary>
+        /// <returns>The value returned from <seealso cref="ListStationCategories"/></returns>
+        public async Task<ListStationCategoriesResponse> ListStationCategoriesAsync()
+        {
+            return await Task.Factory.StartNew(ListStationCategories);
+        } 
+        
     }
 }

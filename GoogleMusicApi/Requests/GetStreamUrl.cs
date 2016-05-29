@@ -1,6 +1,6 @@
 ﻿namespace GoogleMusicApi.Requests
 {
-    public class StreamUrlRequest : StructuredRequest<StreamUrlGetRequest, string>
+    public class GetStreamUrl : StructuredRequest<StreamUrlGetRequest, string>
     {
         
         public override string RelativeRequestUrl => "music/mplay";
@@ -20,7 +20,7 @@
             return null;
         }
 
-        public override string GetRequestUrl(Request request)
+        protected override string GetRequestUrl(StreamUrlGetRequest request)
         {
             return "https://android.clients.google.com/music/mplay" + GetParams(request);
         }

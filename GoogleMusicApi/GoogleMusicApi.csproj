@@ -45,6 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Requests\Data\SearchGetRequest.cs" />
+    <Compile Include="Requests\Data\GetTrackRequest.cs" />
+    <Compile Include="Requests\ExecuteSearch.cs" />
+    <Compile Include="Requests\GetConfig.cs" />
+    <Compile Include="Requests\GetStreamUrl.cs" />
+    <Compile Include="Requests\RadioStationAnnotation.cs" />
     <Compile Include="Structure\RequestSignal.cs" />
     <Compile Include="Requests\EditRadioStation.cs" />
     <Compile Include="Requests\Data\EditRadioStationRequest.cs" />
@@ -54,10 +60,8 @@
     <Compile Include="Structure\EditRadioStationRequestMutation.cs" />
     <Compile Include="Structure\EditRadioStationRequestParameters.cs" />
     <Compile Include="Structure\AlbumQuilt.cs" />
-    <Compile Include="Requests\ConfigRequest.cs" />
     <Compile Include="Requests\Data\ListListenNowSituationsRequest.cs" />
     <Compile Include="Requests\Data\StreamUrlGetRequest.cs" />
-    <Compile Include="Requests\GetRadioStationAnnotation.cs" />
     <Compile Include="Requests\Data\GetRadioStationAnnotationRequest.cs" />
     <Compile Include="Requests\Data\GetRadioStationAnnotationResponse.cs" />
     <Compile Include="Requests\ListListenNowSituations.cs" />
@@ -65,21 +69,17 @@
     <Compile Include="Requests\ListPlaylistEntries.cs" />
     <Compile Include="Requests\ListPromotedTracks.cs" />
     <Compile Include="Requests\ListStationCategories.cs" />
-    <Compile Include="Requests\ListStations.cs" />
     <Compile Include="Requests\ListTrackFeed.cs" />
     <Compile Include="Structure\StationAnnotation.cs" />
     <Compile Include="Structure\StationAnnotationGroupEntity.cs" />
     <Compile Include="Structure\StationAnnotationRelatedGroup.cs" />
     <Compile Include="Structure\StationAnnotationSeedMetadata.cs" />
-    <Compile Include="Structure\ListStationsResponse.cs" />
     <Compile Include="Structure\ListStationCategoriesResponse.cs" />
     <Compile Include="Structure\ListListenNowSituationResponse.cs" />
     <Compile Include="Structure\ListListenNowTracksResponse.cs" />
     <Compile Include="Requests\ListPlaylists.cs" />
     <Compile Include="ResultListRequest.cs" />
-    <Compile Include="Requests\SearchRequest.cs" />
-    <Compile Include="Requests\StreamUrlRequest.cs" />
-    <Compile Include="Requests\TrackRequest.cs" />
+    <Compile Include="Requests\GetTrack.cs" />
     <Compile Include="Structure\Album.cs" />
     <Compile Include="Structure\Artist.cs" />
     <Compile Include="Structure\ArtReference.cs" />

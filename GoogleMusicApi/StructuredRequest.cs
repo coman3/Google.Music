@@ -33,7 +33,7 @@ namespace GoogleMusicApi
             return await Task.Factory.StartNew(() => Get(data));
         }
         
-        protected virtual ParsedRequest GetParsedRequest(Request request)
+        protected virtual ParsedRequest GetParsedRequest(TRequest request)
         {
             if (!request.Session.IsAuthenticated) throw new AuthenticationException("Not authenticated");
             if (!(request.Session is MobileSession)) throw new NotSupportedException("Only a Mobile Session is supported");
@@ -45,14 +45,14 @@ namespace GoogleMusicApi
             };
         }
 
-        protected virtual string GetRequestUrl(Request request)
+        protected virtual string GetRequestUrl(TRequest request)
         {
             var urlParams = GetParams(request);
             return BaseApiUrl + RelativeRequestUrl + urlParams;
         }
 
 
-        protected static string GetParams(Request request)
+        protected static string GetParams(TRequest request)
         {
             var urlParams = "";
             if (request?.UrlData == null) return null; //if not GetRe

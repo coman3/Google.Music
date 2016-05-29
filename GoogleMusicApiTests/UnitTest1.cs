@@ -39,7 +39,7 @@ namespace GoogleMusicApiTests
             TestLogin();
             Assert.IsTrue(Session.IsAuthenticated);
 
-            var configRequest = new ConfigRequest().Get(new GetRequest(Session));
+            var configRequest = new GetConfig().Get(new GetRequest(Session));
             Assert.IsNotNull(configRequest);
         }
 
@@ -49,7 +49,7 @@ namespace GoogleMusicApiTests
             TestLogin();
             Assert.IsTrue(Session.IsAuthenticated);
 
-            var searchRequest = new SearchRequest("eminem").Get(new GetRequest(Session));
+            var searchRequest = new ExecuteSearch().Get(new SearchGetRequest(Session, "test"));
             Assert.IsNotNull(searchRequest);
         }
 
