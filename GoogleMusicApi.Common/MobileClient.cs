@@ -20,7 +20,7 @@ namespace GoogleMusicApi.Common
         /// </summary>
         public MobileClient()
         {
-            
+
         }
 
         /// <summary>
@@ -92,6 +92,8 @@ namespace GoogleMusicApi.Common
             return new TReuqest();
         }
 
+        #region Config
+
         /// <summary>
         /// Get the Google Play Music configuration key / values
         /// </summary>
@@ -103,8 +105,8 @@ namespace GoogleMusicApi.Common
             var request = MakeRequest<ConfigRequest>();
             var data = request.Get(new GetRequest(Session));
             return data;
-            
-        } 
+
+        }
 
         /// <summary>
         /// Runs <seealso cref="GetConfig"/> Asynchronously.
@@ -115,13 +117,17 @@ namespace GoogleMusicApi.Common
             return await Task.Factory.StartNew(GetConfig);
         }
 
+        #endregion
+
+        #region Listen Now Suggestions
+
         /// <summary>
-        /// Gets the current Situations from Google Play Music.
+        /// Gets the current Situations. Suggestions
         /// </summary>
         /// <param name="situationType">The situation types you wish to receive</param>
         /// <returns>
-        /// This contains information like:
-        ///  -"Its Friday Morning..." : "Play Music for..."
+        /// Information like:
+        ///  - "Its Friday Morning..." : "Play Music for..."
         ///     - "Todays Biggest Hits"
         ///         - "Today's Dance Smashes"
         ///         - "Today's Pop Charts"
@@ -147,13 +153,14 @@ namespace GoogleMusicApi.Common
             {
                 RequestSignals = new RequestSignal(RequestSignal.GetTimeZoneOffsetSecs()),
                 SituationType = situationType
-                
+
             };
 
             var request = MakeRequest<ListListenNowSituations>();
             var data = request.Get(requestData);
             return data;
         }
+
         /// <summary>
         /// Runs <seealso cref="GetListenNowSituations"/> Asynchronously.
         /// </summary>
@@ -163,7 +170,41 @@ namespace GoogleMusicApi.Common
         public async Task<ListListenNowSituationResponse> GetListenNowSituationsAsync(params int[] situationType)
         {
             return await Task.Factory.StartNew(() => GetListenNowSituations(situationType));
-        } 
+        }
+
+        /// <summary>
+        /// Gets a list of suggestions (Albums or Stations).
+        /// </summary>
+        /// <returns>
+        /// Information like:
+        /// - "Skin" : "Flume" : "Skin is a music album by Flume"
+        ///     - Reason: "New Release because you like this artist"
+        /// - "Tourist Radio"
+        ///     - Reason: "Similar to Hayden James"
+        /// Each Entry will have two images, one with an aspect ratio of 1 and another with aspect ratio of 2.
+        /// Each Entry will contain either a RadioStation or an Album, never both.
+        /// </returns>
+        //TODO (Low): Change ListenNowItem Type to Enum
+        public ListListenNowTracksResponse ListListenNowTracks()
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<ListListenNowTracks>();
+            var data = request.Get(new GetRequest(Session));
+            return data;
+        }
+
+        /// <summary>
+        /// Runs <seealso cref="ListListenNowTracks"/> Asynchronously.
+        /// </summary>
+        /// <returns>The value returned from <seealso cref="ListListenNowTracks"/></returns>
+        public async Task<ListListenNowTracksResponse> ListListenNowTracksAsync()
+        {
+            return await Task.Factory.StartNew(ListListenNowTracks);
+        }
+
+        #endregion
 
 
     }
