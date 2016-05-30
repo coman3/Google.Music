@@ -7,12 +7,6 @@ namespace GoogleMusicApi
 {
     public class ParsedRequest
     {
-        [SuppressMessage("ReSharper", "InconsistentNaming")]
-        public enum RequestMethod
-        {
-            POST,
-            GET
-        }
 
         public ParsedRequest(string authToken, RequestMethod method)
             : this(method,

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace GoogleMusicApi
 {
+    
     [JsonObject(MemberSerialization.OptIn)]
     public class ResultListRequest : PostRequest
     {

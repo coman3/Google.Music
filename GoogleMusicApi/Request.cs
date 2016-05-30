@@ -2,7 +2,7 @@
 {
     public abstract class Request
     {
-        protected Request(Session session, ParsedRequest.RequestMethod method)
+        protected Request(Session session, RequestMethod method)
         {
             UrlData = new WebRequestHeaders();
             Headers = new WebRequestHeaders();
@@ -13,21 +13,21 @@
 
         public Session Session { get; set; }
         public string Accept { get; set; }
-        public ParsedRequest.RequestMethod Method { get; }
+        public RequestMethod Method { get; }
         public WebRequestHeaders UrlData { get; set; }
         public WebRequestHeaders Headers { get; set; }
     }
 
     public class GetRequest : Request
     {
-        public GetRequest(Session session) : base(session, ParsedRequest.RequestMethod.GET)
+        public GetRequest(Session session) : base(session, RequestMethod.GET)
         {
         }
     }
 
     public abstract class PostRequest : Request
     {
-        protected PostRequest(Session session) : base(session, ParsedRequest.RequestMethod.POST)
+        protected PostRequest(Session session) : base(session, RequestMethod.POST)
         {
         }
 

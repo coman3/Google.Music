@@ -50,6 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RequestMethod.cs" />
+    <Compile Include="Requests\Data\RecordRealTimeRequest.cs" />
+    <Compile Include="Requests\Data\RecordRealTimeResponse.cs" />
+    <Compile Include="Requests\Data\EventResult.cs" />
+    <Compile Include="Requests\ExploreTabs.cs" />
+    <Compile Include="Requests\GetAlbum.cs" />
+    <Compile Include="Requests\GetTopChartGenres.cs" />
+    <Compile Include="Structure\Event.cs" />
+    <Compile Include="Requests\Rating.cs" />
+    <Compile Include="Requests\RecordRealTime.cs" />
+    <Compile Include="Structure\Chart.cs" />
+    <Compile Include="Requests\Data\ChartResponse.cs" />
     <Compile Include="Requests\Data\SearchGetRequest.cs" />
     <Compile Include="Requests\Data\GetTrackRequest.cs" />
     <Compile Include="Requests\Data\StreamQuality.cs" />
@@ -57,6 +69,7 @@
     <Compile Include="Requests\GetConfig.cs" />
     <Compile Include="Requests\GetStreamUrl.cs" />
     <Compile Include="Requests\GetRadioStationAnnotation.cs" />
+    <Compile Include="Requests\GetTopCharts.cs" />
     <Compile Include="Structure\RequestSignal.cs" />
     <Compile Include="Requests\EditRadioStation.cs" />
     <Compile Include="Requests\Data\EditRadioStationRequest.cs" />

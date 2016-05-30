@@ -1,1 +1,1 @@
-﻿All Code With the GoogleAuth Namespace was colected from: https://github.com/vemacs/GPSOAuthSharp
+﻿All Code With the GoogleAuth Namespace was collected from: https://github.com/vemacs/GPSOAuthSharp
