@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
 using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.Requests.Data
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class GetRadioStationAnnotationRequest : PostRequest

@@ -1,8 +1,7 @@
-﻿using System.Text;
-using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.Requests.Data
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class RecordRealTimeRequest : PostRequest

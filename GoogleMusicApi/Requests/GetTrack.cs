@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using GoogleMusicApi.Requests.Data;
 using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Requests

@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Windows;
 using GoogleMusicApi.Requests;
+using GoogleMusicApi.Requests.Data;
 using GoogleMusicApi.Structure;
 using GooglePlayMusic.Desktop.Utilities;
 using NAudio.Wave;

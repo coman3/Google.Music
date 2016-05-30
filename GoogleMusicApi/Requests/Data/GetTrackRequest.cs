@@ -1,4 +1,4 @@
-﻿namespace GoogleMusicApi.Requests
+﻿namespace GoogleMusicApi.Requests.Data
 {
     public class GetTrackRequest : GetRequest
     {

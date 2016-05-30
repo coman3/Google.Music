@@ -1,13 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using GoogleMusicApi.Structure;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.Requests.Data
 {
     public class StreamUrlGetRequest : GetRequest
     {

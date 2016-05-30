@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleMusicApi.Requests;
+using GoogleMusicApi.Requests.Data;
 using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Common

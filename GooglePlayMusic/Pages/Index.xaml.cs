@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using GoogleMusicApi;
 using GoogleMusicApi.Requests;
+using GoogleMusicApi.Requests.Data;
 using GooglePlayMusic.Desktop.Common;
 using GooglePlayMusic.Desktop.Managers;
 

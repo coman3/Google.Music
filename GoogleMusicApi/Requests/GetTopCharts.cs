@@ -1,4 +1,6 @@
-﻿namespace GoogleMusicApi.Requests
+﻿using GoogleMusicApi.Requests.Data;
+
+namespace GoogleMusicApi.Requests
 {
     public class GetTopCharts : StructuredRequest<GetRequest, ChartResponse>
     {

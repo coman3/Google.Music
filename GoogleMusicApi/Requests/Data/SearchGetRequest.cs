@@ -1,8 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.Requests.Data
 {
     public class SearchGetRequest : GetRequest
     {

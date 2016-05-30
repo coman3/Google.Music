@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Controls;
 using GoogleMusicApi.Requests;
+using GoogleMusicApi.Requests.Data;
 using GoogleMusicApi.Structure;
 using GooglePlayMusic.Desktop.Managers;
 

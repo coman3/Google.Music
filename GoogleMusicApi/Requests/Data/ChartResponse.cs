@@ -1,7 +1,7 @@
 ﻿using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.Requests.Data
 {
     public class ChartResponse
     {
