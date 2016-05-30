@@ -282,6 +282,24 @@ namespace GoogleMusicApi.Common
             return await Task.Factory.StartNew(ListStationCategories);
         }
 
+        public ExploreTabsResponse ExploreTabs(int tab = 2, int numberOfItems = 200)
+        {
+            if (!CheckSession())
+                return null;
+            var request = MakeRequest<ExploreTabs>();
+            var data = request.Get(new ExploreTabsRequest(Session)
+            {
+                Tabs = tab,
+                NumberOfItems = numberOfItems,
+            });
+            return data;
+        } 
+
+        public async Task<ExploreTabsResponse> ExploreTabsAsync(int tab = 2)
+        {
+            return await Task.Factory.StartNew(() => ExploreTabs(tab));
+        } 
+
         #endregion
 
         #region Gets
@@ -390,6 +408,40 @@ namespace GoogleMusicApi.Common
         {
             return await Task.Factory.StartNew(() => GetTrack(trackId));
         }
+        /// <summary>
+        /// Gets information about a <see cref="Album"/> from a albumId.
+        /// This can include tracks, and the description
+        /// </summary>
+        /// <param name="albumId">The album you wish to get information on</param>
+        /// <param name="includeTracks">Whether or not to include a track list with the album</param>
+        /// <param name="includeDescription">Whether or not to include the description with the album</param>
+        /// <returns>
+        /// An album with requested information included
+        /// </returns>
+        public Album GetAlbum(string albumId, bool includeTracks = true, bool includeDescription = true)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<GetAlbum>();
+            var data = request.Get(new GetAlbumRequest(Session, albumId)
+            {
+                IncludeTracks =  includeTracks,
+                IncludeDescription = includeDescription,
+            });
+            return data;
+        }
+        /// <summary>
+        /// Runs <seealso cref="GetAlbum"/> Asynchronously.
+        /// </summary>
+        /// <param name="albumId">The album you wish to get information on</param>
+        /// <param name="includeTracks">Whether or not to include a track list with the album</param>
+        /// <param name="includeDescription">Whether or not to include the description with the album</param>
+        /// <returns>The value returned from <seealso cref="GetAlbum"/></returns>
+        public async Task<Album> GetAlbumAsync(string albumId, bool includeTracks = true, bool includeDescription = true)
+        {
+            return await Task.Factory.StartNew(() => GetAlbum(albumId, includeTracks, includeDescription));
+        }
 
 
         #endregion
@@ -449,6 +501,44 @@ namespace GoogleMusicApi.Common
         {
             return await Task.Factory.StartNew(() => EditRadioStation(requestData));
         } 
+
+        public RecordRealTimeResponse SetTrackRating(Track track, Rating.RatingEnum rating)
+        {
+            if (!CheckSession())
+                return null;
+            var requestData = new RecordRealTimeRequest(Session)
+            {
+                CurrentTimeMillis = (DateTime.UtcNow - DateTime.Now).TotalMilliseconds.ToString("#"),
+                Events = new[]
+                {
+                    new Event
+                    {
+                        CreatedTimestampMillis = (DateTime.UtcNow - DateTime.Now).TotalMilliseconds.ToString("#"),
+                        Details = new EventDetail
+                        {
+                            Rating = new Rating
+                            {
+                                RatingValue = rating
+                            }
+                        },
+                        EventId = Guid.NewGuid().ToString(),
+                        TrackId = new MetaJamEventData
+                        {
+                            MetajamComapctKey = track.StoreId,
+                        }
+                    }
+                }
+            };
+            var request = MakeRequest<RecordRealTime>();
+            var data = request.Get(requestData);
+            return data;
+        }
+
+        public async Task<RecordRealTimeResponse> SetTrackRatingAsync(Track track, Rating.RatingEnum rating)
+        {
+            return await Task.Factory.StartNew(() => SetTrackRating(track, rating));
+        } 
+
 
         #endregion
 

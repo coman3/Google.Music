@@ -58,7 +58,7 @@
     <Compile Include="Requests\GetAlbum.cs" />
     <Compile Include="Requests\GetTopChartGenres.cs" />
     <Compile Include="Structure\Event.cs" />
-    <Compile Include="Requests\Rating.cs" />
+    <Compile Include="Structure\Rating.cs" />
     <Compile Include="Requests\RecordRealTime.cs" />
     <Compile Include="Structure\Chart.cs" />
     <Compile Include="Requests\Data\ChartResponse.cs" />

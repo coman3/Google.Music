@@ -1,11 +1,13 @@
 ﻿using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.Structure
 {
     public class Rating
     {
         [JsonProperty("rating")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public RatingEnum RatingValue { get; set; }
 
 
