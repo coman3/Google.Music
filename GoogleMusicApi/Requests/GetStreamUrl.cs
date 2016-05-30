@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GoogleMusicApi.Requests
 {
@@ -15,11 +16,12 @@ namespace GoogleMusicApi.Requests
             IsCustomResponse = true;
         }
 
-        protected override Uri ProcessReponse(HttpResponseMessage message)
+        protected override async Task<Uri> ProcessReponse(HttpResponseMessage message)
         {
             if (message.StatusCode == HttpStatusCode.RedirectMethod || message.StatusCode == HttpStatusCode.Redirect ||
-                message.StatusCode == HttpStatusCode.RedirectKeepVerb)
+                message.StatusCode == HttpStatusCode.RedirectKeepVerb || message.StatusCode == HttpStatusCode.OK)
             {
+                var data = await message.Content.ReadAsStringAsync();
                 return message.Headers.Location;
             }
             return null;

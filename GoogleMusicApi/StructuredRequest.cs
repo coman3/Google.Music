@@ -33,23 +33,24 @@ namespace GoogleMusicApi
                 
                 using (var response = await data.Session.HttpClient.GetAsync(requestUrl))
                 {
-                    response.EnsureSuccessStatusCode();
-
                     if (IsCustomResponse)
-                        return ProcessReponse(response);
-                    var json = await response.Content.ReadAsStringAsync();
+                        return await ProcessReponse(response);
 
+                    response.EnsureSuccessStatusCode();
+                    var json = await response.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<TResponse>(json);
                 }
             }
-            else if (data.Method == RequestMethod.POST && data is PostRequest)
+
+            if (data.Method == RequestMethod.POST && data is PostRequest)
             {
                 var postRequest = data as PostRequest;
                 using (var response = await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent()))
                 {
-                    response.EnsureSuccessStatusCode();
                     if (IsCustomResponse)
-                        return ProcessReponse(response);
+                        return await ProcessReponse(response);
+
+                    response.EnsureSuccessStatusCode();
                     var json = await response.Content.ReadAsStringAsync();
                     return JsonConvert.DeserializeObject<TResponse>(json);
                 }
@@ -63,7 +64,7 @@ namespace GoogleMusicApi
             return BaseApiUrl + RelativeRequestUrl + urlParams;
         }
 
-        protected virtual TResponse ProcessReponse(HttpResponseMessage message)
+        protected virtual Task<TResponse> ProcessReponse(HttpResponseMessage message)
         {
             throw new InvalidOperationException($"Please override {nameof(ProcessReponse)} when {nameof(IsCustomResponse)} is true.");
         }

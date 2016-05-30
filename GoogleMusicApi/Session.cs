@@ -50,12 +50,16 @@ namespace GoogleMusicApi
             AuthorizationToken = result["Auth"];
             IsAuthenticated = true; //Finished Auth
 
-            HttpClient = new HttpClient
+            HttpClient = new HttpClient(new HttpClientHandler
             {
-                BaseAddress = new Uri(StructuredRequest.BaseApiUrl)
-            };
+                AllowAutoRedirect = false
+            })
+                {
+                    BaseAddress = new Uri(StructuredRequest.BaseApiUrl)
+                };
             HttpClient.DefaultRequestHeaders.Accept.ParseAdd("application/json");
-            HttpClient.DefaultRequestHeaders.Authorization = AuthenticationHeaderValue.Parse("GoogleLogin auth=" + AuthorizationToken);
+            HttpClient.DefaultRequestHeaders.Authorization =
+                AuthenticationHeaderValue.Parse("GoogleLogin auth=" + AuthorizationToken);
             HttpClient.DefaultRequestHeaders.UserAgent.ParseAdd(GoogleAuth.GoogleAuth.UserAgent);
             HttpClient.DefaultRequestHeaders.Add("X-Device-ID", AndroidId);
 

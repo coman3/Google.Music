@@ -21,7 +21,6 @@ namespace GoogleMusicApi.Requests
             Track = track;
             StreamQuality = quality;
             OnWifi = onWifi;
-            UseCustomHeaders = true;
         }
 
         private static string GetQualityString(StreamQuality quality)
@@ -86,14 +85,5 @@ namespace GoogleMusicApi.Requests
             return base.GetUrlContent();
         }
 
-        public override void SetHeaders(HttpRequestHeaders headers)
-        {
-            headers.Accept.ParseAdd("*/*");
-            headers.Authorization = AuthenticationHeaderValue.Parse("Bearer " + Session.AuthorizationToken);
-            headers.UserAgent.ParseAdd(GoogleAuth.GoogleAuth.UserAgent);
-            var mobile = Session as MobileSession;
-            if(mobile != null)
-                headers.Add("X-Device-ID", mobile.AndroidId);
-        }
     }
 }
