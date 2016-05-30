@@ -5,15 +5,15 @@ An Unofficial Google Play Music API Engineered from:
 	- The Google Play Music Android App (GoogleMusicApi.Common.MobileClient)
 	- The music.google.com/ website (TODO: GoogleMusicApi.Common.WebClient)
 
-## API [GoogleMusicApi/](GoogleMusicApi/) 
-### Common [GoogleMusicApi.Common/](GoogleMusicApi.Common/) 
+## API [GoogleMusicApi](GoogleMusicApi/) 
+### Common [GoogleMusicApi.Common](GoogleMusicApi.Common/) 
 Use this project for easy requests to Google Play Music.
 This project contains a C# API designed to be used by the [DesktopApplication](#DesktopApplication) but can be used in any use case.
 
-The Common API consists of a MobileClient (_GoogleMusicApi.Common.MobileClient_) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
-Below is an example of logging in, collecting the _GoogleMusicApi.Structure.ListenNowSituations synchronously and asynchronously:
+The Common API consists of a MobileClient (`GoogleMusicApi.Common.MobileClient`) to make requests towards google play music easy and fast. All Requests can also be called asynchronously, for easy cross threaded support.
+Below is an example of logging in, collecting the `GoogleMusicApi.Structure.ListenNowSituations` synchronously and asynchronously:
 
-```
+``` CSharp
 var client = new MobileClient();
 if (client.Login("email", "password"))
 {
@@ -22,20 +22,21 @@ if (client.Login("email", "password"))
                 
     //Do Some Cool Stuff!
 }
-
 ```
-### Core [GoogleMusicApi/](GoogleMusicApi/)
+
+### Core [GoogleMusicApi](GoogleMusicApi/)
 
 The core API contains the ability to construct custom requests (if a request is missing please post an issue). 
 This project is for advanced requests that are not supported by the Common API, and using this manually is not recommended unless you have an understanding of TCP HTTPs requests.
 
-Full documentation can be found [Here (http://coman3.github.io/Google.Music/Docs/)](http://coman3.github.io/Google.Music/Docs/) or within the inbuilt documentation.
+Full documentation can be found [here](http://coman3.github.io/Google.Music/Docs/) or within the inbuilt documentation.
 
 
 
 
-## Desktop Application [GooglePlayMusic/](GooglePlayMusic/) 
-This repository contains a Desktop Application (**not completed / functional**) [GooglePlayMusic/](GooglePlayMusic/) that acts under a _GoogleMusicApi.Common.MobileClient_. 
+## Desktop Application [GooglePlayMusic](GooglePlayMusic/) 
+This repository contains a Desktop Application (**not completed / functional**) [GooglePlayMusic](GooglePlayMusic/) that acts under a `GoogleMusicApi.Common.MobileClient`.
+
 Features **will** include:
 
 	- Select Streaming Quality (Low, Medium, High)
@@ -59,5 +60,5 @@ Thanks for your help in advance :)
 
 # Get In Touch
 
-If you have any questions don't hesitate to message me on [Discord](https://discord.gg/012WlrsiVIhOjHvEx) or email me [dev.lvelden@gmail.com](malto:dev.lvelden@gmail.com). 
+If you have any questions don't hesitate to message me on [Discord](https://discord.gg/012WlrsiVIhOjHvEx) or email me [dev.lvelden@gmail.com](mailto:dev.lvelden@gmail.com). 
 also leaving and issue with the tag "Question" works :P
