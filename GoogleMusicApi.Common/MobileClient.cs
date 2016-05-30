@@ -1,39 +1,38 @@
-﻿using System;
+﻿using GoogleMusicApi.Requests;
+using GoogleMusicApi.Requests.Data;
+using GoogleMusicApi.Structure;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using GoogleMusicApi.Requests;
-using GoogleMusicApi.Requests.Data;
-using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Common
 {
     /// <summary>
     /// An Easy to use Google Play Music Client, that can do everything but upload music.
-    ///  
+    ///
     /// </summary>
     public class MobileClient : Client<MobileSession>
     {
-
         /// <summary>
         /// The <see cref="StreamQuality"/> in which to request from google while using <seealso cref="GetStreamUrl"/>
         /// </summary>
         public StreamQuality StreamQuality { get; set; }
+
         /// <summary>
         /// Create a new <see cref="MobileClient"/>.
         /// </summary>
         public MobileClient()
         {
-
         }
+
         /// <summary>
         /// Create a <see cref="MobileClient"/> that has previously been logged in, using the specified Authorization Token.
         /// </summary>
         /// <param name="token">The Previous Authorization Token. </param>
         /// <remarks>
-        /// To Check if the Authorization Token is still valid see: <seealso cref="LoginCheck"/> 
+        /// To Check if the Authorization Token is still valid see: <seealso cref="LoginCheck"/>
         /// </remarks>
         public MobileClient(string token)
         {
@@ -41,6 +40,7 @@ namespace GoogleMusicApi.Common
         }
 
         #region Privates
+
         private bool CheckSession()
         {
 #if DEBUG
@@ -51,17 +51,19 @@ namespace GoogleMusicApi.Common
                     "Session does not contain an Authorization Token! Try logging in again.");
             return true;
 #else
-            if (Session?.AuthorizationToken != null) 
+            if (Session?.AuthorizationToken != null)
                 return true;
             return false;
 #endif
         }
+
         private TReuqest MakeRequest<TReuqest>()
             where TReuqest : StructuredRequest, new()
         {
             return new TReuqest();
         }
-        #endregion
+
+        #endregion Privates
 
         #region Account
 
@@ -76,7 +78,7 @@ namespace GoogleMusicApi.Common
             Debug.WriteLine($"Attempting Login ({email})...");
 
             Session = new MobileSession();
-            return Session.Login(email, password);
+            return Session.LoginAsync(email, password);
         }
 
         /// <summary>
@@ -86,20 +88,20 @@ namespace GoogleMusicApi.Common
         /// <returns></returns>
         public bool LoginCheck(string token = null)
         {
-
             //TODO (Medium): Implement Token Check
             throw new NotSupportedException();
-/*
-            if (token == null && AuthorizationToken == null)
-                throw new ArgumentException("Please specify an Authorization Token", nameof(token));
-            if(token == null) token = AuthorizationToken;
+            /*
+                        if (token == null && AuthorizationToken == null)
+                            throw new ArgumentException("Please specify an Authorization Token", nameof(token));
+                        if(token == null) token = AuthorizationToken;
 
-            Debug.WriteLine($"Checking Token ({token})...");
+                        Debug.WriteLine($"Checking Token ({token})...");
 
-            return false;
-*/
+                        return false;
+            */
         }
-        #endregion
+
+        #endregion Account
 
         #region List Requests
 
@@ -129,13 +131,12 @@ namespace GoogleMusicApi.Common
                 return null;
             if (situationType == null)
             {
-                situationType = new[] {1};
+                situationType = new[] { 1 };
             }
             var requestData = new ListListenNowSituationsRequest(Session)
             {
                 RequestSignals = new RequestSignal(RequestSignal.GetTimeZoneOffsetSecs()),
                 SituationType = situationType
-
             };
 
             var request = MakeRequest<ListListenNowSituations>();
@@ -166,14 +167,13 @@ namespace GoogleMusicApi.Common
             return data;
         }
 
-
         /// <summary>
         /// Gets a list of <see cref="Playlist"/>'s associated to the account
         /// </summary>
         /// <param name="numberOfResults">How many playlists you wish to receive</param>
         /// <returns>
         /// A DataSet of <see cref="Playlist"/>'s
-        /// 
+        ///
         /// Future - TODO (Medium): Add Support for NextPageToken
         /// </returns>
         public async Task<ResultList<Playlist>> ListPlaylistsAsync(int numberOfResults = 50)
@@ -247,7 +247,7 @@ namespace GoogleMusicApi.Common
             return data;
         }
 
-        #endregion
+        #endregion List Requests
 
         #region Gets
 
@@ -263,6 +263,7 @@ namespace GoogleMusicApi.Common
             var data = await request.GetAsync(new GetRequest(Session));
             return data;
         }
+
         /// <summary>
         /// Get information about the <see cref="StationSeed"/>
         /// </summary>
@@ -285,13 +286,13 @@ namespace GoogleMusicApi.Common
                 return null;
 
             var request = MakeRequest<GetRadioStationAnnotation>();
-            var data = await request.GetAsync( new GetRadioStationAnnotationRequest(Session, seed));
+            var data = await request.GetAsync(new GetRadioStationAnnotationRequest(Session, seed));
             return data;
         }
-        
+
         /// <summary>
         /// Get the Stream <see cref="Uri"/> for the specified <see cref="Track"/>.
-        /// 
+        ///
         /// Quality settings are from StreamQuality in <see cref="MobileClient"/>.
         /// </summary>
         /// <param name="track">The <see cref="Track"/> you wish to get the stream Uri for.</param>
@@ -304,6 +305,7 @@ namespace GoogleMusicApi.Common
             var data = await request.GetAsync(new StreamUrlGetRequest(Session, track, StreamQuality));
             return data;
         }
+
         /// <summary>
         /// Gets information about a <see cref="Track"/> from a trackId.
         /// </summary>
@@ -318,6 +320,7 @@ namespace GoogleMusicApi.Common
             var data = await request.GetAsync(new GetTrackRequest(Session, trackId));
             return data;
         }
+
         /// <summary>
         /// Gets information about a <see cref="Album"/> from a albumId.
         /// This can include tracks, and the description
@@ -336,15 +339,16 @@ namespace GoogleMusicApi.Common
             var request = MakeRequest<GetAlbum>();
             var data = await request.GetAsync(new GetAlbumRequest(Session, albumId)
             {
-                IncludeTracks =  includeTracks,
+                IncludeTracks = includeTracks,
                 IncludeDescription = includeDescription,
             });
             return data;
         }
 
-        #endregion
+        #endregion Gets
 
         #region Other
+
         /// <summary>
         /// Search for a <see cref="Track"/> / <see cref="Album"/> / <see cref="Artist"/> / <see cref="Station"/> / <see cref="Genre"/>
         /// </summary>
@@ -364,7 +368,7 @@ namespace GoogleMusicApi.Common
 
         /// <summary>
         /// Sends a request to Create Or Get (<see cref="EditRadioStationRequestCreateOrGetMutation"/>) tracks from a <see cref="StationSeed"/>.
-        /// 
+        ///
         /// This Is still very experimental, and not guaranteed to work.
         /// </summary>
         /// <param name="requestData">The mutations you wish to execute</param>
@@ -412,10 +416,8 @@ namespace GoogleMusicApi.Common
             var request = MakeRequest<RecordRealTime>();
             var data = await request.GetAsync(requestData);
             return data;
-        } 
+        }
 
-
-        #endregion
-
+        #endregion Other
     }
 }
