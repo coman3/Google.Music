@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.Requests.Data
 {
     public class ListStationCategoriesResponse
     {
@@ -8,7 +8,7 @@ namespace GoogleMusicApi.Structure
         public string Kind { get; set; }
 
         [JsonProperty("root")]
-        public StationCategory[] Root { get; set; }
+        public StationCategory Root { get; set; }
     }
 
     public class StationCategory

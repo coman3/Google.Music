@@ -22,7 +22,7 @@ namespace GoogleMusicApi.Common
         /// <remarks>
         /// This is also found within the <see cref="Session"/> but is contained here for ease of access.
         /// </remarks>
-        public virtual string AuthorizationToken { get; protected set; }
+        public virtual string AuthorizationToken => Session.AuthorizationToken;
 
         /// <summary>
         /// Login to Google Play Music with the specified email and password.

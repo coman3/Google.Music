@@ -93,9 +93,9 @@
     <Compile Include="Structure\StationAnnotationGroupEntity.cs" />
     <Compile Include="Structure\StationAnnotationRelatedGroup.cs" />
     <Compile Include="Structure\StationAnnotationSeedMetadata.cs" />
-    <Compile Include="Structure\ListStationCategoriesResponse.cs" />
-    <Compile Include="Structure\ListListenNowSituationResponse.cs" />
-    <Compile Include="Structure\ListListenNowTracksResponse.cs" />
+    <Compile Include="Requests\Data\ListStationCategoriesResponse.cs" />
+    <Compile Include="Requests\Data\ListListenNowSituationResponse.cs" />
+    <Compile Include="Requests\Data\ListListenNowTracksResponse.cs" />
     <Compile Include="Requests\ListPlaylists.cs" />
     <Compile Include="ResultListRequest.cs" />
     <Compile Include="Requests\GetTrack.cs" />

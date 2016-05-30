@@ -1,4 +1,5 @@
 ﻿using GoogleMusicApi;
+using GoogleMusicApi.Requests.Data;
 using GoogleMusicApi.Structure;
 
 namespace GooglePlayMusic.Desktop.Managers

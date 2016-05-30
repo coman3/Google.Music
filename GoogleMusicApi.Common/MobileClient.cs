@@ -49,11 +49,12 @@ namespace GoogleMusicApi.Common
             if (Session.AuthorizationToken == null)
                 throw new InvalidOperationException(
                     "Session does not contain an Authorization Token! Try logging in again.");
+            return true;
 #else
             if (Session?.AuthorizationToken != null) 
                 return true;
-#endif
             return false;
+#endif
         }
         private TReuqest MakeRequest<TReuqest>()
             where TReuqest : StructuredRequest, new()
