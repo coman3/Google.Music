@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooglePlayMusic.Desktop", "GooglePlayMusic\GooglePlayMusic.Desktop.csproj", "{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}"
 EndProject
@@ -9,15 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMusicApi", "GoogleMus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMusicApi.Common", "GoogleMusicApi.Common\GoogleMusicApi.Common.csproj", "{D0C6A469-90BE-46AA-8BDE-14F5C69A9372}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{357C755B-4252-402D-9289-715D03B88A4B}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Desktop", "Desktop", "{E4525AE4-B601-4CB1-ADAC-FCDDAB194019}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Universal", "Universal", "{F4284C56-6F6A-4410-BB70-B27FB8A85A02}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooglePlayMusic.Universal", "GooglePlayMusic.Universal\GooglePlayMusic.Universal.csproj", "{88E9ECAD-C9AA-473D-B338-1212CF5CD150}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F2E517DC-66AF-467E-B3E0-BBFBBA2B990B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleMusicApi.Tests", "GoogleMusicApi.Tests\GoogleMusicApi.Tests.csproj", "{D1ACD32C-1F55-4134-956B-626EAEF65AB0}"
 EndProject
@@ -119,12 +111,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE} = {E4525AE4-B601-4CB1-ADAC-FCDDAB194019}
-		{86002119-AC89-4D4E-95DD-04FFE057F5E3} = {357C755B-4252-402D-9289-715D03B88A4B}
-		{D0C6A469-90BE-46AA-8BDE-14F5C69A9372} = {357C755B-4252-402D-9289-715D03B88A4B}
-		{88E9ECAD-C9AA-473D-B338-1212CF5CD150} = {F4284C56-6F6A-4410-BB70-B27FB8A85A02}
-		{D1ACD32C-1F55-4134-956B-626EAEF65AB0} = {F2E517DC-66AF-467E-B3E0-BBFBBA2B990B}
 	EndGlobalSection
 EndGlobal
