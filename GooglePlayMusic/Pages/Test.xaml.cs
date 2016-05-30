@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Controls;
-using GoogleMusicApi.Requests;
+﻿using GoogleMusicApi.Requests;
 using GoogleMusicApi.Requests.Data;
 using GoogleMusicApi.Structure;
 using GooglePlayMusic.Desktop.Managers;
+using System;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace GooglePlayMusic.Desktop.Pages
 {
@@ -17,6 +17,20 @@ namespace GooglePlayMusic.Desktop.Pages
         {
             InitializeComponent();
             LoadTracks();
+        }
+
+        public StationSeed GetFirstValidStationSeed(StationSeed seed)
+        {
+            if (!string.IsNullOrWhiteSpace(seed.CuratedStationId))
+                return seed;
+            if (seed.Seeds == null) return null;
+
+            foreach (var stationSeed in seed.Seeds)
+            {
+                var value = GetFirstValidStationSeed(stationSeed);
+                if (value != null) return value;
+            }
+            return null;
         }
 
         private async void LoadTracks()
@@ -77,7 +91,6 @@ namespace GooglePlayMusic.Desktop.Pages
             dataGrid.IsReadOnly = true;
             dataGrid.AutoGenerateColumns = true;
             dataGrid.ItemsSource = TrackManager.Queue;
-
         }
 
         private void PlaybackManager_OnPlaybackStateChange(NAudio.Wave.BufferedWaveProvider sender, PlaybackManager.StreamingPlaybackState state)
@@ -85,22 +98,7 @@ namespace GooglePlayMusic.Desktop.Pages
             Dispatcher.Invoke(() =>
             {
                 dataGrid.Items.Refresh();
-
             });
-        }
-
-        public StationSeed GetFirstValidStationSeed(StationSeed seed)
-        {
-            if (!string.IsNullOrWhiteSpace(seed.CuratedStationId))
-                return seed;
-            if (seed.Seeds == null) return null;
-
-            foreach (var stationSeed in seed.Seeds)
-            {
-                var value = GetFirstValidStationSeed(stationSeed);
-                if (value != null) return value;
-            }
-            return null;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using PCLCrypto;
 using System.Collections.Generic;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -13,6 +12,8 @@ namespace GoogleMusicApi.Authentication
     // URL: https://github.com/simon-weber/gpsoauth/blob/master/gpsoauth/__init__.py
     public static class GoogleAuth
     {
+        public const string UserAgent = "Android-Music/" + version;
+
         private const string authUrl = "https://android.clients.google.com/auth";
 
         private const string b64Key = "AAAAgMom/1a/v0lblO2Ubrt60J2gcuXSljGFQXgcyZWveWLEwo6prwgi3" +
@@ -20,7 +21,6 @@ namespace GoogleMusicApi.Authentication
                                       "RI16kB0YppeGx5qIQ5QjKzsR8ETQbKLNWgRY0QRNVz34kMJR3P/LgHax/" +
                                       "6rmf5AAAAAwEAAQ==";
 
-        private const string userAgent = "Android-Music/" + version;
         private const string version = "2817";
 
         private static readonly RSAParameters androidKey = GoogleKeyUtils.KeyFromB64(b64Key);
@@ -30,7 +30,7 @@ namespace GoogleMusicApi.Authentication
         static GoogleAuth()
         {
             httpClient = new HttpClient();
-            httpClient.DefaultRequestHeaders.Add(HttpRequestHeader.UserAgent.ToString(), userAgent);
+            httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
         }
 
         // perform_master_login

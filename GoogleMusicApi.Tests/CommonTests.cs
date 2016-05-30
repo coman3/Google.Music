@@ -1,9 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using GoogleMusicApi.Common;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace GoogleMusicApi.Tests
 {
@@ -11,12 +9,22 @@ namespace GoogleMusicApi.Tests
     public class CommonTests
     {
         private readonly string _accountPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "account.txt");
+
+        [TestMethod]
+        public async Task ExploreTabs()
+        {
+            var account = GetAccount();
+            var mc = new MobileClient();
+            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsNotNull(await mc.ExploreTabsAsync());
+        }
+
         [TestMethod]
         public void FindFile()
         {
             if (!File.Exists(_accountPath))
             {
-                Assert.Fail("account.txt file not found: " + _accountPath);   
+                Assert.Fail("account.txt file not found: " + _accountPath);
             }
         }
 
@@ -31,11 +39,30 @@ namespace GoogleMusicApi.Tests
         }
 
         [TestMethod]
-        public void Login()
+        public async Task GetAlbum()
         {
             var account = GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsNotNull(await mc.GetAlbumAsync("Bdyocq5dfo3a72heswzl7nhni64")); // Lunch Money - EP, By: SoySauce
+        }
+
+        [TestMethod]
+        public async Task GetConfig()
+        {
+            var account = GetAccount();
+            var mc = new MobileClient();
+            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsNotNull(await mc.GetConfigAsync());
+        }
+
+        [TestMethod]
+        public async Task GetTrack()
+        {
+            var account = GetAccount();
+            var mc = new MobileClient();
+            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsNotNull(await mc.GetTrackAsync("Tkou6ps7lrj2wz3c2ejrgar337m")); // Essence, By: Skrux
         }
 
         [TestMethod]
@@ -55,6 +82,7 @@ namespace GoogleMusicApi.Tests
             Assert.IsTrue(mc.Login(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListListenNowTracksAsync());
         }
+
         [TestMethod]
         public async Task ListPlaylists()
         {
@@ -63,6 +91,7 @@ namespace GoogleMusicApi.Tests
             Assert.IsTrue(mc.Login(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListPlaylistsAsync());
         }
+
         [TestMethod]
         public async Task ListPromotedTracksAsync()
         {
@@ -71,6 +100,7 @@ namespace GoogleMusicApi.Tests
             Assert.IsTrue(mc.Login(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListPromotedTracksAsync());
         }
+
         [TestMethod]
         public async Task ListStationCategories()
         {
@@ -79,38 +109,13 @@ namespace GoogleMusicApi.Tests
             Assert.IsTrue(mc.Login(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListStationCategoriesAsync());
         }
-        [TestMethod]
-        public async Task ExploreTabs()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.ExploreTabsAsync());
-        }
-        [TestMethod]
-        public async Task GetConfig()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.GetConfigAsync());
-        }
-        [TestMethod]
-        public async Task GetTrack()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.GetTrackAsync("Tkou6ps7lrj2wz3c2ejrgar337m")); // Essence, By: Skrux
-        }
-        [TestMethod]
-        public async Task GetAlbum()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.GetAlbumAsync("Bdyocq5dfo3a72heswzl7nhni64")); // Lunch Money - EP, By: SoySauce
-        }
 
+        [TestMethod]
+        public void Login()
+        {
+            var account = GetAccount();
+            var mc = new MobileClient();
+            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+        }
     }
 }

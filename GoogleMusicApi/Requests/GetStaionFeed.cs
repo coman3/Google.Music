@@ -1,5 +1,4 @@
-﻿using System.Runtime.Serialization;
-using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Sessions;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi.Requests
@@ -9,29 +8,16 @@ namespace GoogleMusicApi.Requests
         public override string RelativeRequestUrl => "radio/stationfeed";
     }
 
-    public class GetStaionFeedResponse
-    {
-
-    }
-
     [JsonObject(MemberSerialization.OptIn)]
     public class GetStaionFeedRequest : PostRequest
     {
         [JsonProperty("contentFilter")]
         public int ContentFilter { get; set; }
 
-        [JsonProperty("stations")]
-        public StationFeed[] Stations { get; set; }
-
-        
         public RequestType RequestKind { get; set; }
 
-        public enum RequestType
-        {
-            Start, //start
-            Extention //ext
-        }
-
+        [JsonProperty("stations")]
+        public StationFeed[] Stations { get; set; }
 
         public GetStaionFeedRequest(Session session) : base(session)
         {
@@ -42,6 +28,16 @@ namespace GoogleMusicApi.Requests
             UrlData.Add(new WebRequestHeader("rz", RequestKind == RequestType.Start ? "start" : "ext"));
             return base.GetUrlContent();
         }
+
+        public enum RequestType
+        {
+            Start, //start
+            Extention //ext
+        }
+    }
+
+    public class GetStaionFeedResponse
+    {
     }
 
     public class StationFeed
@@ -60,8 +56,6 @@ namespace GoogleMusicApi.Requests
         /// </summary>
         [JsonProperty("recentlyPlayed")]
         public StationFeedRecentTrack[] RecentlyPlayed { get; set; }
-
-
     }
 
     public class StationFeedRecentTrack
@@ -71,7 +65,5 @@ namespace GoogleMusicApi.Requests
 
         [JsonProperty("type")]
         public int Type { get; set; }
-
-
     }
 }

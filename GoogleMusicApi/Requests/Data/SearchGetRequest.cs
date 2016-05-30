@@ -1,9 +1,16 @@
-﻿using System.Net;
+﻿using GoogleMusicApi.Sessions;
+using System.Net;
 
 namespace GoogleMusicApi.Requests.Data
 {
     public class SearchGetRequest : GetRequest
     {
+        public int NumberOfResults { get; set; }
+
+        public string Query { get; set; }
+
+        public int[] ReturnTypes { get; set; }
+
         public SearchGetRequest(Session session, string query) : base(session)
         {
             Query = query;
@@ -11,10 +18,7 @@ namespace GoogleMusicApi.Requests.Data
             ReturnTypes = new[] { 1, 2, 3, 4, 5, 6, 7, 8 };
         }
 
-        public string Query { get; set; }
-        public int[] ReturnTypes { get; set; } //TODO (Low): Get types and turn to a flag or enum array
-        public int NumberOfResults { get; set; }
-
+        //TODO (Low): Get types and turn to a flag or enum array
         public override WebRequestHeaders GetUrlContent()
         {
             UrlData.Add(new WebRequestHeader("ct", WebUtility.UrlEncode(string.Join(",", ReturnTypes))));

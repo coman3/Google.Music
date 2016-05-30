@@ -1,4 +1,5 @@
-﻿using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Requests
 {
@@ -9,14 +10,14 @@ namespace GoogleMusicApi.Requests
 
     public class GetAlbumRequest : GetRequest
     {
-        public bool IncludeTracks { get; set; }
-        public bool IncludeDescription { get; set; }
         public string AlbumId { get; set; }
+        public bool IncludeDescription { get; set; }
+        public bool IncludeTracks { get; set; }
 
         public GetAlbumRequest(Session session, Album album) : this(session, album.AlbumId)
         {
-            
         }
+
         public GetAlbumRequest(Session session, string albumId) : base(session)
         {
             AlbumId = albumId;

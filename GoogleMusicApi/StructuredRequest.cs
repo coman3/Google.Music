@@ -1,10 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Authentication;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace GoogleMusicApi
 {
@@ -21,15 +19,16 @@ namespace GoogleMusicApi
 
         protected StructuredRequest()
         {
-            // Uses Custom serializer class so we can see if there are any missing fields from the json to object translation, 
+            // Uses Custom serializer class so we can see if there are any missing fields from the json to object translation,
             // Only will throw an error in DUBUG!
             Serializer = new JsonSerializer();
-            #if DEBUG
-                Serializer.MissingMemberHandling = MissingMemberHandling.Error;
-            #endif
+#if DEBUG
+            Serializer.MissingMemberHandling = MissingMemberHandling.Error;
+#endif
         }
-        
+
         protected bool IsCustomResponse = false;
+
         public virtual async Task<TResponse> GetAsync(TRequest data)
         {
             if (data.UseCustomHeaders)
@@ -44,7 +43,6 @@ namespace GoogleMusicApi
             {
                 if (data.Method == RequestMethod.GET)
                 {
-
                     using (var response = await data.Session.HttpClient.GetAsync(requestUrl))
                     {
                         if (IsCustomResponse)
@@ -53,7 +51,7 @@ namespace GoogleMusicApi
                         response.EnsureSuccessStatusCode();
                         var json = await response.Content.ReadAsStringAsync();
 
-                        return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json))); 
+                        return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
                     }
                 }
 
@@ -69,7 +67,7 @@ namespace GoogleMusicApi
 
                         response.EnsureSuccessStatusCode();
                         var json = await response.Content.ReadAsStringAsync();
-                        
+
                         return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
                     }
                 }
@@ -87,7 +85,6 @@ namespace GoogleMusicApi
         {
             throw new InvalidOperationException($"Please override {nameof(ProcessReponse)} when {nameof(IsCustomResponse)} is true.");
         }
-
 
         protected static string GetParams(TRequest request)
         {

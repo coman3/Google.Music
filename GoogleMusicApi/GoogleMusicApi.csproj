@@ -43,6 +43,8 @@
     <Compile Include="Authentication\GoogleKeyUtils.cs" />
     <Compile Include="Authentication\LocaleDetails.cs" />
     <Compile Include="Authentication\UserDetails.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="MobileClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestMethod.cs" />
@@ -81,7 +83,8 @@
     <Compile Include="Requests\ListPromotedTracks.cs" />
     <Compile Include="Requests\ListStationCategories.cs" />
     <Compile Include="Requests\RecordRealTime.cs" />
-    <Compile Include="Session.cs" />
+    <Compile Include="Sessions\MobileSession.cs" />
+    <Compile Include="Sessions\Session.cs" />
     <Compile Include="StructuredRequest.cs" />
     <Compile Include="Structure\Album.cs" />
     <Compile Include="Structure\AlbumQuilt.cs" />

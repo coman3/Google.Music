@@ -1,25 +1,13 @@
-﻿using System;
+﻿using GoogleMusicApi.Sessions;
 using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
+using System;
 
 namespace GoogleMusicApi.Requests.Data
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class GetRadioStationAnnotationRequest : PostRequest
     {
-        public GetRadioStationAnnotationRequest(Session session, StationSeed seed) : base(session)
-        {
-            if (string.IsNullOrWhiteSpace(seed.CuratedStationId))
-                throw new ArgumentException("Seed is not a station or does not include the " +
-                                            nameof(seed.CuratedStationId) + "value!");
-
-            IncludeAlbumQuilt = true;
-            Seed = seed;
-
-            NumberOfFeaturedArtists = 25;
-            NumberOfSimilarStations = 25;
-        }
-
         [JsonProperty("includeAlbumQuilt")]
         public bool IncludeAlbumQuilt { get; set; }
 
@@ -33,7 +21,21 @@ namespace GoogleMusicApi.Requests.Data
         public StationSeed Seed { get; set; }
 
         [JsonProperty("supportedStationAnnotationPlayableItemTypes")]
-        public string[] SupportedStationAnnotationPlayableItemTypes { get; set; } //TODO: Array of?
+        public string[] SupportedStationAnnotationPlayableItemTypes { get; set; }
 
+        public GetRadioStationAnnotationRequest(Session session, StationSeed seed) : base(session)
+        {
+            if (string.IsNullOrWhiteSpace(seed.CuratedStationId))
+                throw new ArgumentException("Seed is not a station or does not include the " +
+                                            nameof(seed.CuratedStationId) + "value!");
+
+            IncludeAlbumQuilt = true;
+            Seed = seed;
+
+            NumberOfFeaturedArtists = 25;
+            NumberOfSimilarStations = 25;
+        }
+
+        //TODO: Array of?
     }
 }

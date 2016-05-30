@@ -1,4 +1,5 @@
-﻿using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi.Requests.Data
@@ -12,10 +13,8 @@ namespace GoogleMusicApi.Requests.Data
         [JsonProperty("events")]
         public Event[] Events { get; set; }
 
-
         public RecordRealTimeRequest(Session session) : base(session)
         {
         }
-
     }
 }
