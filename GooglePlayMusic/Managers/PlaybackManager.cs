@@ -144,15 +144,15 @@ namespace GooglePlayMusic.Desktop.Managers
             
         }
 
-        public static void PlayTrack(Track track)
+        public static async void PlayTrack(Track track)
         {
-            var streamUrl = new GetStreamUrl().Get(new StreamUrlGetRequest(SessionManager.MobileSession, track));
-            if(string.IsNullOrEmpty(streamUrl)) return;
+            var streamUrl = await new GetStreamUrl().GetAsync(new StreamUrlGetRequest(SessionManager.MobileSession, track));
+            if(streamUrl == null) return;
             
             PlayTrack(streamUrl);
         }
 
-        public static void PlayTrack(string streamUrl)
+        public static void PlayTrack(Uri streamUrl)
         {
             if (PlaybackState == StreamingPlaybackState.Stopped)
             {
@@ -194,7 +194,7 @@ namespace GooglePlayMusic.Desktop.Managers
         private static void StreamMp3(object state)
         {
             FullyDownloaded = false;
-            var url = (string) state;
+            var url = (Uri) state;
             _webRequest = (HttpWebRequest) WebRequest.Create(url);
             HttpWebResponse resp;
             try

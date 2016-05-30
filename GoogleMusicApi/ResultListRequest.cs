@@ -17,10 +17,5 @@ namespace GoogleMusicApi
 
         [JsonProperty("max-results")]
         public int MaxResults { get; set; }
-
-        public override byte[] GetRequestBody()
-        {
-            return Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(this));
-        }
     }
 }

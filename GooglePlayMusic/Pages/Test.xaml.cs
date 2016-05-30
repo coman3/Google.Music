@@ -15,25 +15,30 @@ namespace GooglePlayMusic.Desktop.Pages
         public Test()
         {
             InitializeComponent();
+            LoadTracks();
+        }
+
+        private async void LoadTracks()
+        {
             PlaybackManager.OnPlaybackStateChange += PlaybackManager_OnPlaybackStateChange;
-            var request = new ListListenNowSituations().Get(new ListListenNowSituationsRequest(SessionManager.MobileSession));
+            var request = await new ListListenNowSituations().GetAsync(new ListListenNowSituationsRequest(SessionManager.MobileSession));
             StationSeed seed = null;
-            foreach (var source in request.Situations.Where(x=> x.Stations != null))
+            foreach (var source in request.Situations.Where(x => x.Stations != null))
             {
-                if(source.Stations == null) continue;
-                
+                if (source.Stations == null) continue;
+
                 foreach (var station in source.Stations)
                 {
                     seed = GetFirstValidStationSeed(station.Seed);
-                    if(seed != null) break;
+                    if (seed != null) break;
                 }
             }
             if (seed == null) return;
-            
-            var annotaion = new GetRadioStationAnnotation().Get(new GetRadioStationAnnotationRequest(SessionManager.MobileSession, seed));
+
+            var annotaion = await new GetRadioStationAnnotation().GetAsync(new GetRadioStationAnnotationRequest(SessionManager.MobileSession, seed));
 
             var tracks =
-                new EditRadioStation().Get(new EditRadioStationRequest(SessionManager.MobileSession,
+                await new EditRadioStation().GetAsync(new EditRadioStationRequest(SessionManager.MobileSession,
                     new EditRadioStationRequestMutation
                     {
                         CreateOrGet = new EditRadioStationRequestCreateOrGetMutation
@@ -71,7 +76,7 @@ namespace GooglePlayMusic.Desktop.Pages
             dataGrid.IsReadOnly = true;
             dataGrid.AutoGenerateColumns = true;
             dataGrid.ItemsSource = TrackManager.Queue;
-            
+
         }
 
         private void PlaybackManager_OnPlaybackStateChange(NAudio.Wave.BufferedWaveProvider sender, PlaybackManager.StreamingPlaybackState state)

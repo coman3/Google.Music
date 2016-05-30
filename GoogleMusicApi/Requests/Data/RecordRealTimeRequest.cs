@@ -16,14 +16,7 @@ namespace GoogleMusicApi.Requests
 
         public RecordRealTimeRequest(Session session) : base(session)
         {
-            UrlData.Add(new WebRequestHeader("alt", "json"));
-            UrlData.Add(new WebRequestHeader("hl", "en_AU"));
         }
 
-        public override byte[] GetRequestBody()
-        {
-            var json = JsonConvert.SerializeObject(this);
-            return Encoding.UTF8.GetBytes(json);
-        }
     }
 }

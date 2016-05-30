@@ -1,4 +1,4 @@
-﻿namespace GoogleMusicApi.Requests
+﻿namespace GoogleMusicApi.Structure
 {
     public enum StreamQuality
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
@@ -20,12 +21,6 @@ namespace GoogleMusicApi.Requests
 
             NumberOfFeaturedArtists = 25;
             NumberOfSimilarStations = 25;
-
-            UrlData = new WebRequestHeaders
-            {
-                new WebRequestHeader("alt", "json"),
-                new WebRequestHeader("hl", "en_AU")
-            };
         }
 
         [JsonProperty("includeAlbumQuilt")]
@@ -43,11 +38,5 @@ namespace GoogleMusicApi.Requests
         [JsonProperty("supportedStationAnnotationPlayableItemTypes")]
         public string[] SupportedStationAnnotationPlayableItemTypes { get; set; } //TODO: Array of?
 
-        public override byte[] GetRequestBody()
-        {
-            var json = JsonConvert.SerializeObject(this, Formatting.None,
-                new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore});
-            return Encoding.UTF8.GetBytes(json);
-        }
     }
 }

@@ -6,14 +6,9 @@ namespace GoogleMusicApi.Requests
     public class ExploreTabs : StructuredRequest<ExploreTabsRequest, ExploreTabsResponse>
     {
         public override string RelativeRequestUrl => "explore/tabs";
-        protected override ParsedRequest GetParsedRequest(ExploreTabsRequest request)
-        {
-            request.UrlData.Add(new WebRequestHeader("num-items", request.NumberOfItems.ToString()));
-            request.UrlData.Add(new WebRequestHeader("tabs", request.Tabs.ToString()));
-            return base.GetParsedRequest(request);
-        }
     }
 
+    //TODO (Low): Split Into Separate Files
     public class ExploreTabsResponse
     {
         [JsonProperty("kind")]
@@ -77,9 +72,13 @@ namespace GoogleMusicApi.Requests
         public int NumberOfItems { get; set; }
         public ExploreTabsRequest(Session session) : base(session)
         {
-            UrlData.Add(new WebRequestHeader("alt", "json"));
-            UrlData.Add(new WebRequestHeader("hl", "en_AU"));
-            
+        }
+
+        public override WebRequestHeaders GetUrlContent()
+        {
+            UrlData.Add(new WebRequestHeader("num-items", NumberOfItems.ToString()));
+            UrlData.Add(new WebRequestHeader("tabs", Tabs.ToString()));
+            return base.GetUrlContent();
         }
     }
 }
