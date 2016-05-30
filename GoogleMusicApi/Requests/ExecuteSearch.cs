@@ -8,13 +8,5 @@ namespace GoogleMusicApi.Requests
     {
         public override string RelativeRequestUrl => "query";
 
-        protected override ParsedRequest GetParsedRequest(SearchGetRequest request)
-        {
-            request.UrlData.Add(new WebRequestHeader("ct", WebUtility.UrlEncode("1,2,3,4,5,6,7,8")));
-            request.UrlData.Add(new WebRequestHeader("q", WebUtility.UrlEncode(request.Query)));
-            request.UrlData.Add(new WebRequestHeader("max-results", "100"));
-
-            return base.GetParsedRequest(request);
-        }
     }
 }

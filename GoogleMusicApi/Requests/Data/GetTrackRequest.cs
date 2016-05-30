@@ -6,7 +6,11 @@
         {
             TrackId = trackId;
         }
-
         public string TrackId { get; set; }
+        public override WebRequestHeaders GetUrlContent()
+        {
+            UrlData.Add(new WebRequestHeader("nid", TrackId));
+            return base.GetUrlContent();
+        }
     }
 }

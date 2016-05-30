@@ -1,20 +1,28 @@
-﻿namespace GoogleMusicApi.Requests
+﻿using System;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace GoogleMusicApi.Requests
 {
-    public class GetStreamUrl : StructuredRequest<StreamUrlGetRequest, string>
+    public class GetStreamUrl : StructuredRequest<StreamUrlGetRequest, Uri>
     {
-        public override string RelativeRequestUrl => "music/mplay";
+        public override string RelativeRequestUrl => "https://android.clients.google.com/music/mplay";
 
-        public override string Get(StreamUrlGetRequest data)
+        
+        public GetStreamUrl()
         {
-            var request = GetParsedRequest(data);
-            var webRequest = request.GetWebRequest();
-            webRequest.AllowAutoRedirect = false;
-            var response = webRequest.GetResponse();
+            IsCustomResponse = true;
+        }
 
-            // ReSharper disable once AssignNullToNotNullAttribute
-            if (response.Headers.Get("location") != null)
+        protected override async Task<Uri> ProcessReponse(HttpResponseMessage message)
+        {
+            if (message.StatusCode == HttpStatusCode.RedirectMethod || message.StatusCode == HttpStatusCode.Redirect ||
+                message.StatusCode == HttpStatusCode.RedirectKeepVerb || message.StatusCode == HttpStatusCode.OK)
             {
-                return response.Headers.Get("location");
+                var data = await message.Content.ReadAsStringAsync();
+                return message.Headers.Location;
             }
             return null;
         }

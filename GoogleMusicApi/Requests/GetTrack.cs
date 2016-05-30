@@ -7,11 +7,5 @@ namespace GoogleMusicApi.Requests
     {
 
         public override string RelativeRequestUrl => "fetchtrack";
-
-        protected override ParsedRequest GetParsedRequest(GetTrackRequest request)
-        {
-            request.UrlData.Add(new WebRequestHeader("nid", request.TrackId));
-            return base.GetParsedRequest(request);
-        }
     }
 }

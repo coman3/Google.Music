@@ -121,7 +121,7 @@ namespace GoogleMusicApi.Common
         /// </returns>
         //TODO (Low): Find out what situation types exist
         //TODO (Medium): Convert the int[] to a SituationType[]
-        public ListListenNowSituationResponse ListListenNowSituations(params int[] situationType)
+        public async Task<ListListenNowSituationResponse> ListListenNowSituationsAsync(params int[] situationType)
         {
             if (!CheckSession())
                 return null;
@@ -137,19 +137,8 @@ namespace GoogleMusicApi.Common
             };
 
             var request = MakeRequest<ListListenNowSituations>();
-            var data = request.Get(requestData);
+            var data = await request.GetAsync(requestData);
             return data;
-        }
-
-        /// <summary>
-        /// Runs <seealso cref="ListListenNowSituations"/> Asynchronously.
-        /// </summary>
-        /// <param name="situationType">The situation types you wish to receive</param>
-        /// <returns>The value returned from <seealso cref="ListListenNowSituations"/></returns>
-
-        public async Task<ListListenNowSituationResponse> ListListenNowSituationsAsync(params int[] situationType)
-        {
-            return await Task.Factory.StartNew(() => ListListenNowSituations(situationType));
         }
 
         /// <summary>
@@ -165,23 +154,14 @@ namespace GoogleMusicApi.Common
         /// Each Entry will contain either a RadioStation or an Album, never both.
         /// </returns>
         //TODO (Low): Change ListenNowItem Type to Enum
-        public ListListenNowTracksResponse ListListenNowTracks()
+        public async Task<ListListenNowTracksResponse> ListListenNowTracksAsync()
         {
             if (!CheckSession())
                 return null;
 
             var request = MakeRequest<ListListenNowTracks>();
-            var data = request.Get(new GetRequest(Session));
+            var data = await request.GetAsync(new GetRequest(Session));
             return data;
-        }
-
-        /// <summary>
-        /// Runs <seealso cref="ListListenNowTracks"/> Asynchronously.
-        /// </summary>
-        /// <returns>The value returned from <seealso cref="ListListenNowTracks"/></returns>
-        public async Task<ListListenNowTracksResponse> ListListenNowTracksAsync()
-        {
-            return await Task.Factory.StartNew(ListListenNowTracks);
         }
 
 
@@ -194,26 +174,16 @@ namespace GoogleMusicApi.Common
         /// 
         /// Future - TODO (Medium): Add Support for NextPageToken
         /// </returns>
-        public ResultList<Playlist> ListPlaylists(int numberOfResults = 50)
+        public async Task<ResultList<Playlist>> ListPlaylistsAsync(int numberOfResults = 50)
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<ListPlaylists>();
-            var data = request.Get(new ResultListRequest(Session)
+            var data = await request.GetAsync(new ResultListRequest(Session)
             {
                 MaxResults = numberOfResults
             });
             return data;
-        }
-
-        /// <summary>
-        /// Runs <seealso cref="ListPlaylists"/> Asynchronously.
-        /// </summary>
-        /// <param name="numberOfResults">How many playlists you wish to receive</param>
-        /// <returns>The value returned from <seealso cref="ListPlaylists"/></returns>
-        public async Task<ResultList<Playlist>> ListPlaylistsAsync(int numberOfResults = 50)
-        {
-            return await Task.Factory.StartNew(() => ListPlaylists(numberOfResults));
         }
 
         /// <summary>
@@ -226,28 +196,17 @@ namespace GoogleMusicApi.Common
         /// Future - TODO (Medium): Add Support for NextPageToken
         /// </returns>
 
-        public ResultList<Track> ListPromotedTracks(int numberOfResults = 1000)
+        public async Task<ResultList<Track>> ListPromotedTracksAsync(int numberOfResults = 1000)
         {
             if (!CheckSession())
                 return null;
 
             var request = MakeRequest<ListPromotedTracks>();
-            var data = request.Get(new ResultListRequest(Session)
+            var data = await request.GetAsync(new ResultListRequest(Session)
             {
                 MaxResults = numberOfResults
             });
             return data;
-
-        }
-
-        /// <summary>
-        /// Runs <seealso cref="ListPromotedTracks"/> Asynchronously.
-        /// </summary>
-        /// <param name="numberOfResults">How many playlists you wish to receive</param>
-        /// <returns>The value returned from <seealso cref="ListPromotedTracks"/></returns>
-        public async Task<ResultList<Track>> ListPromotedTracksAsync(int numberOfResults = 1000)
-        {
-            return await Task.Factory.StartNew(() => ListPromotedTracks(numberOfResults));
         }
 
         /// <summary>
@@ -264,41 +223,27 @@ namespace GoogleMusicApi.Common
         ///     - "Moods"
         ///         -"..."
         /// </returns>
-        public ListStationCategoriesResponse ListStationCategories()
+        public async Task<ListStationCategoriesResponse> ListStationCategoriesAsync()
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<ListStationCategories>();
-            var data = request.Get(new GetRequest(Session));
+            var data = await request.GetAsync(new GetRequest(Session));
             return data;
         }
 
-        /// <summary>
-        /// Runs <seealso cref="ListStationCategories"/> Asynchronously.
-        /// </summary>
-        /// <returns>The value returned from <seealso cref="ListStationCategories"/></returns>
-        public async Task<ListStationCategoriesResponse> ListStationCategoriesAsync()
-        {
-            return await Task.Factory.StartNew(ListStationCategories);
-        }
-
-        public ExploreTabsResponse ExploreTabs(int tab = 2, int numberOfItems = 200)
+        public async Task<ExploreTabsResponse> ExploreTabsAsync(int tab = 2, int numberOfItems = 50)
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<ExploreTabs>();
-            var data = request.Get(new ExploreTabsRequest(Session)
+            var data = await request.GetAsync(new ExploreTabsRequest(Session)
             {
                 Tabs = tab,
                 NumberOfItems = numberOfItems,
             });
             return data;
-        } 
-
-        public async Task<ExploreTabsResponse> ExploreTabsAsync(int tab = 2)
-        {
-            return await Task.Factory.StartNew(() => ExploreTabs(tab));
-        } 
+        }
 
         #endregion
 
@@ -308,23 +253,13 @@ namespace GoogleMusicApi.Common
         /// Get the Google Play Music configuration key / values
         /// </summary>
         /// <returns>Your current Google Play Music configuration</returns>
-        public Config GetConfig()
+        public async Task<Config> GetConfigAsync()
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<GetConfig>();
-            var data = request.Get(new GetRequest(Session));
+            var data = await request.GetAsync(new GetRequest(Session));
             return data;
-
-        }
-
-        /// <summary>
-        /// Runs <seealso cref="GetConfig"/> Asynchronously.
-        /// </summary>
-        /// <returns>The value returned from <seealso cref="GetConfig"/></returns>
-        public async Task<Config> GetConfigAsync()
-        {
-            return await Task.Factory.StartNew(GetConfig);
         }
         /// <summary>
         /// Get information about the <see cref="StationSeed"/>
@@ -340,7 +275,7 @@ namespace GoogleMusicApi.Common
         ///         - Albums
         ///         - Artists
         /// </returns>
-        public GetRadioStationAnnotationResponse GetRadioStationAnnotation(StationSeed seed)
+        public async Task<GetRadioStationAnnotationResponse> GetRadioStationAnnotationAsync(StationSeed seed)
         {
             if (!CheckSession())
                 return null;
@@ -348,19 +283,10 @@ namespace GoogleMusicApi.Common
                 return null;
 
             var request = MakeRequest<GetRadioStationAnnotation>();
-            var data = request.Get(new GetRadioStationAnnotationRequest(Session, seed));
-            return data
-                ;
+            var data = await request.GetAsync( new GetRadioStationAnnotationRequest(Session, seed));
+            return data;
         }
-        /// <summary>
-        /// Runs <seealso cref="GetRadioStationAnnotation"/> Asynchronously.
-        /// </summary>
-        /// <param name="seed">A <see cref="StationSeed"/> that MUST contain CuratedStationId.</param>
-        /// <returns>The value returned from <seealso cref="GetRadioStationAnnotation"/></returns>
-        public async Task<GetRadioStationAnnotationResponse> GetRadioStationAnnotationAsync(StationSeed seed)
-        {
-            return await Task.Factory.StartNew(() => GetRadioStationAnnotation(seed));
-        } 
+        
         /// <summary>
         /// Get the Stream <see cref="Uri"/> for the specified <see cref="Track"/>.
         /// 
@@ -368,45 +294,27 @@ namespace GoogleMusicApi.Common
         /// </summary>
         /// <param name="track">The <see cref="Track"/> you wish to get the stream Uri for.</param>
         /// <returns>A <see cref="Uri"/> that locates to an MP3 Audio Stream</returns>
-        public Uri GetStreamUrl(Track track)
+        public async Task<Uri> GetStreamUrlAsync(Track track)
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<GetStreamUrl>();
-            var data = request.Get(new StreamUrlGetRequest(Session, track, StreamQuality));
-            return data == null ? null : new Uri(data);
+            var data = await request.GetAsync(new StreamUrlGetRequest(Session, track, StreamQuality));
+            return data;
         }
-        /// <summary>
-        /// Runs <seealso cref="GetStreamUrl"/> Asynchronously.
-        /// </summary>
-        /// <param name = "track" > The <see cref="Track"/> you wish to get the stream Uri for.</param>
-        /// <returns>The value returned from <seealso cref="GetStreamUrl"/></returns>
-        public async Task<Uri> GetStreamUrlAsync(Track track)
-        {
-            return await Task.Factory.StartNew(() => GetStreamUrl(track));
-        } 
         /// <summary>
         /// Gets information about a <see cref="Track"/> from a trackId.
         /// </summary>
         /// <param name="trackId">The track you wish to get information on</param>
         /// <returns></returns>
-        public Track GetTrack(string trackId)
+        public async Task<Track> GetTrackAsync(string trackId)
         {
             if (!CheckSession())
                 return null;
 
             var request = MakeRequest<GetTrack>();
-            var data = request.Get(new GetTrackRequest(Session, trackId));
+            var data = await request.GetAsync(new GetTrackRequest(Session, trackId));
             return data;
-        }
-        /// <summary>
-        /// Runs <seealso cref="GetTrack"/> Asynchronously.
-        /// </summary>
-        /// <param name = "trackId" >The track you wish to get information on</param>
-        /// <returns>The value returned from <seealso cref="GetTrack"/></returns>
-        public async Task<Track> GetTrackAsync(string trackId)
-        {
-            return await Task.Factory.StartNew(() => GetTrack(trackId));
         }
         /// <summary>
         /// Gets information about a <see cref="Album"/> from a albumId.
@@ -418,31 +326,19 @@ namespace GoogleMusicApi.Common
         /// <returns>
         /// An album with requested information included
         /// </returns>
-        public Album GetAlbum(string albumId, bool includeTracks = true, bool includeDescription = true)
+        public async Task<Album> GetAlbumAsync(string albumId, bool includeTracks = true, bool includeDescription = true)
         {
             if (!CheckSession())
                 return null;
 
             var request = MakeRequest<GetAlbum>();
-            var data = request.Get(new GetAlbumRequest(Session, albumId)
+            var data = await request.GetAsync(new GetAlbumRequest(Session, albumId)
             {
                 IncludeTracks =  includeTracks,
                 IncludeDescription = includeDescription,
             });
             return data;
         }
-        /// <summary>
-        /// Runs <seealso cref="GetAlbum"/> Asynchronously.
-        /// </summary>
-        /// <param name="albumId">The album you wish to get information on</param>
-        /// <param name="includeTracks">Whether or not to include a track list with the album</param>
-        /// <param name="includeDescription">Whether or not to include the description with the album</param>
-        /// <returns>The value returned from <seealso cref="GetAlbum"/></returns>
-        public async Task<Album> GetAlbumAsync(string albumId, bool includeTracks = true, bool includeDescription = true)
-        {
-            return await Task.Factory.StartNew(() => GetAlbum(albumId, includeTracks, includeDescription));
-        }
-
 
         #endregion
 
@@ -455,22 +351,13 @@ namespace GoogleMusicApi.Common
         ///  A <see cref="SearchResponse"/> which contains a large amount of data including any amount of the following:
         /// <see cref="Track"/> / <see cref="Album"/> / <see cref="Artist"/> / <see cref="Station"/> / <see cref="Genre"/>
         ///  </returns>
-        public SearchResponse Search(string query)
+        public async Task<SearchResponse> SearchAsync(string query)
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<ExecuteSearch>();
-            var data = request.Get(new SearchGetRequest(Session, query));
+            var data = await request.GetAsync(new SearchGetRequest(Session, query));
             return data;
-        }
-        /// <summary>
-        /// Runs <seealso cref="Search"/> Asynchronously.
-        /// </summary>
-        /// <param name = "query" >The google styled search query</param>
-        /// <returns>The value returned from <seealso cref="Search"/></returns>
-        public async Task<SearchResponse> SearchAsync(string query)
-        {
-            return await Task.Factory.StartNew(() => Search(query));
         }
 
         /// <summary>
@@ -483,26 +370,17 @@ namespace GoogleMusicApi.Common
         /// Data associated (<see cref="EditRadioStationReponse"/>) to the mutations you executed.
         /// </returns>
         //TODO (Medium): Check What other Mutations are possible.
-        public EditRadioStationReponse EditRadioStation(params EditRadioStationRequestMutation[] requestData)
+        public async Task<EditRadioStationReponse> EditRadioStationAsync(params EditRadioStationRequestMutation[] requestData)
         {
             if (!CheckSession())
                 return null;
 
             var request = MakeRequest<EditRadioStation>();
-            var data = request.Get(new EditRadioStationRequest(Session, requestData));
+            var data = await request.GetAsync(new EditRadioStationRequest(Session, requestData));
             return data;
         }
-        /// <summary>
-        /// Runs <seealso cref="EditRadioStation"/> Asynchronously.
-        /// </summary>
-        /// <param name = "requestData" >The mutations you wish to execute</param>
-        /// <returns>The value returned from <seealso cref="EditRadioStation"/></returns>
-        public async Task<EditRadioStationReponse> EditRadioStationAsync(params EditRadioStationRequestMutation[] requestData)
-        {
-            return await Task.Factory.StartNew(() => EditRadioStation(requestData));
-        } 
 
-        public RecordRealTimeResponse SetTrackRating(Track track, Rating.RatingEnum rating)
+        public async Task<RecordRealTimeResponse> SetTrackRatingAsync(Track track, Rating.RatingEnum rating)
         {
             if (!CheckSession())
                 return null;
@@ -530,13 +408,8 @@ namespace GoogleMusicApi.Common
                 }
             };
             var request = MakeRequest<RecordRealTime>();
-            var data = request.Get(requestData);
+            var data = await request.GetAsync(requestData);
             return data;
-        }
-
-        public async Task<RecordRealTimeResponse> SetTrackRatingAsync(Track track, Rating.RatingEnum rating)
-        {
-            return await Task.Factory.StartNew(() => SetTrackRating(track, rating));
         } 
 
 

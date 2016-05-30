@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Authentication;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -15,43 +17,56 @@ namespace GoogleMusicApi
     public abstract class StructuredRequest<TRequest, TResponse> : StructuredRequest
         where TRequest : Request
     {
-        public virtual TResponse Get(TRequest data)
-        {
-            var request = GetParsedRequest(data);
-            var webRequest = request.GetWebRequest();
-            var response = webRequest.GetResponse();
-
-            // ReSharper disable once AssignNullToNotNullAttribute
-            using (var reader = new StreamReader(response.GetResponseStream()))
-            {
-                var json = reader.ReadToEnd();
-                var obj = JsonConvert.DeserializeObject<TResponse>(json);
-                return obj;
-            }
-        }
-
+        protected bool IsCustomResponse = false;
         public virtual async Task<TResponse> GetAsync(TRequest data)
         {
-            return await Task.Factory.StartNew(() => Get(data));
-        }
-
-        protected virtual ParsedRequest GetParsedRequest(TRequest request)
-        {
-            if (!request.Session.IsAuthenticated) throw new AuthenticationException("Not authenticated");
-            if (!(request.Session is MobileSession))
-                throw new NotSupportedException("Only a Mobile Session is supported");
-            var mobileSession = (MobileSession) request.Session;
-
-            return new ParsedRequest(mobileSession.AuthorizationToken, request)
+            if (data.UseCustomHeaders)
             {
-                Url = GetRequestUrl(request)
-            };
+                data.Session.HttpClient.DefaultRequestHeaders.Clear();
+                data.SetHeaders(data.Session.HttpClient.DefaultRequestHeaders);
+            }
+            else data.Session.ResetHeaders();
+            data.UrlData = data.GetUrlContent();
+            var requestUrl = GetRequestUrl(data);
+            if (data.Method == RequestMethod.GET)
+            {
+                
+                using (var response = await data.Session.HttpClient.GetAsync(requestUrl))
+                {
+                    if (IsCustomResponse)
+                        return await ProcessReponse(response);
+
+                    response.EnsureSuccessStatusCode();
+                    var json = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<TResponse>(json);
+                }
+            }
+
+            if (data.Method == RequestMethod.POST && data is PostRequest)
+            {
+                var postRequest = data as PostRequest;
+                using (var response = await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent()))
+                {
+                    if (IsCustomResponse)
+                        return await ProcessReponse(response);
+
+                    response.EnsureSuccessStatusCode();
+                    var json = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<TResponse>(json);
+                }
+            }
+            return default(TResponse);
         }
 
         protected virtual string GetRequestUrl(TRequest request)
         {
             var urlParams = GetParams(request);
             return BaseApiUrl + RelativeRequestUrl + urlParams;
+        }
+
+        protected virtual Task<TResponse> ProcessReponse(HttpResponseMessage message)
+        {
+            throw new InvalidOperationException($"Please override {nameof(ProcessReponse)} when {nameof(IsCustomResponse)} is true.");
         }
 
 
