@@ -36,8 +36,8 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("durationMillis")]
         public float DurationMillis { get; set; }
 
-        [JsonProperty("albumArtReferences")]
-        public List<ArtReference> AlbumArtReferences { get; set; }
+        [JsonProperty("albumArtRef")]
+        public List<ArtReference> AlbumArtReference { get; set; }
 
         [JsonProperty("artistArtRef")]
         public ArtReference[] ArtistArtRef { get; set; }
@@ -47,6 +47,9 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("rating")]
         public int Rating { get; set; }
+
+        [JsonProperty("playCount")]
+        public int PlayCount { get; set; }
 
         [JsonProperty("estimatedSize")]
         public float EstimatedSize { get; set; }

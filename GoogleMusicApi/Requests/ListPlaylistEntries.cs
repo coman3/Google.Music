@@ -1,4 +1,5 @@
-﻿using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Requests.Data;
+using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Requests
 {

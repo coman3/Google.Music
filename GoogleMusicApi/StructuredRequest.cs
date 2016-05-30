@@ -17,6 +17,18 @@ namespace GoogleMusicApi
     public abstract class StructuredRequest<TRequest, TResponse> : StructuredRequest
         where TRequest : Request
     {
+        private JsonSerializer Serializer { get; set; }
+
+        protected StructuredRequest()
+        {
+            // Uses Custom serializer class so we can see if there are any missing fields from the json to object translation, 
+            // Only will throw an error in DUBUG!
+            Serializer = new JsonSerializer();
+            #if DEBUG
+                Serializer.MissingMemberHandling = MissingMemberHandling.Error;
+            #endif
+        }
+        
         protected bool IsCustomResponse = false;
         public virtual async Task<TResponse> GetAsync(TRequest data)
         {
@@ -28,31 +40,38 @@ namespace GoogleMusicApi
             else data.Session.ResetHeaders();
             data.UrlData = data.GetUrlContent();
             var requestUrl = GetRequestUrl(data);
-            if (data.Method == RequestMethod.GET)
+            using (data) // so you cant use the same request twice, after we are finished dispose it.
             {
-                
-                using (var response = await data.Session.HttpClient.GetAsync(requestUrl))
+                if (data.Method == RequestMethod.GET)
                 {
-                    if (IsCustomResponse)
-                        return await ProcessReponse(response);
 
-                    response.EnsureSuccessStatusCode();
-                    var json = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<TResponse>(json);
+                    using (var response = await data.Session.HttpClient.GetAsync(requestUrl))
+                    {
+                        if (IsCustomResponse)
+                            return await ProcessReponse(response);
+
+                        response.EnsureSuccessStatusCode();
+                        var json = await response.Content.ReadAsStringAsync();
+
+                        return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json))); 
+                    }
                 }
-            }
 
-            if (data.Method == RequestMethod.POST && data is PostRequest)
-            {
-                var postRequest = data as PostRequest;
-                using (var response = await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent()))
+                if (data.Method == RequestMethod.POST && data is PostRequest)
                 {
-                    if (IsCustomResponse)
-                        return await ProcessReponse(response);
+                    var postRequest = data as PostRequest;
+                    using (
+                        var response =
+                            await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent()))
+                    {
+                        if (IsCustomResponse)
+                            return await ProcessReponse(response);
 
-                    response.EnsureSuccessStatusCode();
-                    var json = await response.Content.ReadAsStringAsync();
-                    return JsonConvert.DeserializeObject<TResponse>(json);
+                        response.EnsureSuccessStatusCode();
+                        var json = await response.Content.ReadAsStringAsync();
+                        
+                        return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
+                    }
                 }
             }
             return default(TResponse);

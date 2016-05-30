@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace GoogleMusicApi
 {
-    public abstract class Request
+    public abstract class Request : IDisposable
     {
         protected Request(Session session, RequestMethod method)
         {
@@ -17,16 +17,11 @@ namespace GoogleMusicApi
             UrlData = new WebRequestHeaders(
                 new WebRequestHeader("alt", "json"),
                 new WebRequestHeader("hl", Locale));
-
-            Headers = new WebRequestHeaders();
-
-            
         }
 
         public Session Session { get; set; }
         public RequestMethod Method { get; }
         public WebRequestHeaders UrlData { get; set; }
-        public WebRequestHeaders Headers { get; set; }
         public string Locale { get; set; }
         public bool UseCustomHeaders { get; set; }
 
@@ -38,6 +33,12 @@ namespace GoogleMusicApi
         public virtual void SetHeaders(HttpRequestHeaders headers)
         {
             throw new InvalidOperationException($"Please override {nameof(SetHeaders)} if {nameof(UseCustomHeaders)} is true.");
+        }
+
+        public void Dispose()
+        {
+            UrlData = null;
+            Session = null;
         }
     }
 

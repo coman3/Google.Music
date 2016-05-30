@@ -1,7 +1,6 @@
-﻿using System.Text;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace GoogleMusicApi
+namespace GoogleMusicApi.Requests.Data
 {
     
     [JsonObject(MemberSerialization.OptIn)]

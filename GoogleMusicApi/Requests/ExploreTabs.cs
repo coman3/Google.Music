@@ -27,7 +27,7 @@ namespace GoogleMusicApi.Requests
         public string TabType { get; set; }
 
         [JsonProperty("groups")]
-        public EntityGroup[] EntityGroups { get; set; }
+        public EntityGroup[] Groups { get; set; }
 
 
 
@@ -44,11 +44,22 @@ namespace GoogleMusicApi.Requests
         [JsonProperty("entities")]
         public Entity[] Entities { get; set; }
 
+        [JsonProperty("group_type")]
+        public string GroupType { get; set; }
+
+        [JsonProperty("continuation_token")]
+        public string ContinuationToken { get; set; }
+
+        [JsonProperty("start_position")]
+        public int StartPosition { get; set; }
+
 
     }
 
     public class Entity
     {
+        [JsonProperty("kind")]
+        public string Kind { get; set; }
         [JsonProperty("album")]
         public Album Album { get; set; }
 
@@ -60,6 +71,7 @@ namespace GoogleMusicApi.Requests
 
         [JsonProperty("explicitType")]
         public int ExplicitType { get; set; }
+
 
     }
 

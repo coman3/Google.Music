@@ -56,6 +56,7 @@
     <Compile Include="Requests\Data\EventResult.cs" />
     <Compile Include="Requests\ExploreTabs.cs" />
     <Compile Include="Requests\GetAlbum.cs" />
+    <Compile Include="Requests\GetStaionFeed.cs" />
     <Compile Include="Requests\GetTopChartGenres.cs" />
     <Compile Include="Structure\Event.cs" />
     <Compile Include="Structure\Rating.cs" />
@@ -88,7 +89,7 @@
     <Compile Include="Requests\ListPlaylistEntries.cs" />
     <Compile Include="Requests\ListPromotedTracks.cs" />
     <Compile Include="Requests\ListStationCategories.cs" />
-    <Compile Include="Requests\ListTrackFeed.cs" />
+    <Compile Include="Requests\GetTrackFeed.cs" />
     <Compile Include="Structure\StationAnnotation.cs" />
     <Compile Include="Structure\StationAnnotationGroupEntity.cs" />
     <Compile Include="Structure\StationAnnotationRelatedGroup.cs" />
@@ -97,7 +98,7 @@
     <Compile Include="Requests\Data\ListListenNowSituationResponse.cs" />
     <Compile Include="Requests\Data\ListListenNowTracksResponse.cs" />
     <Compile Include="Requests\ListPlaylists.cs" />
-    <Compile Include="ResultListRequest.cs" />
+    <Compile Include="Requests\Data\ResultListRequest.cs" />
     <Compile Include="Requests\GetTrack.cs" />
     <Compile Include="Structure\Album.cs" />
     <Compile Include="Structure\Artist.cs" />
