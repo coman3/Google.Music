@@ -5,12 +5,6 @@ namespace GoogleMusicApi.Structure
     [JsonObject]
     public class ArtReference
     {
-        [JsonProperty("kind")]
-        public string Kind { get; set; }
-
-        [JsonProperty("url")]
-        public string Url { get; set; }
-
         [JsonProperty("aspectRatio")]
         public string AspectRatio { get; set; }
 
@@ -19,5 +13,11 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("colorStyles")]
         public ImageColorStyles ColorStyles { get; set; }
+
+        [JsonProperty("kind")]
+        public string Kind { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
     }
 }

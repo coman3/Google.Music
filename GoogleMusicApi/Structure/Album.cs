@@ -5,12 +5,6 @@ namespace GoogleMusicApi.Structure
     [JsonObject]
     public class Album
     {
-        [JsonProperty("kind")]
-        public string Kind { get; set; }
-
-        [JsonProperty("name")]
-        public string Name { get; set; }
-
         [JsonProperty("albumArtist")]
         public string AlbumArtist { get; set; }
 
@@ -26,11 +20,8 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("artistId")]
         public string[] ArtistId { get; set; }
 
-        [JsonProperty("year")]
-        public int Year { get; set; }
-
-        [JsonProperty("tracks")]
-        public Track[] Tracks { get; set; }
+        [JsonProperty("contentType")]
+        public string ContentType { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }
@@ -41,7 +32,16 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("explicitType")]
         public string ExplicitType { get; set; }
 
-        [JsonProperty("contentType")]
-        public string ContentType { get; set; }
+        [JsonProperty("kind")]
+        public string Kind { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("tracks")]
+        public Track[] Tracks { get; set; }
+
+        [JsonProperty("year")]
+        public int Year { get; set; }
     }
 }

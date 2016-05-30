@@ -7,6 +7,5 @@ namespace GoogleMusicApi.Requests.Data
     {
         [JsonProperty("chart")]
         public Chart Chart { get; set; }
-
     }
 }

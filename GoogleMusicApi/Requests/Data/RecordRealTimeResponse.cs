@@ -6,6 +6,5 @@ namespace GoogleMusicApi.Requests.Data
     {
         [JsonProperty("eventResults")]
         public EventResult[] EventResults { get; set; }
-
     }
 }

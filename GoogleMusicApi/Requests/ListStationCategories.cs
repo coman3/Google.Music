@@ -1,6 +1,5 @@
-using System.Collections.Generic;
 using GoogleMusicApi.Requests.Data;
-using GoogleMusicApi.Structure;
+using System.Collections.Generic;
 
 namespace GoogleMusicApi.Requests
 {
@@ -8,6 +7,5 @@ namespace GoogleMusicApi.Requests
         StructuredRequest<GetRequest, ListStationCategoriesResponse>
     {
         public override string RelativeRequestUrl => "browse/stationcategories";
-
     }
 }

@@ -7,8 +7,6 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("createOrGet")]
         public EditRadioStationRequestCreateOrGetMutation CreateOrGet { get; set; }
 
-        public Track[] Tracks { get; set; }
-
         [JsonProperty("includeFeed")]
         public bool IncludeFeed { get; set; }
 
@@ -17,5 +15,7 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("params")]
         public EditRadioStationRequestParameters Parameters { get; set; }
+
+        public Track[] Tracks { get; set; }
     }
 }

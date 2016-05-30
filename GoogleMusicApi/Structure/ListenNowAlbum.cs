@@ -30,11 +30,11 @@ namespace GoogleMusicApi.Structure
     [JsonObject]
     public class ListenNowAlbumId
     {
-        [JsonProperty("metajamCompactKey")]
-        public string MetajamCompactKey { get; set; }
-
         [JsonProperty("artist")]
         public string Artist { get; set; }
+
+        [JsonProperty("metajamCompactKey")]
+        public string MetajamCompactKey { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }

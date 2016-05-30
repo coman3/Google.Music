@@ -1,11 +1,14 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace GoogleMusicApi.Structure
 {
     [JsonObject]
     public class RequestSignal
     {
+        [JsonProperty("timeZoneOffsetSecs")]
+        public int TimeZoneOffsetSecs { get; set; }
+
         public RequestSignal()
         {
         }
@@ -15,12 +18,9 @@ namespace GoogleMusicApi.Structure
             TimeZoneOffsetSecs = timeZoneOffsetSecs;
         }
 
-        [JsonProperty("timeZoneOffsetSecs")]
-        public int TimeZoneOffsetSecs { get; set; }
-
         public static int GetTimeZoneOffsetSecs()
         {
-            return (int) (DateTime.Now - DateTime.UtcNow).TotalSeconds;
+            return (int)(DateTime.Now - DateTime.UtcNow).TotalSeconds;
         }
     }
 }

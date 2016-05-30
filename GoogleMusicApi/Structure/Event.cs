@@ -1,5 +1,4 @@
-﻿using GoogleMusicApi.Requests;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace GoogleMusicApi.Structure
 {
@@ -16,21 +15,17 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("trackId")]
         public MetaJamEventData TrackId { get; set; }
-
-
     }
-
-
-    public class MetaJamEventData
-    {
-        [JsonProperty("metajamComapctKey")]
-        public string MetajamComapctKey { get; set; }
-    }
-
 
     public class EventDetail
     {
         [JsonProperty("rating")]
         public Rating Rating { get; set; }
+    }
+
+    public class MetaJamEventData
+    {
+        [JsonProperty("metajamComapctKey")]
+        public string MetajamComapctKey { get; set; }
     }
 }

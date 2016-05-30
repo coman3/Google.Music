@@ -12,6 +12,5 @@ namespace GoogleMusicApi.Requests
     {
         [JsonProperty("genres")]
         public Genre[] Genres { get; set; }
-
     }
 }

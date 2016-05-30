@@ -1,19 +1,19 @@
-using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace GoogleMusicApi.Structure
 {
     [JsonObject]
     public class Video
     {
+        // "id": "YXIHXQjbtl8",
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
         //"primaryVideo": {
         // "kind": "sj#video",
         [JsonProperty("kind")]
         public string Kind { get; set; }
-
-        // "id": "YXIHXQjbtl8",
-        [JsonProperty("id")]
-        public string Id { get; set; }
 
         // "thumbnails": [
         //  {

@@ -1,6 +1,6 @@
-﻿using System.Runtime.Serialization;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace GoogleMusicApi.Structure
 {
@@ -10,13 +10,14 @@ namespace GoogleMusicApi.Structure
         [JsonConverter(typeof(StringEnumConverter))]
         public RatingEnum RatingValue { get; set; }
 
-
         public enum RatingEnum
         {
             [EnumMember(Value = "FIVE_STARS")]
             FiveStars,
+
             [EnumMember(Value = "NO_RATING")]
             NoRating,
+
             [EnumMember(Value = "ONE_STAR")]
             OneStar
         }

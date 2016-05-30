@@ -4,6 +4,13 @@ using Newtonsoft.Json;
 namespace GoogleMusicApi.Requests.Data
 {
     [JsonObject]
+    public class DistilledContextWrapper
+    {
+        [JsonProperty("distilledContextToken")]
+        public string DistilledContextToken { get; set; }
+    }
+
+    [JsonObject]
     public class ListListenNowSituationResponse
     {
         [JsonProperty("distilledContextWrapper")]
@@ -12,17 +19,10 @@ namespace GoogleMusicApi.Requests.Data
         [JsonProperty("primaryHeader")]
         public string PrimaryHeader { get; set; }
 
-        [JsonProperty("subHeader")]
-        public string SubHeader { get; set; }
-
         [JsonProperty("situations")]
         public Situation[] Situations { get; set; }
-    }
 
-    [JsonObject]
-    public class DistilledContextWrapper
-    {
-        [JsonProperty("distilledContextToken")]
-        public string DistilledContextToken { get; set; }
+        [JsonProperty("subHeader")]
+        public string SubHeader { get; set; }
     }
 }
