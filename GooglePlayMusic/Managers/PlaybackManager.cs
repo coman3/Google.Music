@@ -147,7 +147,7 @@ namespace GooglePlayMusic.Desktop.Managers
 
         public static async void PlayTrack(Track track)
         {
-            var streamUrl = await new GetStreamUrl().GetAsync(new StreamUrlGetRequest(SessionManager.MobileSession, track));
+            var streamUrl = await new GetStreamUrl().GetAsync(new StreamUrlGetRequest(SessionManager.MobileClient.Session, track));
             if(streamUrl == null) return;
             
             PlayTrack(streamUrl);

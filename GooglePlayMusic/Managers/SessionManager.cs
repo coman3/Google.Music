@@ -1,4 +1,5 @@
-﻿using GoogleMusicApi.Requests.Data;
+﻿using GoogleMusicApi.Common;
+using GoogleMusicApi.Requests.Data;
 using GoogleMusicApi.Sessions;
 
 namespace GooglePlayMusic.Desktop.Managers
@@ -7,6 +8,6 @@ namespace GooglePlayMusic.Desktop.Managers
     {
         public static ListListenNowSituationResponse ListenNowSituationResponse { get; set; }
         public static ListListenNowTracksResponse ListenNowTracksResponse { get; set; }
-        public static MobileSession MobileSession { get; set; }
+        public static MobileClient MobileClient { get; set; }
     }
 }

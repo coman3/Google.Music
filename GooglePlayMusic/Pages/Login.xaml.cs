@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Controls;
 using GoogleMusicApi;
+using GoogleMusicApi.Common;
+using GoogleMusicApi.Sessions;
 using GooglePlayMusic.Desktop.Managers;
 
 namespace GooglePlayMusic.Desktop.Pages
@@ -18,9 +20,9 @@ namespace GooglePlayMusic.Desktop.Pages
         private async void ButtonLogin_Click(object sender, RoutedEventArgs e)
         {
             LoadingOverlay.Visibility = Visibility.Visible;
-            SessionManager.MobileSession = new MobileSession();
+            SessionManager.MobileClient = new MobileClient();
 
-            if (await SessionManager.MobileSession.LoginAsync(TextBoxUsername.Text, TextBoxPassword.Password))
+            if (await SessionManager.MobileClient.LoginAsync(TextBoxUsername.Text, TextBoxPassword.Password))
             {
 
                 WindowManager.NavigateToPage(new Uri("/Pages/Test.xaml", UriKind.Relative));

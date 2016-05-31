@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using GoogleMusicApi.Common;
 
 namespace GoogleMusicApi.Tests
 {
@@ -15,7 +16,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ExploreTabsAsync());
         }
 
@@ -43,7 +44,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.GetAlbumAsync("Bdyocq5dfo3a72heswzl7nhni64")); // Lunch Money - EP, By: SoySauce
         }
 
@@ -52,7 +53,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.GetConfigAsync());
         }
 
@@ -61,7 +62,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.GetTrackAsync("Tkou6ps7lrj2wz3c2ejrgar337m")); // Essence, By: Skrux
         }
 
@@ -70,7 +71,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListListenNowSituationsAsync());
         }
 
@@ -79,7 +80,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListListenNowTracksAsync());
         }
 
@@ -88,7 +89,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListPlaylistsAsync());
         }
 
@@ -97,7 +98,7 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListPromotedTracksAsync());
         }
 
@@ -106,16 +107,16 @@ namespace GoogleMusicApi.Tests
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListStationCategoriesAsync());
         }
 
         [TestMethod]
-        public void Login()
+        public async Task Login()
         {
             var account = GetAccount();
             var mc = new MobileClient();
-            Assert.IsTrue(mc.Login(account.Item1, account.Item2));
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
         }
     }
 }

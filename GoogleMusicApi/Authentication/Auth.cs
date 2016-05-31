@@ -1,6 +1,6 @@
-﻿using PCLCrypto;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace GoogleMusicApi.Authentication

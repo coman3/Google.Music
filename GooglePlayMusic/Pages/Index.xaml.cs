@@ -28,10 +28,10 @@ namespace GooglePlayMusic.Desktop.Pages
             await LoadListenNowSituations();
             await LoadListenNowData();
 
-            var streamRequest = await new ListPromotedTracks().GetAsync(new ResultListRequest(SessionManager.MobileSession));
+            var streamRequest = await new ListPromotedTracks().GetAsync(new ResultListRequest(SessionManager.MobileClient.Session));
             foreach (var track in streamRequest.Data.Items)
             {
-                var url = await new GetStreamUrl().GetAsync(new StreamUrlGetRequest(SessionManager.MobileSession, track));
+                var url = await new GetStreamUrl().GetAsync(new StreamUrlGetRequest(SessionManager.MobileClient.Session, track));
                 TrackManager.CurrentTrack = track;
                 PlaybackManager.PlayTrack(url);
                 break;
@@ -46,7 +46,7 @@ namespace GooglePlayMusic.Desktop.Pages
         private async Task LoadListenNowSituations()
         {
             var data = await
-                new ListListenNowSituations().GetAsync(new ListListenNowSituationsRequest(SessionManager.MobileSession));
+                new ListListenNowSituations().GetAsync(new ListListenNowSituationsRequest(SessionManager.MobileClient.Session));
             if (data == null) return;
             SessionManager.ListenNowSituationResponse = data;
             SituationTitle.Text = data.PrimaryHeader;
@@ -68,7 +68,7 @@ namespace GooglePlayMusic.Desktop.Pages
 
         private async Task LoadListenNowData()
         {
-            var data = await new ListListenNowTracks().GetAsync(new GetRequest(SessionManager.MobileSession));
+            var data = await new ListListenNowTracks().GetAsync(new GetRequest(SessionManager.MobileClient.Session));
             SessionManager.ListenNowTracksResponse = data;
             if (data == null) return;
             foreach (var item in data.Items)

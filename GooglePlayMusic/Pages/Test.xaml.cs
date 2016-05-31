@@ -36,7 +36,7 @@ namespace GooglePlayMusic.Desktop.Pages
         private async void LoadTracks()
         {
             PlaybackManager.OnPlaybackStateChange += PlaybackManager_OnPlaybackStateChange;
-            var request = await new ListListenNowSituations().GetAsync(new ListListenNowSituationsRequest(SessionManager.MobileSession));
+            var request = await new ListListenNowSituations().GetAsync(new ListListenNowSituationsRequest(SessionManager.MobileClient.Session));
             StationSeed seed = null;
             foreach (var source in request.Situations.Where(x => x.Stations != null))
             {
@@ -50,15 +50,15 @@ namespace GooglePlayMusic.Desktop.Pages
             }
             if (seed == null) return;
 
-            var annotaion = await new GetRadioStationAnnotation().GetAsync(new GetRadioStationAnnotationRequest(SessionManager.MobileSession, seed));
+            var annotaion = await new GetRadioStationAnnotation().GetAsync(new GetRadioStationAnnotationRequest(SessionManager.MobileClient.Session, seed));
 
             var tracks =
-                await new EditRadioStation().GetAsync(new EditRadioStationRequest(SessionManager.MobileSession,
+                await new EditRadioStation().GetAsync(new EditRadioStationRequest(SessionManager.MobileClient.Session,
                     new EditRadioStationRequestMutation
                     {
                         CreateOrGet = new EditRadioStationRequestCreateOrGetMutation
                         {
-                            ClientId = SessionManager.MobileSession.AndroidId,
+                            ClientId = SessionManager.MobileClient.Session.UserDetails.AndroidId,
                             ImageType = 1,
                             InLibary = false,
                             LastModifiedTimestamp = "-1",

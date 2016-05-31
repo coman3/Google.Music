@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using GoogleMusicApi.Sessions;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi

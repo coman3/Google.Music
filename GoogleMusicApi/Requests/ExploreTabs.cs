@@ -1,4 +1,5 @@
-﻿using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi.Requests
@@ -44,11 +45,22 @@ namespace GoogleMusicApi.Requests
         [JsonProperty("entities")]
         public Entity[] Entities { get; set; }
 
+        [JsonProperty("group_type")]
+        public string GroupType { get; set; }
+
+        [JsonProperty("continuation_token")]
+        public string ContinuationToken { get; set; }
+
+        [JsonProperty("start_position")]
+        public int StartPosistion { get; set; }
 
     }
 
     public class Entity
     {
+        [JsonProperty("kind")]
+        public string Kind { get; set; }
+
         [JsonProperty("album")]
         public Album Album { get; set; }
 

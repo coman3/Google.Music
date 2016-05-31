@@ -1,9 +1,10 @@
 using GoogleMusicApi.Authentication;
 using GoogleMusicApi.Sessions;
 using GoogleMusicApi.Structure;
-using PCLCrypto;
 using System;
 using System.Globalization;
+using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace GoogleMusicApi.Requests.Data
@@ -73,19 +74,18 @@ namespace GoogleMusicApi.Requests.Data
 
         private string GetSignature(Track track, string salt)
         {
-            // https://en.wikipedia.org/wiki/Hash-based_message_authentication_code
-            throw new NotImplementedException("Implement HMAC-SHA1!");
-
             var songIdEncoded = Encoding.UTF8.GetBytes(track.StoreId);
+            var hmac = new HMACSHA1(Encoding.ASCII.GetBytes(Key));
             var saltEncoded = Encoding.UTF8.GetBytes(salt);
-            var hmacKey = Encoding.UTF8.GetBytes(Key);
-
-            var data = DataTypeUtils.CombineBytes(songIdEncoded, saltEncoded);
-
-            var hmac = WinRTCrypto.HashAlgorithmProvider.OpenAlgorithm(HashAlgorithm.Sha1);
-
-            var sig = DataTypeUtils.ToUrlSafeBase64(hmac.HashData(data));
-
+            byte[] data;
+            using (var ms = new MemoryStream())
+            {
+                ms.Write(songIdEncoded, 0, songIdEncoded.Length);
+                ms.Write(saltEncoded, 0, saltEncoded.Length);
+                data = ms.ToArray();
+            }
+            var sig = Convert.ToBase64String(hmac.ComputeHash(data, 0, data.Length));
+            sig = sig.Replace('+', '-').Replace('/', '_').Replace("=", "");
             return sig;
         }
     }
