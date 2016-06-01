@@ -14,17 +14,11 @@
         mc:Ignorable="d"
         x:Name="Window"
         MinWidth="600"
-        MinHeight="600"
+        MinHeight="600"                   
         Title="Google Play Music" Height="768" Width="1024">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.CheckBox.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ToggleButton.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
                 <ResourceDictionary>
                     <Style TargetType="{x:Type materialDesign:PopupBox}" x:Key="MaterialDesignPopupBoxNoPadding">
                         <Setter Property="ToggleContent" Value="{StaticResource MaterialDesignPopupBoxToggleContent}" />
@@ -150,11 +144,17 @@
                 </Grid.RowDefinitions>
                 <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="16">
                     <DockPanel>
-                        <ToggleButton Style="{StaticResource MaterialDesignSwitchAccentToggleButton}" VerticalAlignment="Center"
-                                  DockPanel.Dock="Right" />
-                        <StackPanel Orientation="Horizontal"
+                        <ToggleButton DockPanel.Dock="Left" Style="{DynamicResource MaterialDesignHamburgerToggleButton}"  x:Name="MenuToggleButton" />
+                        <materialDesign:PopupBox VerticalAlignment="Center" 
+                                  DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
+                            <StackPanel>
+                                <Button>Settings</Button>
+                                <Button>Logout</Button>
+                            </StackPanel>
+                        </materialDesign:PopupBox>
+                        <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" x:Name="GlobalEmailLabel"></TextBlock>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                             materialDesign:RippleAssist.IsCentered="True">
-                            <ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}"  x:Name="MenuToggleButton" />
                             <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1"
                                    Margin="16 0 0 0"
                                    materialDesign:ShadowAssist.ShadowDepth="Depth1">
@@ -169,7 +169,7 @@
                                     </Button>
                                     <TextBox Grid.Column="1" Margin="8 0 0 0" local:HintAssist.Hint="Build a search bar" 
                                      materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
-                                     MinWidth="200" VerticalAlignment="Center" />
+                                     MinWidth="400" VerticalAlignment="Center" />
                                 </Grid>
                             </materialDesign:ColorZone>
                             <Button Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">

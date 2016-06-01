@@ -1,5 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using Newtonsoft.Json.Converters;
 
 namespace GoogleMusicApi.Structure
 {
@@ -43,7 +45,8 @@ namespace GoogleMusicApi.Structure
         public float EstimatedSize { get; set; }
 
         [JsonProperty("explicitType")]
-        public string ExplicitType { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ExplicitType ExplicitType { get; set; }
 
         [JsonProperty("genre")]
         public string Genre { get; set; }
@@ -53,6 +56,9 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("lastRatingChangeTimestamp")]
         public string LastRatingChangeTimestamp { get; set; }
+
+        [JsonProperty("lastModifiedTimestamp")]
+        public string LastModifiedTimestamp { get; set; }
 
         [JsonProperty("nid")]
         public string Nid { get; set; }
@@ -86,5 +92,11 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("year")]
         public int Year { get; set; }
+    }
+
+    public enum ExplicitType
+    {
+        [EnumMember(Value = "1")] Explicit = 1,
+        [EnumMember(Value = "2")] NonExplicit = 2
     }
 }

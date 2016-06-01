@@ -17,6 +17,9 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("id")]
         public string Id { get; set; }
 
+        [JsonProperty("clientId")]
+        public string ClientId { get; set; }
+
         [JsonProperty("imageUrl")]
         public string ImageUrl { get; set; }
 
@@ -47,5 +50,15 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("tracks")]
         public Track[] Tracks { get; set; }
+
+        [JsonProperty("deleted")]
+        public bool Deleted { get; set; }
+
+        [JsonProperty("inLibrary")]
+        public bool InLibrary { get; set; }
+
+
+
+
     }
 }

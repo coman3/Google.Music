@@ -16,7 +16,7 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("inLibary")]
         public bool InLibary { get; set; }
 
-        [JsonProperty("reponse_code")]
+        [JsonProperty("response_code")]
         public string ResponseCode { get; set; }
 
         [JsonProperty("skipEventHistory")]

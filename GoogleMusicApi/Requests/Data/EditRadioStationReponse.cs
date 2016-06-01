@@ -7,5 +7,10 @@ namespace GoogleMusicApi.Requests.Data
     {
         [JsonProperty("mutate_response")]
         public EditRadioStationReponseMutation[] MutateReponse { get; set; }
+
+        [JsonProperty("currentTimestampMillis")]
+        public string CurrentTimestampMillis { get; set; }
+
+
     }
 }

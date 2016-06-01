@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
+# Blend for Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GooglePlayMusic.Desktop", "GooglePlayMusic\GooglePlayMusic.Desktop.csproj", "{8CABF5A3-D55F-42A1-ADBB-9DFE02C6C6EE}"
