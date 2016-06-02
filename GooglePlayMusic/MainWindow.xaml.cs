@@ -19,6 +19,7 @@ using GoogleMusicApi.Requests;
 using GooglePlayMusic.Desktop.Common;
 using GooglePlayMusic.Desktop.Managers;
 using NAudio.Wave;
+using Track = GoogleMusicApi.Structure.Track;
 
 namespace GooglePlayMusic.Desktop
 {
@@ -39,36 +40,57 @@ namespace GooglePlayMusic.Desktop
             InitializeComponent();
             PlaybackManager.OnBufferStateChange += PlaybackManager_OnBufferStateChange;
             PlaybackManager.OnPlaybackStateChange += PlaybackManager_OnPlaybackStateChange;
+            TrackManager.OnQueueChange += TrackManager_OnQueueChange;
         }
 
-        private void PlaybackManager_OnPlaybackStateChange(BufferedWaveProvider sender, PlaybackManager.StreamingPlaybackState state)
+        private void TrackManager_OnQueueChange(object sender, QueueChangeEventArgs args)
         {
-            this.Dispatcher.Invoke(() => //Thread is not GUI Thread
-            {
-                switch (state)
-                {
-                    case PlaybackManager.StreamingPlaybackState.Playing:
-                        PlayPauseMusic.IsChecked = true;
-                        break;
-                    case PlaybackManager.StreamingPlaybackState.Paused:
-                        PlayPauseMusic.IsChecked = false;
-                        break;
-                }
-            });
+            if (!Dispatcher.CheckAccess()) Dispatcher.Invoke(() => { TrackManager_OnQueueChange(sender, args); });
+
+            UpdateCurrentSongInfo(TrackManager.CurrentTrack);
         }
 
-        private void PlaybackManager_OnBufferStateChange(NAudio.Wave.BufferedWaveProvider sender, double totalSecconds)
+        private void UpdateCurrentSongInfo(Track currentTrack)
         {
-            this.Dispatcher.Invoke(() =>  //Thread is not GUI Thread
-            {
-                TrackProgressBar.Maximum = TrackManager.CurrentTrack.DurationMillis / 1000;
-                TrackProgressBar.Value = PlaybackManager.TrackTimeSpan.TotalSeconds;
+            
+        }
 
-                TrackBufferProgressBar.Maximum = TrackManager.CurrentTrack.DurationMillis / 1000;
-                TrackBufferProgressBar.Value = PlaybackManager.TrackTimeSpan.TotalSeconds + totalSecconds;
-                
-                Debug.WriteLine(PlaybackManager.TrackTimeSpan);
-            });
+        private void PlaybackManager_OnPlaybackStateChange(BufferedWaveProvider sender, Track track,
+            PlaybackManager.StreamingPlaybackState state)
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(() => { PlaybackManager_OnPlaybackStateChange(sender, track, state); });
+                return;
+            }
+            switch (state)
+            {
+                case PlaybackManager.StreamingPlaybackState.Playing:
+                    PlayPauseMusic.IsChecked = true;
+                    break;
+                case PlaybackManager.StreamingPlaybackState.Paused:
+                    PlayPauseMusic.IsChecked = false;
+                    break;
+            }
+
+        }
+
+        private void PlaybackManager_OnBufferStateChange(BufferedWaveProvider sender, Track track,
+            double totalSecconds)
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(() => { PlaybackManager_OnBufferStateChange(sender, track, totalSecconds); });
+                return;
+            }
+
+            TrackProgressBar.Maximum = TrackManager.CurrentTrack.DurationMillis;
+            TrackProgressBar.Value = PlaybackManager.TrackTimeSpan.TotalSeconds * 1000;
+
+            TrackBufferProgressBar.Maximum = TrackManager.CurrentTrack.DurationMillis;
+            TrackBufferProgressBar.Value = (PlaybackManager.TrackTimeSpan.TotalSeconds + totalSecconds) * 1000;
+
+            Debug.WriteLine(PlaybackManager.TrackTimeSpan);
 
         }
 
@@ -93,7 +115,7 @@ namespace GooglePlayMusic.Desktop
             if (PlaybackManager.PlaybackState != PlaybackManager.StreamingPlaybackState.Buffering)
             {
                 PlaybackManager.SetState(PlaybackState.Stopped);
-                PlaybackManager.PlayTrack(TrackManager.CurrentTrack = TrackManager.Queue.Dequeue());
+                PlaybackManager.PlayTrack(TrackManager.GetNextSong());
             }
                 
 

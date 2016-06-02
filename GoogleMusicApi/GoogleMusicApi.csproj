@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Authentication\Auth.cs" />
     <Compile Include="Authentication\DataTypeUtils.cs" />
+    <Compile Include="Authentication\StringCipher.cs" />
     <Compile Include="Authentication\GoogleKeyUtils.cs" />
     <Compile Include="Authentication\LocaleDetails.cs" />
     <Compile Include="Authentication\UserDetails.cs" />

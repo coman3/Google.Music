@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using GoogleMusicApi.Authentication;
@@ -28,18 +30,6 @@ namespace GoogleMusicApi.Common
         /// </summary>
         public MobileClient()
         {
-        }
-
-        /// <summary>
-        /// Create a <see cref="MobileClient"/> that has previously been logged in, using the specified Authorization Token.
-        /// </summary>
-        /// <param name="token">The Previous Authorization Token. </param>
-        /// <remarks>
-        /// To Check if the Authorization Token is still valid see: <seealso cref="LoginCheck"/>
-        /// </remarks>
-        public MobileClient(string token)
-        {
-            throw new NotSupportedException("Token Loading is currently not supported!");
         }
 
         #region Privates
@@ -78,31 +68,39 @@ namespace GoogleMusicApi.Common
         /// <param name="password">The Password / App Specific password (https://security.google.com/settings/security/apppasswords)</param>
         public sealed override async Task<bool> LoginAsync(string email, string password)
         {
-            Debug.WriteLine($"Attempting Login ({email})...");
+            try
+            {
+                Debug.WriteLine($"Attempting Login ({email})...");
 
-            Session = new MobileSession(new UserDetails(email, password, 
-                NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault()?.GetPhysicalAddress().ToString()));
-            return await Session.LoginAsync();
+                Session = new MobileSession(new UserDetails(email, password, GoogleAuth.GetPcMacAddress()));
+                return await Session.LoginAsync();
+            }
+            catch (HttpRequestException)
+            {
+                return false;
+            }
         }
 
         /// <summary>
         /// Check if the specified Authorization Token is still valid, and if it is collect required information to login.
         /// </summary>
-        /// <param name="token">The Authorization Token, if left null will use the Authorization Token associated to this <see cref="MobileClient"/> (If specified in constructor)</param>
+        /// <param name="email">The Email of the account</param>
+        /// <param name="token">The Master Authorization Token, if left null will use the Authorization Token associated to this <see cref="MobileClient"/> (If specified in constructor)</param>
         /// <returns></returns>
-        public bool LoginCheck(string token = null)
+        public async Task<bool> LoginWithToken(string email, string token = null)
         {
-            //TODO (Medium): Implement Token Check
-            throw new NotSupportedException();
-            /*
-                        if (token == null && AuthorizationToken == null)
-                            throw new ArgumentException("Please specify an Authorization Token", nameof(token));
-                        if(token == null) token = AuthorizationToken;
+            Debug.WriteLine($"Attempting Login ({email})...");
+            try
+            {
+                Session = new MobileSession(new UserDetails(email, "", GoogleAuth.GetPcMacAddress()));
+                return await Session.LoginAsync(token);
+            }
+            catch (HttpRequestException)
+            {
+                return false;
+            }
 
-                        Debug.WriteLine($"Checking Token ({token})...");
 
-                        return false;
-            */
         }
 
         #endregion Account

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
@@ -33,16 +35,20 @@ namespace GoogleMusicApi.Authentication
             httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
         }
 
+        public static string GetPcMacAddress()
+        {
+            return NetworkInterface.GetAllNetworkInterfaces().FirstOrDefault()?.GetPhysicalAddress().ToString();
+        }
         // perform_master_login
         public static async Task<Dictionary<string, string>> PerformMasterLoginAsync(UserDetails userDetails, LocaleDetails localeDetails,
             string service = "ac2dm", int sdkVersion = 17)
         {
-            var signature = GoogleKeyUtils.CreateSignature(userDetails.EMail, userDetails.Password, androidKey);
+            var signature = GoogleKeyUtils.CreateSignature(userDetails.Email, userDetails.Password, androidKey);
 
             var dict = new Dictionary<string, string>
             {
                 {"accountType", "HOSTED_OR_GOOGLE"},
-                {"Email", userDetails.EMail},
+                {"Email", userDetails.Email},
                 {"has_permission", "1"},
                 {"add_account", "1"},
                 {"EncryptedPasswd", signature},
@@ -65,7 +71,7 @@ namespace GoogleMusicApi.Authentication
             var dict = new Dictionary<string, string>
             {
                 {"accountType", "HOSTED_OR_GOOGLE"},
-                {"Email", userDetails.EMail},
+                {"Email", userDetails.Email},
                 {"has_permission", "1"},
                 {"EncryptedPasswd", masterToken},
                 {"service", service},

@@ -33,8 +33,15 @@ namespace GoogleMusicApi.Sessions
                 LastName = result["lastName"];
 
             MasterToken = result["Token"];
+            UserDetails.ClearPassword();
 
-            result = await GoogleAuth.PerformOAuthAsync(UserDetails, LocaleDetails.Default, MasterToken, "sj", "com.google.android.music",
+            return await LoginAsync(MasterToken);
+        }
+
+        public override async Task<bool> LoginAsync(string masterToken)
+        {
+            var result = await GoogleAuth.PerformOAuthAsync(UserDetails, 
+                LocaleDetails.Default, masterToken, "sj", "com.google.android.music",
                 "38918a453d07199354f8b19af05ec6562ced5788"); //Login to google play music
 
             if (!result.ContainsKey("Auth"))
@@ -43,7 +50,10 @@ namespace GoogleMusicApi.Sessions
             AuthorizationToken = result["Auth"];
             IsAuthenticated = true; //Finished Auth
 
-            HttpClient = new HttpClient(new HttpClientHandler { AllowAutoRedirect = false })
+            HttpClient = new HttpClient(new HttpClientHandler
+            {
+                AllowAutoRedirect = false
+            })
             {
                 BaseAddress = new Uri(StructuredRequest.BaseApiUrl)
             };

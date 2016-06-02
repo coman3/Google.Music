@@ -93,7 +93,7 @@ namespace GooglePlayMusic.Desktop.Pages
             dataGrid.ItemsSource = TrackManager.Queue;
         }
 
-        private void PlaybackManager_OnPlaybackStateChange(NAudio.Wave.BufferedWaveProvider sender, PlaybackManager.StreamingPlaybackState state)
+        private void PlaybackManager_OnPlaybackStateChange(NAudio.Wave.BufferedWaveProvider sender, Track track, PlaybackManager.StreamingPlaybackState state)
         {
             Dispatcher.Invoke(() =>
             {

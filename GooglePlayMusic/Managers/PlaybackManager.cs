@@ -20,7 +20,7 @@ namespace GooglePlayMusic.Desktop.Managers
         public static void ChangePlaybackState(StreamingPlaybackState state)
         {
             PlaybackState = state;
-            OnPlaybackStateChange?.Invoke(_bufferedWaveProvider, state);
+            OnPlaybackStateChange?.Invoke(_bufferedWaveProvider, _currentTrack, state);
         }
 
         public static VolumeWaveProvider16 VolumeProvider { get; set; }
@@ -33,17 +33,19 @@ namespace GooglePlayMusic.Desktop.Managers
             Buffering,
             Paused
         }
-
-        private static HttpWebRequest _webRequest;
-        private static BufferedWaveProvider _bufferedWaveProvider;
-        private static readonly Timer _timer;
         public static volatile bool FullyDownloaded;
         public static event OnBufferStateChangeHandler OnBufferStateChange;
         public static event OnPlaybackStateChangeHandler OnPlaybackStateChange;
+
+
+        private static HttpWebRequest _webRequest;
+        private static BufferedWaveProvider _bufferedWaveProvider;
+        private static readonly Timer Timer;
+        private static Track _currentTrack;
         static PlaybackManager()
         {
-            _timer = new Timer(100);
-            _timer.Elapsed += _timer_Elapsed;
+            Timer = new Timer(100);
+            Timer.Elapsed += _timer_Elapsed;
         }
 
         private static void _timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
@@ -71,7 +73,7 @@ namespace GooglePlayMusic.Desktop.Managers
                     var bufferedSeconds = _bufferedWaveProvider.BufferedDuration.TotalSeconds;
                     ShowBufferState(bufferedSeconds);
                     if (PlaybackState == StreamingPlaybackState.Playing)
-                        TrackTimeSpan += TimeSpan.FromMilliseconds(_timer.Interval);
+                        TrackTimeSpan += TimeSpan.FromMilliseconds(Timer.Interval);
 
                     // make it stutter less if we buffer up a decent amount before playing
                     if (bufferedSeconds < 0.5 && PlaybackState == StreamingPlaybackState.Playing && !FullyDownloaded)
@@ -110,7 +112,7 @@ namespace GooglePlayMusic.Desktop.Managers
                     WaveOut.Dispose();
                     WaveOut = null;
                 }
-                _timer.Stop();
+                Timer.Stop();
                 _bufferedWaveProvider = null;
                 // n.b. streaming thread may not yet have exited
                 Thread.Sleep(600);
@@ -132,12 +134,12 @@ namespace GooglePlayMusic.Desktop.Managers
         {
             ChangePlaybackState(StreamingPlaybackState.Buffering);
             WaveOut?.Pause();
-            Debug.WriteLine("Paused to buffer, waveOut.PlaybackState={0}", WaveOut.PlaybackState);
+            Debug.WriteLine("Paused to buffer, waveOut.PlaybackState={0}", WaveOut?.PlaybackState);
         }
 
         private static void ShowBufferState(double bufferedSeconds)
         {
-            OnBufferStateChange?.Invoke(_bufferedWaveProvider, bufferedSeconds);
+            OnBufferStateChange?.Invoke(_bufferedWaveProvider, _currentTrack, bufferedSeconds);
         }
 
         private static void OnPlaybackStopped(object sender, StoppedEventArgs e)
@@ -147,9 +149,9 @@ namespace GooglePlayMusic.Desktop.Managers
 
         public static async void PlayTrack(Track track)
         {
-            var streamUrl = await new GetStreamUrl().GetAsync(new StreamUrlGetRequest(SessionManager.MobileClient.Session, track));
+            var streamUrl = await SessionManager.MobileClient.GetStreamUrlAsync(track);
             if(streamUrl == null) return;
-            
+            _currentTrack = track;
             PlayTrack(streamUrl);
         }
 
@@ -161,7 +163,7 @@ namespace GooglePlayMusic.Desktop.Managers
                 _bufferedWaveProvider = null;
                 ThreadPool.QueueUserWorkItem(StreamMp3, streamUrl);
                 TrackTimeSpan = new TimeSpan();
-                _timer.Start();
+                Timer.Start();
             }
             else if (PlaybackState == StreamingPlaybackState.Paused)
             {
@@ -169,10 +171,8 @@ namespace GooglePlayMusic.Desktop.Managers
             }
         }
 
-        public static void SetState(NAudio.Wave.PlaybackState state)
+        public static void SetState(PlaybackState state)
         {
-            if(PlaybackState == StreamingPlaybackState.Stopped)
-                throw new InvalidOperationException("No Track Playing");
 
             if (state == NAudio.Wave.PlaybackState.Playing && PlaybackState == StreamingPlaybackState.Paused)
             {
@@ -283,7 +283,7 @@ namespace GooglePlayMusic.Desktop.Managers
         }
     }
 
-    public delegate void OnPlaybackStateChangeHandler(BufferedWaveProvider sender, PlaybackManager.StreamingPlaybackState state);
+    public delegate void OnPlaybackStateChangeHandler(BufferedWaveProvider sender, Track track, PlaybackManager.StreamingPlaybackState state);
 
-    public delegate void OnBufferStateChangeHandler(BufferedWaveProvider sender, double totalSecconds);
+    public delegate void OnBufferStateChangeHandler(BufferedWaveProvider sender, Track track, double totalSecconds);
 }

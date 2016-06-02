@@ -18,6 +18,7 @@ namespace GoogleMusicApi.Sessions
         public string LastName { get; protected set; }
 
         public abstract Task<bool> LoginAsync();
+        public abstract Task<bool> LoginAsync(string masterToken);
 
         public abstract void ResetHeaders();
     }

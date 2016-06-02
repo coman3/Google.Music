@@ -45,7 +45,9 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            
+            <DataGrid AutoGenerateColumns="True" x:Name="DataGrid">
+                
+            </DataGrid>
         </Grid>
     </Grid>
 </Page>

@@ -28,25 +28,12 @@ namespace GooglePlayMusic.Desktop.Pages
             await LoadListenNowSituations();
             await LoadListenNowData();
 
-            var streamRequest = await new ListPromotedTracks().GetAsync(new ResultListRequest(SessionManager.MobileClient.Session));
-            foreach (var track in streamRequest.Data.Items)
-            {
-                var url = await new GetStreamUrl().GetAsync(new StreamUrlGetRequest(SessionManager.MobileClient.Session, track));
-                TrackManager.CurrentTrack = track;
-                PlaybackManager.PlayTrack(url);
-                break;
-            }
-
-            LoadingOverlay.Visibility = Visibility.Visible;
-            LoadingOverlay.SetSolid();
-
             LoadingOverlay.Visibility = Visibility.Hidden;
         }
 
         private async Task LoadListenNowSituations()
         {
-            var data = await
-                new ListListenNowSituations().GetAsync(new ListListenNowSituationsRequest(SessionManager.MobileClient.Session));
+            var data = await SessionManager.MobileClient.ListListenNowSituationsAsync();
             if (data == null) return;
             SessionManager.ListenNowSituationResponse = data;
             SituationTitle.Text = data.PrimaryHeader;
@@ -54,12 +41,12 @@ namespace GooglePlayMusic.Desktop.Pages
             foreach (var situation in data.Situations)
             {
                 var card = new Card(new BitmapImage(new Uri(situation.ImageUrl)),
-                    situation.Title, situation.Description)
+                    situation.Title, "")
                 {
-                    Width = 250,
+                    Width = 175,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Top,
-                    MinWidth = 225
+                    CardSectionHeight = new GridLength(0, GridUnitType.Auto)
                 };
                 ListenNowSituationPanel.Children.Add(card);
             }
@@ -68,7 +55,7 @@ namespace GooglePlayMusic.Desktop.Pages
 
         private async Task LoadListenNowData()
         {
-            var data = await new ListListenNowTracks().GetAsync(new GetRequest(SessionManager.MobileClient.Session));
+            var data = await SessionManager.MobileClient.ListListenNowTracksAsync();
             SessionManager.ListenNowTracksResponse = data;
             if (data == null) return;
             foreach (var item in data.Items)

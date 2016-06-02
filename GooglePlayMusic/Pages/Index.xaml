@@ -37,6 +37,9 @@
                     </StackPanel.Resources>
                 </StackPanel>
             </ScrollViewer>
+            <Border Margin="10">
+                <TextBlock  Style="{StaticResource MaterialDesignHeadlineTextBlock}" Margin="0 4 0 0">Recommended for you</TextBlock>
+            </Border>
             <Border Padding="10, 0">
                 <WrapPanel Orientation="Horizontal" x:Name="ListenNowWrapPanel">
                     <WrapPanel.Resources>

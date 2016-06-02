@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -26,6 +27,11 @@ namespace GooglePlayMusic.Desktop.Common
             get { return DescriptionLabel.Text; }
             set { DescriptionLabel.Text = value; }
         }
+        public GridLength CardSectionHeight
+        {
+            get { return CardBlockDefinition.Height; }
+            set { CardBlockDefinition.Height = value; }
+        }
 
 
         public Card() : this(null, "{Binding}", "{Binding}")
@@ -38,6 +44,7 @@ namespace GooglePlayMusic.Desktop.Common
             Image = image;
             Header = title;
             Description = description;
+            
         }
 
         private void ImageContainer_OnMouseDown(object sender, MouseButtonEventArgs e)

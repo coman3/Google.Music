@@ -18,14 +18,6 @@ namespace GoogleMusicApi.Common
         public TSession Session { get; set; }
 
         /// <summary>
-        /// The Current Authorization Token being used.
-        /// </summary>
-        /// <remarks>
-        /// This is also found within the <see cref="Session"/> but is contained here for ease of access.
-        /// </remarks>
-        public virtual string AuthorizationToken => Session.AuthorizationToken;
-
-        /// <summary>
         /// Login to Google Play Music with the specified email and password.
         /// </summary>
         /// <param name="email">The Email / Username of the google account</param>

@@ -110,6 +110,7 @@
     <Compile Include="Pages\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Utilities\ReadFullyStream.cs" />
     <Compile Include="Managers\PlaybackManager.cs" />
     <Compile Include="Managers\TrackManager.cs" />

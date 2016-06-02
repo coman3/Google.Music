@@ -194,8 +194,8 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.ColumnSpan="3">
-                        <ProgressBar BorderThickness="0" Value="10" Background="Transparent" Opacity="0.15" Foreground="Black" x:Name="TrackBufferProgressBar"/>
-                        <ProgressBar BorderThickness="0" Value="5" Background="Transparent" x:Name="TrackProgressBar"/>
+                        <ProgressBar BorderThickness="0" Value="0" Background="Transparent" Opacity="0.15" Foreground="Black" x:Name="TrackBufferProgressBar"/>
+                        <ProgressBar BorderThickness="0" Value="0" Background="Transparent" x:Name="TrackProgressBar"/>
                         
                     </Grid>
                     <StackPanel HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
