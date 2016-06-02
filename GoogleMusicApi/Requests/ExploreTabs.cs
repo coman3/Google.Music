@@ -30,6 +30,9 @@ namespace GoogleMusicApi.Requests
         [JsonProperty("groups")]
         public EntityGroup[] EntityGroups { get; set; }
 
+        [JsonProperty("data_status")]
+        public string DataStatus { get; set; }
+
 
 
     }
