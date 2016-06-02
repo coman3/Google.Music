@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace GooglePlayMusic.Desktop.Utilities
+namespace GoogleMusicApi.Playback
 {
     public class ReadFullyStream : Stream
     {

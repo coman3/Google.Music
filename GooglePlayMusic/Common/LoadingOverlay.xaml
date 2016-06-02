@@ -4,22 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:GooglePlayMusic.Desktop.Common"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!-- you only need bring this resource in if you want to specify the circular style statically -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.ProgressBar.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid Background="#CC000000" x:Name="Grid">
-        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" 
-                     x:Name="DeterminateCircularProgress"
-                     Value="0"
-                     IsIndeterminate="True"
-                     Width="64"
-                     Height="64"
-                     VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12 12 12 12" />
+        <controls:ProgressRing VerticalAlignment="Center" HorizontalAlignment="Stretch" Foreground="{DynamicResource HighlightBrush}"  Margin="12 12 12 12" />
     </Grid>
 </UserControl>

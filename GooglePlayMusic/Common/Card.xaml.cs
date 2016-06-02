@@ -1,55 +1,45 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace GooglePlayMusic.Desktop.Common
 {
-
     /// <summary>
     /// Interaction logic for Card.xaml
     /// </summary>
     public partial class Card : UserControl
     {
-        public ImageSource Image
+
+        public ImageSource ImageSource
         {
-            get { return ImageContainer.Source; }
-            set { ImageContainer.Source = value; }
+            get { return Image.Source; }
+            set { Image.Source = value; }
         }
 
-        public string Header
+        public string HeadingText
         {
-            get { return HeaderLabel.Text; }
-            set { HeaderLabel.Text = value; }
+            get { return Heading.Text; }
+            set { Heading.Text = value; }
         }
-        public string Description
+        public string DescriptionText
         {
-            get { return DescriptionLabel.Text; }
-            set { DescriptionLabel.Text = value; }
+            get { return Description.Text; }
+            set { Description.Text = value; }
         }
-        public GridLength CardSectionHeight
-        {
-            get { return CardBlockDefinition.Height; }
-            set { CardBlockDefinition.Height = value; }
-        }
-
-
-        public Card() : this(null, "{Binding}", "{Binding}")
-        {
-        }
-
-        public Card(ImageSource image, string title, string description)
+        public Card()
         {
             InitializeComponent();
-            Image = image;
-            Header = title;
-            Description = description;
-            
-        }
-
-        private void ImageContainer_OnMouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
         }
     }
 }

@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NAudio, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.7.3\lib\net35\NAudio.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -58,6 +62,8 @@
     <Compile Include="Authentication\UserDetails.cs" />
     <Compile Include="Common\Client.cs" />
     <Compile Include="Common\MobileClient.cs" />
+    <Compile Include="Playback\PlaybackManager.cs" />
+    <Compile Include="Playback\ReadFullyStream.cs" />
     <Compile Include="RequestMethod.cs" />
     <Compile Include="Requests\Data\RecordRealTimeRequest.cs" />
     <Compile Include="Requests\Data\RecordRealTimeResponse.cs" />

@@ -3,39 +3,42 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GooglePlayMusic.Desktop.Pages"
       xmlns:common="clr-namespace:GooglePlayMusic.Desktop.Common"
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-      Background="{DynamicResource MaterialDesignPaper}"
-      FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+      xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="576.991" d:DesignWidth="697.278"
       Title="Login">
-
     <Grid>
-        <Border Padding="10px" Margin="20px" MaxWidth="250px" MaxHeight="350" CornerRadius="2" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="1">
-            <Grid HorizontalAlignment="Center">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <Image Source="/Content/login_background.png" Stretch="UniformToFill" Grid.Row="1" Opacity="0.8">
+                <Image.Effect>
+                    <BlurEffect RenderingBias="Performance" Radius="5"></BlurEffect>
+                </Image.Effect>
+            </Image>
+            <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="21*"/>
-                    <ColumnDefinition Width="179*"/>
+                    <ColumnDefinition Width="37*"/>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="37*"/>
                 </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="200px"/>
-                    <RowDefinition Height="32px"/>
-                    <RowDefinition Height="32px"/>
-                    <RowDefinition Height="2*"/>
-                    <RowDefinition Height="40px"/>
-                </Grid.RowDefinitions>
-                <Image Source="{StaticResource GoogleMusicLogo}" Grid.ColumnSpan="2" ></Image>
-                <materialDesign:PackIcon Kind="Account"  Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="" x:Name="TextBoxUsername" common:HintAssist.Hint="Floating Hint"></TextBox>
-                <materialDesign:PackIcon Kind="Key"  Grid.Row="2" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Stretch"/>
-                <PasswordBox Grid.Row="2" Grid.Column="1" Password="" x:Name="TextBoxPassword"></PasswordBox>
-                <Button x:Name="ButtonLogin" Grid.Row="4" Grid.Column="0" Click="ButtonLogin_Click" Grid.ColumnSpan="2" Margin="0,4" Height="Auto">Login</Button>
+                <StackPanel Grid.Column="1">
+                    <Image Source="/Content/googlePlayMusicLogo.png" MaxWidth="200"></Image>
+                    <Separator Height="50" Visibility="Hidden"></Separator>
+                    <TextBlock Height="20" Foreground="White" Margin="0, 10">Email</TextBlock>
+                    <TextBox x:Name="UsernameTextBox" metro:TextBoxHelper.Watermark="Email"></TextBox>
+                    <TextBlock Height="20" Foreground="White" Margin="0, 10">Password</TextBlock>
+                    <PasswordBox x:Name="PasswordTextBox" metro:TextBoxHelper.Watermark="Password"></PasswordBox>
+                    <Separator Height="50" Visibility="Hidden"></Separator>
+                    <Button Width="75" Height="40" Background="{DynamicResource HighlightBrush}" Click="Login_Click">Sign In</Button>
+                </StackPanel>
             </Grid>
-        </Border>
-        <common:LoadingOverlay x:Name="LoadingOverlay" Visibility="Hidden"></common:LoadingOverlay>
+
+        </Grid>
+        <common:LoadingOverlay x:Name="LoadingOverlay" Visibility="Hidden" Grid.RowSpan="2"></common:LoadingOverlay>
     </Grid>
 </Page>
 

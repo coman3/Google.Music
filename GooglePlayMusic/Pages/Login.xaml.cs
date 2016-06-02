@@ -19,48 +19,60 @@ namespace GooglePlayMusic.Desktop.Pages
         public Login()
         {
             InitializeComponent();
-            this.Loaded += Login_Loaded;
+            MainWindow.HideNavs();
+
+            if (string.IsNullOrWhiteSpace(Settings.Default.UserEmail) || string.IsNullOrWhiteSpace(Settings.Default.UserMasterToken)) return;
+            LoadingOverlay.Visibility = Visibility.Visible;
+            Loaded += Login_Loaded;
+
         }
 
         private async void Login_Loaded(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(Settings.Default.UserMasterToken) && !string.IsNullOrEmpty(Settings.Default.UserEmail))
-            {
-                LoadingOverlay.Visibility = Visibility.Visible;
-                SessionManager.MobileClient = new MobileClient();
-
-                if (await SessionManager.MobileClient.LoginWithToken(Settings.Default.UserEmail, StringCipher.Decrypt(Settings.Default.UserMasterToken, GoogleAuth.GetPcMacAddress())))
-                {
-                    FinishLogin();
-                    return;
-                }
-                LoadingOverlay.Visibility = Visibility.Hidden;
-            }
-        }
-
-        private async void ButtonLogin_Click(object sender, RoutedEventArgs e)
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
             SessionManager.MobileClient = new MobileClient();
 
-            if (await SessionManager.MobileClient.LoginAsync(TextBoxUsername.Text, TextBoxPassword.Password))
+            if (await SessionManager.MobileClient.LoginWithToken(Settings.Default.UserEmail,
+                        StringCipher.Decrypt(Settings.Default.UserMasterToken, GoogleAuth.GetPcMacAddress())))
             {
-                Settings.Default.UserEmail = SessionManager.MobileClient.Session.UserDetails.Email;
-                Settings.Default.UserMasterToken = StringCipher.Encrypt(SessionManager.MobileClient.Session.MasterToken, GoogleAuth.GetPcMacAddress());
-                Settings.Default.Save();
                 FinishLogin();
             }
             else
             {
                 LoadingOverlay.Visibility = Visibility.Hidden;
-                MessageBox.Show("Login Failed!");
+            }
+            
+        }
 
+        private async void Login_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(UsernameTextBox.Text)) return;
+            if (string.IsNullOrWhiteSpace(PasswordTextBox.Password)) return;
+
+            LoadingOverlay.Visibility = Visibility.Visible;
+            SessionManager.MobileClient = new MobileClient();
+
+            if (await SessionManager.MobileClient.LoginAsync(UsernameTextBox.Text, PasswordTextBox.Password))
+            {
+                Settings.Default.UserEmail = UsernameTextBox.Text;
+                Settings.Default.UserMasterToken = StringCipher.Encrypt(PasswordTextBox.Password,
+                    GoogleAuth.GetPcMacAddress());
+                Settings.Default.Save();
+                FinishLogin();
+            }
+            else
+            {
+                MessageBox.Show(
+                    "Incorrect Username or Password!\nPlease make sure 2 factor authentication is disabled, or you are using an application password.",
+                    "Login Failed!");
+                LoadingOverlay.Visibility = Visibility.Hidden;
             }
         }
 
         private void FinishLogin()
         {
-            WindowManager.NavigateToPage(new Uri("/Pages/Index.xaml", UriKind.Relative));
+            MainWindow.ShowNavs();
+            MainWindow.Navigate("/Pages/ListenNow.xaml", false);
+            
             LoadingOverlay.Visibility = Visibility.Hidden;
         }
     }

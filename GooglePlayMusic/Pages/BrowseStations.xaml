@@ -1,12 +1,14 @@
-﻿<Page x:Class="GooglePlayMusic.Desktop.Pages.Queue.Standard"
+﻿<Page x:Class="GooglePlayMusic.Desktop.Pages.BrowseStations"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GooglePlayMusic.Desktop.Pages.Queue"
+      xmlns:local="clr-namespace:GooglePlayMusic.Desktop.Pages"
       mc:Ignorable="d" 
-      TextElement.Foreground="White"
-      d:DesignHeight="300" d:DesignWidth="500"
-      Title="Standard">
-   
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="BrowseStations">
+
+    <Grid>
+        
+    </Grid>
 </Page>

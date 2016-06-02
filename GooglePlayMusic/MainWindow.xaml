@@ -1,253 +1,101 @@
-﻿<Window x:Class="GooglePlayMusic.Desktop.MainWindow"
+﻿<metro:MetroWindow x:Class="GooglePlayMusic.Desktop.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GooglePlayMusic.Desktop.Common"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:metro="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
-        xmlns:controlzEx="clr-namespace:ControlzEx;assembly=MaterialDesignThemes.Wpf"
         Icon="{StaticResource GoogleMusicLogo}"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        mc:Ignorable="d"
-        x:Name="Window"
-        MinWidth="600"
-        MinHeight="600"                   
-        Title="Google Play Music" Height="768" Width="1024">
-    <Window.Resources>
+        MinWidth="600" MinHeight="600"                   
+        Title="Google Play Music" 
+        Height="768" Width="1024">
+    <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <Style TargetType="{x:Type materialDesign:PopupBox}" x:Key="MaterialDesignPopupBoxNoPadding">
-                        <Setter Property="ToggleContent" Value="{StaticResource MaterialDesignPopupBoxToggleContent}" />
-                        <Setter Property="HorizontalAlignment" Value="Left" />
-                        <Setter Property="materialDesign:ShadowAssist.ShadowDepth" Value="Depth3" />
-                        <Setter Property="TextElement.FontWeight" Value="Normal" />
-                        <Setter Property="Padding" Value="0" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type materialDesign:PopupBox}">
-                                    <ControlTemplate.Resources>
-                                        <Style TargetType="ToggleButton" x:Key="ToggleButtonStyle">
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="ToggleButton">
-                                                        <materialDesign:Ripple Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" Focusable="False"                                                          
-                                                    ClipToBounds="False"
-                                                    materialDesign:RippleAssist.IsCentered="True"
-                                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                    Padding="{TemplateBinding Padding}" 
-                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </ControlTemplate.Resources>
-                                    <Grid>
-                                        <ToggleButton x:Name="PART_Toggle" Style="{StaticResource ToggleButtonStyle}" IsChecked="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPopupOpen, Mode=TwoWay}"
-                                      Content="{TemplateBinding ToggleContent}" ContentTemplate="{TemplateBinding ToggleContentTemplate}"
-                                      Cursor="Hand"
-                                      VerticalAlignment="Center"
-                                      />
-                                        <controlzEx:PopupEx x:Name="PART_Popup" IsOpen="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsPopupOpen, Mode=TwoWay}"
-                                            CustomPopupPlacementCallback="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=PopupPlacementMethod}"                                            
-                                            HorizontalOffset="5"
-                                            VerticalOffset="5"
-                                            PlacementTarget="{Binding ElementName=PART_Toggle}"
-                                            Placement="Custom"
-                                            PopupAnimation="Fade"
-                                            AllowsTransparency="True">
-                                            <materialDesign:Card Content="{TemplateBinding PopupContent}" ContentTemplate="{TemplateBinding PopupContentTemplate}"
-                                      Foreground="{DynamicResource MaterialDesignBody}"
-                                      FontSize="15"
-                                      FontWeight="Regular"
-                                      Padding="{TemplateBinding Padding}"
-                                      RenderOptions.ClearTypeHint="Enabled"                                      
-                                      Margin="5">
-                                                <materialDesign:Card.Resources>
-                                                    <Style TargetType="{x:Type Button}">
-                                                        <Setter Property="VerticalContentAlignment" Value="Bottom" />
-                                                        <Setter Property="HorizontalContentAlignment" Value="Left" />
-                                                        <Setter Property="Padding" Value="16 0 16 16" />
-                                                        <Setter Property="Foreground" Value="{DynamicResource MaterialDesignBody}" />
-                                                        <Setter Property="Template">
-                                                            <Setter.Value>
-                                                                <ControlTemplate TargetType="{x:Type Button}">
-                                                                    <Grid>
-                                                                        <VisualStateManager.VisualStateGroups>
-                                                                            <VisualStateGroup Name="CommonStates">
-                                                                                <VisualStateGroup.Transitions>
-                                                                                    <VisualTransition GeneratedDuration="0:0:0.3" To="Normal">
-                                                                                        <VisualTransition.GeneratedEasingFunction>
-                                                                                            <CircleEase EasingMode="EaseOut"/>
-                                                                                        </VisualTransition.GeneratedEasingFunction>
-                                                                                    </VisualTransition>
-                                                                                </VisualStateGroup.Transitions>
-                                                                                <VisualState Name="Normal"/>
-                                                                                <VisualState Name="MouseOver">
-                                                                                    <Storyboard>
-                                                                                        <DoubleAnimation Storyboard.TargetName="MouseOverBorder" Storyboard.TargetProperty="Opacity"
-                                                                                         To="0.1" Duration="0"/>
-                                                                                    </Storyboard>
-                                                                                </VisualState>
-                                                                                <VisualState Name="Disabled"/>
-                                                                            </VisualStateGroup>
-                                                                        </VisualStateManager.VisualStateGroups>
-                                                                        <Border x:Name="MouseOverBorder"
-                                                                Opacity="0"
-                                                                Background="{TemplateBinding Foreground, Converter={StaticResource BrushRoundConverter}}"/>
-                                                                        <materialDesign:Ripple Feedback="{TemplateBinding Foreground, Converter={StaticResource BrushRoundConverter}}"
-                                                                    Focusable="False"
-                                                                    MinHeight="48"
-                                                                    Content="{TemplateBinding Content}"
-                                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                                    ContentTemplateSelector="{TemplateBinding ContentTemplateSelector}"
-                                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"                                                                
-                                                                    Padding="{TemplateBinding Padding}"/>
-                                                                    </Grid>
-                                                                </ControlTemplate>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Style>
-                                                </materialDesign:Card.Resources>
-                                            </materialDesign:Card>
-                                        </controlzEx:PopupEx>
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ResourceDictionary>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
-    <materialDesign:DialogHost Identifier="RootDialog">
-        <materialDesign:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-            <materialDesign:DrawerHost.LeftDrawerContent>
-                <DockPanel MinWidth="212">
-                    <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
-                                  DockPanel.Dock="Top"
-                                  HorizontalAlignment="Right" Margin="16"
-                                  IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                </DockPanel>
-            </materialDesign:DrawerHost.LeftDrawerContent>
+    </metro:MetroWindow.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180px" x:Name="LeftNavColumn"/>
+            <ColumnDefinition Width="221*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60px" x:Name="TopNavRow"/>
+            <RowDefinition Height="677*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Grid.Column="0"  Grid.ColumnSpan="2" Background="{DynamicResource HighlightBrush}">
+            <Button Width="32" Height="32" Style="{DynamicResource MetroCircleButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="TopNav_Back_Click"  Cursor="Hand" BorderBrush="White">
+                <Rectangle Width="6" Height="8" Margin="10" >
+                    <Rectangle.Fill>
+                        <VisualBrush Visual="{DynamicResource appbar_chevron_left}"></VisualBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+            </Button>
+            <TextBox Margin="5" VerticalAlignment="Center" HorizontalAlignment="Right" MinWidth="250" KeyDown="TopNav_Search_KeyDown" metro:TextBoxHelper.Watermark="Search"></TextBox>
+            <Menu VerticalAlignment="Top" HorizontalAlignment="Left" Background="{DynamicResource HighlightBrush}">
+                <MenuItem Header="File" Background="{DynamicResource HighlightBrush}">
+                    <MenuItem Header="New Playlist" Click="File_NewPlaylist_Click"/>
+                    <MenuItem Header="Import Playlist">
+                        <MenuItem Header="Window Media Playlist" Click="File_Import_WMP_Click"/>
+                        <MenuItem Header="Itunes" Click="File_Import_Itunes_Click"/>
+                        <MenuItem Header="Spotify" Click="File_Import_Spotify_Click"/>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Playback" Background="{DynamicResource HighlightBrush}">
+                    <MenuItem Header="Play" Click="Playback_Play_Click" />
+                    <MenuItem Header="Pause" Click="Playback_Pause_Click"/>
+                    <MenuItem Header="Next Track" Click="Plaback_NextTrack_Click"/>
+                    <MenuItem Header="Previous Track" Click="Playback_PrevTrack_Click"/>
+                    <Separator />
+                    <MenuItem Header="Shuffle" IsCheckable="True" Checked="Playback_Shuffle_Checked"/>
+                    <MenuItem Header="Repeat" IsCheckable="True" Checked="Playback_Repeat_Checked"/>
+                    <Separator />
+                    <MenuItem Header="Volume Up" Click="Playback_VolumeUp_Click"/>
+                    <MenuItem Header="Volume Down" Click="Playback_VolumeDown_Click"/>
+                </MenuItem>
+                <MenuItem Header="Account" Background="{DynamicResource HighlightBrush}" x:Name="AccountMenuItem">
+                    <MenuItem Header="Add Account" Click="Account_AddAccount_Click"/>
+                    <MenuItem Header="Log Out" Click="Account_Logout_Click"/>
+                    <Separator/>
+                </MenuItem>
+                <MenuItem Header="Help" Background="{DynamicResource HighlightBrush}">
+                    <MenuItem Header="Offical Help" Click="Help_OfficalHelp_Click" />
+                    <MenuItem Header="Application Help" Click="Help_ApplicationHelp_Click"></MenuItem>
+                    <Separator/>
+                    <MenuItem Header="About Application" Click="Help_AboutApplication_Click"/>
+                    <MenuItem Header="Github Project Page" Click="Help_GithubProjectPage_Click"></MenuItem>
+                    <MenuItem Header="Credits">
+                        <MenuItem Header="Lachlan van der Velden (coman3)"></MenuItem>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </Grid>
+        <Border Grid.Column="0" Grid.Row="1" BorderThickness="0,0,1,0" BorderBrush="Black" Background="{DynamicResource GrayBrush10}">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="229*"/>
-                    <RowDefinition Height="100px"/>
-                </Grid.RowDefinitions>
-                <materialDesign:ColorZone Grid.Row="0" Mode="PrimaryMid" Padding="16">
-                    <DockPanel>
-                        <ToggleButton DockPanel.Dock="Left" Style="{DynamicResource MaterialDesignHamburgerToggleButton}"  x:Name="MenuToggleButton" />
-                        <materialDesign:PopupBox VerticalAlignment="Center" 
-                                  DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges">
-                            <StackPanel>
-                                <Button>Settings</Button>
-                                <Button>Logout</Button>
-                            </StackPanel>
-                        </materialDesign:PopupBox>
-                        <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" x:Name="GlobalEmailLabel"></TextBlock>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:ColorZone Mode="Standard" Padding="8 4 8 4" CornerRadius="2" Panel.ZIndex="1"
-                                   Margin="16 0 0 0"
-                                   materialDesign:ShadowAssist.ShadowDepth="Depth1">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Button Style="{DynamicResource MaterialDesignToolButton}">
-                                        <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
-                                    </Button>
-                                    <TextBox Grid.Column="1" Margin="8 0 0 0" local:HintAssist.Hint="Build a search bar" 
-                                     materialDesign:TextFieldAssist.DecorationVisibility="Hidden" BorderThickness="0"
-                                     MinWidth="400" VerticalAlignment="Center" />
-                                </Grid>
-                            </materialDesign:ColorZone>
-                            <Button Style="{DynamicResource MaterialDesignToolForegroundButton}" Margin="8 0 0 0" Panel.ZIndex="0">
-                                <materialDesign:PackIcon Kind="Send" />
-                            </Button>
-                        </StackPanel>
-                    </DockPanel>
-                </materialDesign:ColorZone>
-                <Grid Grid.Row="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Disabled">
-                        <Frame NavigationUIVisibility="Hidden" x:Name="ContentProvider" Source="Pages/Login.xaml"></Frame>
-                    </ScrollViewer>
-                </Grid>
-                <Grid Grid.Row="2" Margin="0,5,0,-5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="8px"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid Grid.ColumnSpan="3">
-                        <ProgressBar BorderThickness="0" Value="0" Background="Transparent" Opacity="0.15" Foreground="Black" x:Name="TrackBufferProgressBar"/>
-                        <ProgressBar BorderThickness="0" Value="0" Background="Transparent" x:Name="TrackProgressBar"/>
-                        
-                    </Grid>
-                    <StackPanel HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1" Orientation="Horizontal">
-                        <Image ToolTip="Current Track Album Art" x:Name="SongImage"></Image>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="10px"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Label Grid.Row="1" FontSize="18px" HorizontalAlignment="Left" x:Name="SongTitleLabel"></Label>
-                            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-                                <Label FontSize="10px" Cursor="Hand" x:Name="SongAlbumLabel"></Label>
-                                <Label FontSize="10px" Cursor="Hand" x:Name="SongArtistLabel"></Label>
-                            </StackPanel>
-                        </Grid>
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Margin="111,0,122,0" Grid.Column="1" Grid.Row="1">
-                        <Button BorderBrush="{DynamicResource MaterialDesignPaper}" Height="32" Width="32" Background="{DynamicResource MaterialDesignPaper}" Foreground="Black" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="Skip Track Back">
-                            <materialDesign:PackIcon Kind="SkipPrevious" Height="24" Width="24" />
-                        </Button>
-                        <ToggleButton Height="60"  Width="60"
-                                Style="{StaticResource MaterialDesignActionToggleButton}"
-                    	        Margin="0,10,8,10" ToolTip="Play / Pause Music" Click="ToggleButton_OnChecked"
-                                x:Name="PlayPauseMusic">
-                            <materialDesign:ToggleButtonAssist.OnContent>
-                                <materialDesign:PackIcon Kind="Pause" Width="32" Height="32" />
-                            </materialDesign:ToggleButtonAssist.OnContent>
-                            <materialDesign:PackIcon Kind="Play" Width="32" Height="32" />
-                        </ToggleButton>
-                        <Button BorderBrush="{DynamicResource MaterialDesignPaper}" Height="32" Width="32" Click="ButtonBase_OnClick" Background="{DynamicResource MaterialDesignPaper}" Foreground="Black" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-                        Margin="0 0 8 0" HorizontalAlignment="Left"
-                        ToolTip="Skip Track">
-                            <materialDesign:PackIcon Kind="SkipNext" Height="24" Width="24" />
-                        </Button>
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal" Grid.Row="1">
-
-                        <materialDesign:PopupBox Margin="30, 0" PlacementMode="TopAndAlignRightEdges" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignPopupBoxNoPadding}">
-                            <materialDesign:PopupBox.ToggleContent>
-                                <materialDesign:PackIcon Kind="PlaylistPlay" Width="24" Height="24" />
-                            </materialDesign:PopupBox.ToggleContent>
-
-                            <Frame  Padding="0, -10, 0, 0" Source="Pages/Queue/Standard.xaml" NavigationUIVisibility="Hidden" 
-                                    Height="{Binding ElementName=Window, Path=PopupQueueHeight}" Width="{Binding ElementName=Window, Path=PopupQueueWidth}"/>
-                        </materialDesign:PopupBox>
-                    </StackPanel>
-                </Grid>
+                <StackPanel x:Name="LeftNavStackPanel">
+                    <TextBlock Foreground="{DynamicResource GrayBrush2}" Margin="10, 5, 5, 5" FontSize="14">BROWSE</TextBlock>
+                    <local:NavItem Heading="Listen Now" IsSelected="True" MouseUp="Browse_ListenNow_MouseUp">
+                        <local:NavItem.IconBrush>
+                            <VisualBrush Visual="{DynamicResource appbar_music}"></VisualBrush>
+                        </local:NavItem.IconBrush>
+                    </local:NavItem>
+                    <local:NavItem Heading="New Releases" MouseUp="Browse_NewReleases_MouseUp">
+                        <local:NavItem.IconBrush>
+                            <VisualBrush Visual="{DynamicResource appbar_new}"></VisualBrush>
+                        </local:NavItem.IconBrush>
+                    </local:NavItem>
+                    <local:NavItem Heading="Browse Stations" MouseUp="Browse_BrowseStations_MouseUp">
+                        <local:NavItem.IconBrush>
+                            <VisualBrush Visual="{DynamicResource appbar_music_wifi}"></VisualBrush>
+                        </local:NavItem.IconBrush>
+                    </local:NavItem>
+                </StackPanel>
             </Grid>
-        </materialDesign:DrawerHost>
-    </materialDesign:DialogHost>
-</Window>
+        </Border>
+        <Frame x:Name="Frame" NavigationUIVisibility="Hidden" Source="Pages/Login.xaml" Grid.Column="1" Grid.Row="1"></Frame>
+    </Grid>
+</metro:MetroWindow>
 

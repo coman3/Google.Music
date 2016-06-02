@@ -1,0 +1,22 @@
+﻿<Page x:Class="GooglePlayMusic.Desktop.Pages.ListenNow"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:common="clr-namespace:GooglePlayMusic.Desktop.Common"
+      mc:Ignorable="d" 
+      d:DesignHeight="371.186" d:DesignWidth="467.161"
+      Title="ListenNow">
+    <Grid>
+        <Border Padding="20">
+            <StackPanel>
+                <TextBlock x:Name="SituationTitle" Foreground="White" FontWeight="SemiBold" FontSize="18" />
+                <TextBlock x:Name="SituationDescription" Foreground="White"/>
+                <Separator Height="20"/>
+                <common:CardList x:Name="SituationCardList"></common:CardList>
+            </StackPanel>
+        </Border>
+        <common:LoadingOverlay x:Name="LoadingOverlay" Visibility="Hidden"></common:LoadingOverlay>
+    </Grid>
+</Page>
+

@@ -13,17 +13,5 @@ namespace GooglePlayMusic.Desktop.Common
         {
             InitializeComponent();
         }
-
-        public void SetSolid()
-        {
-            Grid.Background = Brushes.Black;
-        }
-        public void SetNonSoild()
-        {
-            Grid.Background = new SolidColorBrush(Colors.Black)
-            {
-                Opacity = 80,
-            };
-        }
     }
 }

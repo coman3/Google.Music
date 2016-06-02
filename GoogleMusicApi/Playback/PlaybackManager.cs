@@ -3,28 +3,29 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
-using System.Windows;
-using GoogleMusicApi.Requests;
-using GoogleMusicApi.Requests.Data;
+using GoogleMusicApi.Common;
 using GoogleMusicApi.Structure;
-using GooglePlayMusic.Desktop.Utilities;
 using NAudio.Wave;
 using Timer = System.Timers.Timer;
 
-namespace GooglePlayMusic.Desktop.Managers
+namespace GoogleMusicApi.Playback
 {
     public static class PlaybackManager
     {
         public static volatile StreamingPlaybackState PlaybackState;
         public static TimeSpan TrackTimeSpan { get; set; }
-        public static void ChangePlaybackState(StreamingPlaybackState state)
-        {
-            PlaybackState = state;
-            OnPlaybackStateChange?.Invoke(_bufferedWaveProvider, _currentTrack, state);
-        }
-
         public static VolumeWaveProvider16 VolumeProvider { get; set; }
         public static IWavePlayer WaveOut { get; set; }
+        public static volatile bool FullyDownloaded;
+
+        public static event OnBufferStateChangeHandler OnBufferStateChange;
+        public static event OnPlaybackStateChangeHandler OnPlaybackStateChange;
+        public static event OnPlaybackErrorHandler OnPlaybackError;
+
+        private static HttpWebRequest _webRequest;
+        private static BufferedWaveProvider _bufferedWaveProvider;
+        private static readonly Timer Timer;
+        private static Track _currentTrack;
 
         public enum StreamingPlaybackState
         {
@@ -33,15 +34,7 @@ namespace GooglePlayMusic.Desktop.Managers
             Buffering,
             Paused
         }
-        public static volatile bool FullyDownloaded;
-        public static event OnBufferStateChangeHandler OnBufferStateChange;
-        public static event OnPlaybackStateChangeHandler OnPlaybackStateChange;
 
-
-        private static HttpWebRequest _webRequest;
-        private static BufferedWaveProvider _bufferedWaveProvider;
-        private static readonly Timer Timer;
-        private static Track _currentTrack;
         static PlaybackManager()
         {
             Timer = new Timer(100);
@@ -144,73 +137,27 @@ namespace GooglePlayMusic.Desktop.Managers
 
         private static void OnPlaybackStopped(object sender, StoppedEventArgs e)
         {
-            
+
         }
 
-        public static async void PlayTrack(Track track)
-        {
-            var streamUrl = await SessionManager.MobileClient.GetStreamUrlAsync(track);
-            if(streamUrl == null) return;
-            _currentTrack = track;
-            PlayTrack(streamUrl);
-        }
-
-        public static void PlayTrack(Uri streamUrl)
-        {
-            if (PlaybackState == StreamingPlaybackState.Stopped)
-            {
-                ChangePlaybackState(StreamingPlaybackState.Buffering);
-                _bufferedWaveProvider = null;
-                ThreadPool.QueueUserWorkItem(StreamMp3, streamUrl);
-                TrackTimeSpan = new TimeSpan();
-                Timer.Start();
-            }
-            else if (PlaybackState == StreamingPlaybackState.Paused)
-            {
-                ChangePlaybackState(StreamingPlaybackState.Buffering);
-            }
-        }
-
-        public static void SetState(PlaybackState state)
-        {
-
-            if (state == NAudio.Wave.PlaybackState.Playing && PlaybackState == StreamingPlaybackState.Paused)
-            {
-                WaveOut?.Play();
-                ChangePlaybackState(StreamingPlaybackState.Buffering);
-            }
-            else if (state == NAudio.Wave.PlaybackState.Paused && (PlaybackState == StreamingPlaybackState.Playing))
-            {
-                WaveOut?.Pause();
-                ChangePlaybackState(StreamingPlaybackState.Paused);
-            }
-            else if(state == NAudio.Wave.PlaybackState.Stopped)
-            {
-                StopPlayback();
-            }
-        }
-
-        private static bool IsBufferNearlyFull => _bufferedWaveProvider != null && _bufferedWaveProvider.BufferLength - _bufferedWaveProvider.BufferedBytes < _bufferedWaveProvider.WaveFormat.AverageBytesPerSecond/4;
+        private static bool IsBufferNearlyFull => _bufferedWaveProvider != null && _bufferedWaveProvider.BufferLength - _bufferedWaveProvider.BufferedBytes < _bufferedWaveProvider.WaveFormat.AverageBytesPerSecond / 4;
 
         private static void StreamMp3(object state)
         {
             FullyDownloaded = false;
-            var url = (Uri) state;
-            _webRequest = (HttpWebRequest) WebRequest.Create(url);
+            var url = (Uri)state;
+            _webRequest = (HttpWebRequest)WebRequest.Create(url);
             HttpWebResponse resp;
             try
             {
-                resp = (HttpWebResponse) _webRequest.GetResponse();
+                resp = (HttpWebResponse)_webRequest.GetResponse();
             }
             catch (WebException e)
             {
-                if (e.Status != WebExceptionStatus.RequestCanceled)
-                {
-                    MessageBox.Show(e.Message);
-                }
+                OnPlaybackError?.Invoke(_webRequest, e);
                 return;
             }
-            var buffer = new byte[16384*4]; // needs to be big enough to hold a decompressed frame
+            var buffer = new byte[16384 * 4]; // needs to be big enough to hold a decompressed frame
 
             IMp3FrameDecompressor decompressor = null;
             try
@@ -281,7 +228,74 @@ namespace GooglePlayMusic.Desktop.Managers
             WaveFormat waveFormat = new Mp3WaveFormat(frame.SampleRate, frame.ChannelMode == ChannelMode.Mono ? 1 : 2, frame.FrameLength, frame.BitRate);
             return new AcmMp3FrameDecompressor(waveFormat);
         }
+        private static void SetState(PlaybackState state)
+        {
+
+            if (state == NAudio.Wave.PlaybackState.Playing && PlaybackState == StreamingPlaybackState.Paused)
+            {
+                WaveOut?.Play();
+                ChangePlaybackState(StreamingPlaybackState.Buffering);
+            }
+            else if (state == NAudio.Wave.PlaybackState.Paused && (PlaybackState == StreamingPlaybackState.Playing))
+            {
+                WaveOut?.Pause();
+                ChangePlaybackState(StreamingPlaybackState.Paused);
+            }
+            else if (state == NAudio.Wave.PlaybackState.Stopped)
+            {
+                ChangePlaybackState(StreamingPlaybackState.Stopped);
+            }
+        }
+        private static void ChangePlaybackState(StreamingPlaybackState state)
+        {
+            PlaybackState = state;
+            OnPlaybackStateChange?.Invoke(_bufferedWaveProvider, _currentTrack, state);
+        }
+
+        public static async void PlayTrack(MobileClient client, Track track)
+        {
+            if(track == null || client == null) return;
+            
+            var streamUrl = await client.GetStreamUrlAsync(track);
+            if (streamUrl == null) return;
+            _currentTrack = track;
+            PlayTrack(streamUrl);
+        }
+
+        public static void PlayTrack(Uri streamUrl)
+        {
+            if (PlaybackState == StreamingPlaybackState.Stopped)
+            {
+                ChangePlaybackState(StreamingPlaybackState.Buffering);
+                _bufferedWaveProvider = null;
+                ThreadPool.QueueUserWorkItem(StreamMp3, streamUrl);
+                TrackTimeSpan = new TimeSpan();
+                Timer.Start();
+            }
+            else if (PlaybackState == StreamingPlaybackState.Paused)
+            {
+                ChangePlaybackState(StreamingPlaybackState.Buffering);
+            }
+        }
+
+        public static void SetPlay()
+        {
+            SetState(NAudio.Wave.PlaybackState.Playing);
+        }
+
+        public static void SetPause()
+        {
+            SetState(NAudio.Wave.PlaybackState.Paused);
+        }
+
+        public static void SetStopped()
+        {
+            SetState(NAudio.Wave.PlaybackState.Stopped);
+        }
+
     }
+
+    public delegate void OnPlaybackErrorHandler(object sender, Exception args);
 
     public delegate void OnPlaybackStateChangeHandler(BufferedWaveProvider sender, Track track, PlaybackManager.StreamingPlaybackState state);
 
