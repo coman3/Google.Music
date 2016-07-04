@@ -27,6 +27,7 @@
             <Rectangle x:Name="Rectangle" HorizontalAlignment="Center" VerticalAlignment="Stretch" Height="16" Width="16" Margin="2" Grid.Column="0" Fill="{Binding ElementName=navItem, Path=IconBrush}">
             </Rectangle>
             <TextBlock x:Name="TextBlock" Grid.Column="1" 
+                       FontWeight="Light" FontFamily="Calibri"
                        Margin="10, 0, 0, 0" VerticalAlignment="Center"
                        TextAlignment="Left" Foreground="White" 
                        FontSize="16" Text="{Binding ElementName=navItem, Path=Heading}"/>

@@ -13,6 +13,7 @@
     <metro:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/GoogleIcons.xaml" />
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -76,20 +77,20 @@
         <Border Grid.Column="0" Grid.Row="1" BorderThickness="0,0,1,0" BorderBrush="Black" Background="{DynamicResource GrayBrush10}">
             <Grid>
                 <StackPanel x:Name="LeftNavStackPanel">
-                    <TextBlock Foreground="{DynamicResource GrayBrush2}" Margin="10, 5, 5, 5" FontSize="14">BROWSE</TextBlock>
+                    <TextBlock Foreground="{DynamicResource GrayBrush2}" FontWeight="Light" FontFamily="Calibri" Margin="10, 5, 5, 5" FontSize="14">BROWSE</TextBlock>
                     <local:NavItem Heading="Listen Now" IsSelected="True" MouseUp="Browse_ListenNow_MouseUp">
                         <local:NavItem.IconBrush>
-                            <VisualBrush Visual="{DynamicResource appbar_music}"></VisualBrush>
+                            <VisualBrush Visual="{DynamicResource ListenNow}"></VisualBrush>
                         </local:NavItem.IconBrush>
                     </local:NavItem>
                     <local:NavItem Heading="New Releases" MouseUp="Browse_NewReleases_MouseUp">
                         <local:NavItem.IconBrush>
-                            <VisualBrush Visual="{DynamicResource appbar_new}"></VisualBrush>
+                            <VisualBrush Visual="{DynamicResource NewReleases}"></VisualBrush>
                         </local:NavItem.IconBrush>
                     </local:NavItem>
                     <local:NavItem Heading="Browse Stations" MouseUp="Browse_BrowseStations_MouseUp">
                         <local:NavItem.IconBrush>
-                            <VisualBrush Visual="{DynamicResource appbar_music_wifi}"></VisualBrush>
+                            <VisualBrush Visual="{DynamicResource ThumbsUp}"></VisualBrush>
                         </local:NavItem.IconBrush>
                     </local:NavItem>
                 </StackPanel>
