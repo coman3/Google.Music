@@ -15,9 +15,9 @@ namespace GooglePlayMusic.Desktop.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
-        private static Desktop.Settings defaultInstance = ((Desktop.Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Desktop.Settings())));
+        private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
-        public static Desktop.Settings Default {
+        public static Settings Default {
             get {
                 return defaultInstance;
             }
