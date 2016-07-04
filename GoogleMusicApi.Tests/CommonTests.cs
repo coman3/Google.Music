@@ -114,6 +114,17 @@ namespace GoogleMusicApi.Tests
         }
 
         [TestMethod]
+        public async Task CreateDeletePlaylist()
+        {
+            var account = GetAccount();
+            var mc = new MobileClient();
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
+            Playlist item;
+            Assert.IsNotNull(item = await mc.CreatePlaylist(Guid.NewGuid().ToString(), ""));
+            Assert.IsNotNull(await mc.DetelePlaylist(item));
+        }
+
+        [TestMethod]
         public async Task GetStationfeed()
         {
             var account = GetAccount();
@@ -134,6 +145,7 @@ namespace GoogleMusicApi.Tests
                         }
                     ));
         }
+
         [TestMethod]
         public async Task Login()
         {
