@@ -23,7 +23,7 @@ namespace GoogleMusicApi.Authentication
                                       "RI16kB0YppeGx5qIQ5QjKzsR8ETQbKLNWgRY0QRNVz34kMJR3P/LgHax/" +
                                       "6rmf5AAAAAwEAAQ==";
 
-        private const string version = "2817";
+        private const string version = "3019";
 
         private static readonly RSAParameters androidKey = GoogleKeyUtils.KeyFromB64(b64Key);
 

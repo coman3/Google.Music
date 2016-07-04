@@ -70,6 +70,7 @@
     <Compile Include="Requests\Data\RecordRealTimeResponse.cs" />
     <Compile Include="Requests\Data\EventResult.cs" />
     <Compile Include="Requests\Data\ExploreTabsRequest.cs" />
+    <Compile Include="Requests\Playlists.cs" />
     <Compile Include="Structure\Entity.cs" />
     <Compile Include="Structure\EntityGroup.cs" />
     <Compile Include="Structure\Enums\TabGenre.cs" />

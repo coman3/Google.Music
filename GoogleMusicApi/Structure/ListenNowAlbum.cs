@@ -25,6 +25,11 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonProperty("explicitType")]
+        public Enums.ExplicitType ExplicitType { get; set; }
+
+
     }
 
     [JsonObject]

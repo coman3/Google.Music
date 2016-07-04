@@ -17,7 +17,9 @@ namespace GoogleMusicApi
             Session = session;
             UrlData = new WebRequestHeaders(
                 new WebRequestHeader("alt", "json"),
-                new WebRequestHeader("hl", Locale));
+                new WebRequestHeader("hl", Locale),
+                new WebRequestHeader("dv", "3109"),
+                new WebRequestHeader("tier", "aa"));
             
         }
 

@@ -8,7 +8,7 @@ namespace GoogleMusicApi
 {
     public abstract class StructuredRequest
     {
-        public const string BaseApiUrl = "https://mclients.googleapis.com/sj/v2.4/";
+        public const string BaseApiUrl = "https://mclients.googleapis.com/sj/v2.5/";
         public abstract string RelativeRequestUrl { get; }
     }
 
