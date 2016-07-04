@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.Requests.Data
 {
     public class MutatePlaylistMutation
     {

@@ -2,7 +2,7 @@ using GoogleMusicApi.Structure.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.Requests.Data
 {
     public class MutatePlaylistsResponseMutation
     {

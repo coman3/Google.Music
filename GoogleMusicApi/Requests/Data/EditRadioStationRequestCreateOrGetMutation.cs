@@ -1,6 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using GoogleMusicApi.Structure;
+using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.Requests.Data
 {
     public class EditRadioStationRequestCreateOrGetMutation
     {
