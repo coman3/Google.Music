@@ -34,5 +34,10 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("total_albums")]
         public int TotalAlbums { get; set; }
+
+        public override string ToString()
+        {
+            return string.Join(" ", "Name:", Name);
+        }
     }
 }

@@ -43,5 +43,9 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("year")]
         public int Year { get; set; }
+        public override string ToString()
+        {
+            return string.Join(" ", "Name:", Name, "Artist:", Artist, "Tracks:", Tracks.Length);
+        }
     }
 }

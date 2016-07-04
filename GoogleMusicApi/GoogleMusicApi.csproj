@@ -70,7 +70,11 @@
     <Compile Include="Requests\Data\EventResult.cs" />
     <Compile Include="Requests\ExploreTabs.cs" />
     <Compile Include="Requests\GetAlbum.cs" />
+    <Compile Include="Requests\GetStationFeed.cs" />
+    <Compile Include="Requests\Data\GetStationFeedRequest.cs" />
     <Compile Include="Requests\GetTopChartGenres.cs" />
+    <Compile Include="Structure\StationFeedStation.cs" />
+    <Compile Include="Structure\RadioFeed.cs" />
     <Compile Include="Sessions\MobileSession.cs" />
     <Compile Include="Sessions\Session.cs" />
     <Compile Include="Structure\Event.cs" />

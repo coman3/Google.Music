@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
@@ -92,6 +93,11 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("year")]
         public int Year { get; set; }
+
+        public override string ToString()
+        {
+            return string.Join(" ", "Title:", Title, "Album:", Album, "Genre:", Genre);
+        }
     }
 
     public enum ExplicitType

@@ -3,6 +3,8 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using GoogleMusicApi.Common;
+using GoogleMusicApi.Requests;
+using GoogleMusicApi.Structure;
 
 namespace GoogleMusicApi.Tests
 {
@@ -111,6 +113,27 @@ namespace GoogleMusicApi.Tests
             Assert.IsNotNull(await mc.ListStationCategoriesAsync());
         }
 
+        [TestMethod]
+        public async Task GetStationfeed()
+        {
+            var account = GetAccount();
+            var mc = new MobileClient();
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
+            Assert.IsNotNull(
+                await
+                    mc.GetStationFeed(1,
+                        new StationFeedStation
+                        {
+                            LibraryContentOnly = false,
+                            NumberOfEntries = 25,
+                            RecentlyPlayed = new Track[0],
+                            Seed = new StationSeed
+                            {
+                                SeedType = 6
+                            }
+                        }
+                    ));
+        }
         [TestMethod]
         public async Task Login()
         {

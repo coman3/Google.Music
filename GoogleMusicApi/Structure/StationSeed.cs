@@ -40,7 +40,7 @@ namespace GoogleMusicApi.Structure
         public StationSeed[] Seeds { get; set; }
 
         [JsonProperty("seedType")]
-        public string SeedType { get; set; }
+        public int SeedType { get; set; }
 
         [JsonProperty("trackId")]
         public string TrackId { get; set; }

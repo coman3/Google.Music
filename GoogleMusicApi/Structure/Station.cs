@@ -58,7 +58,9 @@ namespace GoogleMusicApi.Structure
         public bool InLibrary { get; set; }
 
 
-
-
+        public override string ToString()
+        {
+            return string.Join(" ", "Name:", Name);
+        }
     }
 }

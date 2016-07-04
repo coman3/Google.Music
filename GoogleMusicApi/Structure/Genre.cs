@@ -22,5 +22,10 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("parentId")]
         public string ParentId { get; set; }
+
+        public override string ToString()
+        {
+            return string.Join(" ", "Name:", Name);
+        }
     }
 }

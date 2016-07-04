@@ -80,5 +80,10 @@ namespace GoogleMusicApi.Structure
             [EnumMember(Value = "USER_GENERATED")]
             UserGenerated
         }
+
+        public override string ToString()
+        {
+            return string.Join(" ", "Name:", Name);
+        }
     }
 }

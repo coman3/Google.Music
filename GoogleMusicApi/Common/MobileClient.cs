@@ -346,6 +346,19 @@ namespace GoogleMusicApi.Common
             });
             return data;
         }
+        /// <summary>
+        /// Gets a <see cref="RadioFeed"/> for a station specifyed in the <see cref="StationFeedStation"/>
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RadioFeed> GetStationFeed(int contentFilter = 1, params StationFeedStation[] stations)
+        {
+            var request = MakeRequest<GetStationFeed>();
+            var data = await request.GetAsync(new GetStationFeedRequest(Session, stations)
+            {
+                ContentFilter = contentFilter
+            });
+            return data;
+        }
 
         #endregion Gets
 
