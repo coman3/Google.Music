@@ -409,12 +409,12 @@ namespace GoogleMusicApi.Common
                 return null;
             var requestData = new RecordRealTimeRequest(Session)
             {
-                CurrentTimeMillis = (DateTime.UtcNow - DateTime.Now).TotalMilliseconds.ToString("#"),
+                CurrentTimeMillis = Time.GetCurrentTimestamp(),
                 Events = new[]
                 {
                     new Event
                     {
-                        CreatedTimestampMillis = (DateTime.UtcNow - DateTime.Now).TotalMilliseconds.ToString("#"),
+                        CreatedTimestampMillis = Time.GetCurrentTimestamp(),
                         Details = new EventDetail
                         {
                             Rating = new Rating
@@ -432,6 +432,44 @@ namespace GoogleMusicApi.Common
             };
             var request = MakeRequest<RecordRealTime>();
             var data = await request.GetAsync(requestData);
+            return data;
+        }
+
+        public async Task<Playlist> CreatePlaylist(string name, string description, ShareState state = ShareState.Private)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<Playlists>();
+            var data = await request.GetAsync(new PlaylistsRequest(Session)
+            {
+                CreationTimestamp = "-1",
+                Deleted = false,
+                Description = description,
+                LastModifiedTimestamp = Time.GetCurrentTimestamp(),
+                Name = name,
+                ShareState = state,
+                Type = PlaylistType.UserGenerated
+            });
+            return data;
+        }
+
+        public async Task<MutatePlaylistsResponse> DetelePlaylist(params Playlist[] playlists)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<MutatePlaylists>();
+            var data = await request.GetAsync(new MutatePlaylistsRequest(Session)
+            {
+                Mutations = playlists.Select(
+                    x =>
+                        new MutatePlaylistMutation
+                        {
+                            Delete = x.Id
+                        }
+                    ).ToArray(),
+            });
             return data;
         }
 

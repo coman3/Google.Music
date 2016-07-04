@@ -3,6 +3,7 @@ using GoogleMusicApi.Sessions;
 using GoogleMusicApi.Structure;
 using GoogleMusicApi.Structure.Enums;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GoogleMusicApi.Requests
 {
@@ -29,9 +30,11 @@ namespace GoogleMusicApi.Requests
         public string Name { get; set; }
 
         [JsonProperty("shareState")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public ShareState ShareState { get; set; }
 
         [JsonProperty("type")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public PlaylistType Type { get; set; }
 
 
