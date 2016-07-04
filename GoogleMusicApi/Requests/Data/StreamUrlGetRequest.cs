@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using GoogleMusicApi.Structure.Enums;
 
 namespace GoogleMusicApi.Requests.Data
 {

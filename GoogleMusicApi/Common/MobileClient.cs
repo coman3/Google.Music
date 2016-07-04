@@ -11,6 +11,8 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using GoogleMusicApi.Authentication;
 using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure.Enums;
+using Rating = GoogleMusicApi.Structure.Rating;
 
 namespace GoogleMusicApi.Common
 {
@@ -158,7 +160,7 @@ namespace GoogleMusicApi.Common
         /// Each Entry will have two images, one with an aspect ratio of 1 and another with aspect ratio of 2.
         /// Each Entry will contain either a RadioStation or an Album, never both.
         /// </returns>
-        //TODO (Low): Change ListenNowItem Type to Enum
+        //TODO (Low): Change ListenNowItem PlaylistType to Enum
         public async Task<ListListenNowTracksResponse> ListListenNowTracksAsync()
         {
             if (!CheckSession())
@@ -401,7 +403,7 @@ namespace GoogleMusicApi.Common
             return data;
         }
 
-        public async Task<RecordRealTimeResponse> SetTrackRatingAsync(Track track, Rating.RatingEnum rating)
+        public async Task<RecordRealTimeResponse> SetTrackRatingAsync(Track track, Structure.Enums.Rating rating)
         {
             if (!CheckSession())
                 return null;

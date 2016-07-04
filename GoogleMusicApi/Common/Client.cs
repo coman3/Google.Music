@@ -7,7 +7,7 @@ namespace GoogleMusicApi.Common
     /// <summary>
     /// A Client to access Google Play Music
     /// </summary>
-    /// <typeparam name="TSession">The Session Type, such as <see cref="MobileSession"/> (Only One Supported Currently)</typeparam>
+    /// <typeparam name="TSession">The Session PlaylistType, such as <see cref="MobileSession"/> (Only One Supported Currently)</typeparam>
     //TODO (Low): Create Other Types Of Clients
     public abstract class Client<TSession>
         where TSession : Session

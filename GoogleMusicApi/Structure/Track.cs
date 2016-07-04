@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using GoogleMusicApi.Structure.Enums;
 using Newtonsoft.Json.Converters;
 
 namespace GoogleMusicApi.Structure
@@ -98,11 +98,5 @@ namespace GoogleMusicApi.Structure
         {
             return string.Join(" ", "Title:", Title, "Album:", Album, "Genre:", Genre);
         }
-    }
-
-    public enum ExplicitType
-    {
-        [EnumMember(Value = "1")] Explicit = 1,
-        [EnumMember(Value = "2")] NonExplicit = 2
     }
 }

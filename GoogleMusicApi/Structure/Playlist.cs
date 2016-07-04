@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using GoogleMusicApi.Structure.Enums;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System.Runtime.Serialization;
 
 namespace GoogleMusicApi.Structure
 {
@@ -51,35 +51,14 @@ namespace GoogleMusicApi.Structure
 
         [JsonProperty("shareState")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public ShareStateValue ShareState { get; set; }
+        public ShareState ShareState { get; set; }
 
         [JsonProperty("shareToken")]
         public string ShareToken { get; set; }
 
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public TypeValue Type { get; set; }
-
-        public enum ShareStateValue
-        {
-            [EnumMember(Value = "PRIVATE")]
-            Private,
-
-            [EnumMember(Value = "PUBLIC")]
-            Public
-        }
-
-        public enum TypeValue
-        {
-            [EnumMember(Value = "MAGIC")]
-            Magic,
-
-            [EnumMember(Value = "SHARED")]
-            Shared,
-
-            [EnumMember(Value = "USER_GENERATED")]
-            UserGenerated
-        }
+        public PlaylistType PlaylistType { get; set; }
 
         public override string ToString()
         {
