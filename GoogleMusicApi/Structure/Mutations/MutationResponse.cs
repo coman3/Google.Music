@@ -8,7 +8,7 @@ namespace GoogleMusicApi.Structure.Mutations
     {
         [JsonProperty("id")]
         public string Id { get; set; }
-        [JsonProperty("clientId")]
+        [JsonProperty("client_Id")]
         public string ClientId { get; set; }
 
         [JsonProperty("response_code")]

@@ -15,7 +15,7 @@ namespace GoogleMusicApi.Structure
         public bool BestResult { get; set; }
 
         [JsonProperty("navigational_confidence")]
-        public int NavigationalConfidence { get; set; }
+        public float NavigationalConfidence { get; set; }
 
         [JsonProperty("navigational_result")]
         public bool NavigationalResult { get; set; }
