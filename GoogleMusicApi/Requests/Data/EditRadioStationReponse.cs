@@ -1,4 +1,5 @@
 ﻿using GoogleMusicApi.Structure;
+using GoogleMusicApi.Structure.Mutations;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi.Requests.Data

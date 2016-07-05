@@ -1,12 +1,12 @@
-﻿using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.Requests.Data;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.Structure.Mutations
 {
-    public class EditRadioStationRequestMutation
+    public class EditRadioStationMutate
     {
         [JsonProperty("createOrGet")]
-        public EditRadioStationRequestCreateOrGetMutation CreateOrGet { get; set; }
+        public CreateOrGetMutation CreateOrGet { get; set; }
 
         [JsonProperty("includeFeed")]
         public bool IncludeFeed { get; set; }
@@ -17,6 +17,14 @@ namespace GoogleMusicApi.Requests.Data
         [JsonProperty("params")]
         public EditRadioStationRequestParameters Parameters { get; set; }
 
+        [JsonProperty("tracks")]
         public Track[] Tracks { get; set; }
+
+        public class EditRadioStationRequestParameters
+        {
+            [JsonProperty("contentFilter")]
+            public int ContentFilter { get; set; }
+        }
+
     }
 }

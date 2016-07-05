@@ -1,5 +1,6 @@
 ﻿using GoogleMusicApi.Sessions;
 using GoogleMusicApi.Structure;
+using GoogleMusicApi.Structure.Mutations;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi.Requests.Data
@@ -8,9 +9,9 @@ namespace GoogleMusicApi.Requests.Data
     public class EditRadioStationRequest : PostRequest
     {
         [JsonProperty("mutations")]
-        public EditRadioStationRequestMutation[] Mutations { get; set; }
+        public EditRadioStationMutate[] Mutations { get; set; }
 
-        public EditRadioStationRequest(Session session, params EditRadioStationRequestMutation[] mutations)
+        public EditRadioStationRequest(Session session, params EditRadioStationMutate[] mutations)
                     : base(session)
         {
             Mutations = mutations;

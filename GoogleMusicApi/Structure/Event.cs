@@ -25,7 +25,7 @@ namespace GoogleMusicApi.Structure
 
     public class MetaJamEventData
     {
-        [JsonProperty("metajamComapctKey")]
+        [JsonProperty("metajamCompactKey")]
         public string MetajamComapctKey { get; set; }
     }
 }

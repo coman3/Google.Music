@@ -7,7 +7,7 @@ namespace GoogleMusicApi.Structure.Enums
         [EnumMember(Value = "FIVE_STARS")]
         FiveStars,
 
-        [EnumMember(Value = "NO_RATING")]
+        [EnumMember(Value = "NOT_RATED")]
         NoRating,
 
         [EnumMember(Value = "ONE_STAR")]

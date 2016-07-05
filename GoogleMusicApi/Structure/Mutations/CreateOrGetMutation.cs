@@ -1,24 +1,17 @@
-﻿using GoogleMusicApi.Structure;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.Structure.Mutations
 {
-    public class EditRadioStationRequestCreateOrGetMutation
+    public class CreateOrGetMutation : Mutation
     {
         [JsonProperty("clientId")]
         public string ClientId { get; set; }
-
-        [JsonProperty("deleted")]
-        public bool Deleted { get; set; }
 
         [JsonProperty("imageType")]
         public int ImageType { get; set; }
 
         [JsonProperty("inLibary")]
         public bool InLibary { get; set; }
-
-        [JsonProperty("lastModifiedTimestamp")]
-        public string LastModifiedTimestamp { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }

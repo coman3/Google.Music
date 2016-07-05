@@ -7,8 +7,8 @@ namespace GoogleMusicApi.Requests.Data
     [JsonObject(MemberSerialization.OptIn)]
     public class RecordRealTimeRequest : PostRequest
     {
-        [JsonProperty("currentTimeMillis")]
-        public string CurrentTimeMillis { get; set; }
+        [JsonProperty("clientTimeMillis")]
+        public string ClientTimeMillis { get; set; }
 
         [JsonProperty("events")]
         public Event[] Events { get; set; }

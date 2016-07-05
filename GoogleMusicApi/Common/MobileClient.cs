@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using GoogleMusicApi.Authentication;
 using GoogleMusicApi.Sessions;
 using GoogleMusicApi.Structure.Enums;
+using GoogleMusicApi.Structure.Mutations;
 using Rating = GoogleMusicApi.Structure.Rating;
 
 namespace GoogleMusicApi.Common
@@ -352,7 +353,7 @@ namespace GoogleMusicApi.Common
         /// Gets a <see cref="RadioFeed"/> for a station specifyed in the <see cref="StationFeedStation"/>
         /// </summary>
         /// <returns></returns>
-        public async Task<RadioFeed> GetStationFeed(int contentFilter = 1, params StationFeedStation[] stations)
+        public async Task<RadioFeed> GetStationFeed(ExplicitType contentFilter = ExplicitType.Explicit, params StationFeedStation[] stations)
         {
             var request = MakeRequest<GetStationFeed>();
             var data = await request.GetAsync(new GetStationFeedRequest(Session, stations)
@@ -384,7 +385,7 @@ namespace GoogleMusicApi.Common
         }
 
         /// <summary>
-        /// Sends a request to Create Or Get (<see cref="EditRadioStationRequestCreateOrGetMutation"/>) tracks from a <see cref="StationSeed"/>.
+        /// Sends a request to Create Or Get (<see cref="CreateOrGetMutation"/>) tracks from a <see cref="StationSeed"/>.
         ///
         /// This Is still very experimental, and not guaranteed to work.
         /// </summary>
@@ -393,45 +394,13 @@ namespace GoogleMusicApi.Common
         /// Data associated (<see cref="EditRadioStationReponse"/>) to the mutations you executed.
         /// </returns>
         //TODO (Medium): Check What other Mutations are possible.
-        public async Task<EditRadioStationReponse> EditRadioStationAsync(params EditRadioStationRequestMutation[] requestData)
+        public async Task<EditRadioStationReponse> EditRadioStationAsync(params EditRadioStationMutate[] requestData)
         {
             if (!CheckSession())
                 return null;
 
             var request = MakeRequest<EditRadioStation>();
             var data = await request.GetAsync(new EditRadioStationRequest(Session, requestData));
-            return data;
-        }
-
-        public async Task<RecordRealTimeResponse> SetTrackRatingAsync(Track track, Structure.Enums.Rating rating)
-        {
-            if (!CheckSession())
-                return null;
-            var requestData = new RecordRealTimeRequest(Session)
-            {
-                CurrentTimeMillis = Time.GetCurrentTimestamp(),
-                Events = new[]
-                {
-                    new Event
-                    {
-                        CreatedTimestampMillis = Time.GetCurrentTimestamp(),
-                        Details = new EventDetail
-                        {
-                            Rating = new Rating
-                            {
-                                RatingValue = rating
-                            }
-                        },
-                        EventId = Guid.NewGuid().ToString(),
-                        TrackId = new MetaJamEventData
-                        {
-                            MetajamComapctKey = track.StoreId,
-                        }
-                    }
-                }
-            };
-            var request = MakeRequest<RecordRealTime>();
-            var data = await request.GetAsync(requestData);
             return data;
         }
 
@@ -454,21 +423,91 @@ namespace GoogleMusicApi.Common
             return data;
         }
 
-        public async Task<MutatePlaylistsResponse> DetelePlaylist(params Playlist[] playlists)
+        public async Task<MutateResponse> DetelePlaylist(params Playlist[] playlists)
         {
             if (!CheckSession())
                 return null;
 
             var request = MakeRequest<MutatePlaylists>();
-            var data = await request.GetAsync(new MutatePlaylistsRequest(Session)
+            var data = await request.GetAsync(new MutateRequest(Session)
             {
                 Mutations = playlists.Select(
-                    x =>
-                        new MutatePlaylistMutation
+                    x => new Mutate
+                    {
+                        Delete = x.Id
+                    }).ToArray(),
+            });
+            if (data?.ResponseMutation == null) return data;
+
+            foreach (var mutation in (data.ResponseMutation).Where(mutation => mutation.ResponseCode == ResponseCode.Ok))
+            {
+                mutation.Deleted = true;
+            }
+            return data;
+        }
+
+        public async Task<MutateResponse> AddSongToPlaylist(Playlist playlist, Track track)
+        {
+            return await AddSongToPlaylist(new Tuple<Track, Playlist>(track, playlist));
+        }
+        public async Task<MutateResponse> AddSongToPlaylist(Playlist playlist, params Track[] tracks)
+        {
+            return await AddSongToPlaylist(tracks.Select(x => new Tuple<Track, Playlist>(x, playlist)).ToArray());
+        }
+        public async Task<MutateResponse> AddSongToPlaylist(params Tuple<Track, Playlist>[] trackPlaylistPairs)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<MutatePlentries>();
+            var data = await request.GetAsync(new MutateRequest(Session)
+            {
+                Mutations = trackPlaylistPairs.Select(
+                    x => new Mutate
+                    {
+                        Create = 
+                            new CreateMutation
+                            { 
+                              ClientId = Guid.NewGuid().ToString(),
+                              CreationTimestamp = "-1",
+                              LastModifiedTimestamp = Time.GetCurrentTimestamp(),
+                              Deleted = false,
+                              PlaylistId = x.Item2.Id,
+                              Source = 2,
+                              TrackId = x.Item1.StoreId
+                            }
+                    }).ToArray(),
+            });
+            return data;
+        }
+        public async Task<RecordRealTimeResponse> SetTrackRating(Structure.Enums.Rating rating, Track track)
+        {
+            return await SetTrackRating(new Tuple<Track, Structure.Enums.Rating>(track, rating));
+        }
+        public async Task<RecordRealTimeResponse> SetTrackRating(Structure.Enums.Rating rating, params Track[] tracks )
+        {
+            return await SetTrackRating(tracks.Select(x => new Tuple<Track, Structure.Enums.Rating>(x, rating)).ToArray());
+        }
+        public async Task<RecordRealTimeResponse> SetTrackRating(params Tuple<Track, Structure.Enums.Rating>[] tracks)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<RecordRealTime>();
+            var data = await request.GetAsync(new RecordRealTimeRequest(Session)
+            {
+                ClientTimeMillis = Time.GetCurrentTimestamp(),
+                Events = tracks.Select(x =>
+                    new Event
+                    {
+                        CreatedTimestampMillis = Time.GetCurrentTimestamp(),
+                        Details = new EventDetail { Rating = new Rating { RatingValue = x.Item2 } },
+                        EventId = Guid.NewGuid().ToString(),
+                        TrackId = new MetaJamEventData
                         {
-                            Delete = x.Id
+                            MetajamComapctKey = x.Item1.StoreId,
                         }
-                    ).ToArray(),
+                    }).ToArray()
             });
             return data;
         }

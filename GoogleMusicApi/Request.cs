@@ -54,6 +54,7 @@ namespace GoogleMusicApi
         }
     }
 
+    [JsonObject(MemberSerialization.OptIn)]
     public abstract class PostRequest : Request
     {
         protected PostRequest(Session session) : base(session, RequestMethod.POST)
