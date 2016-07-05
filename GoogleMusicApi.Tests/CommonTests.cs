@@ -18,23 +18,6 @@ namespace GoogleMusicApi.Tests
     {
         private readonly string _accountPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "account.txt");
 
-        [TestMethod]
-        public async Task ExploreTabs()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.ExploreTabsAsync());
-        }
-
-        [TestMethod]
-        public void FindFile()
-        {
-            if (!File.Exists(_accountPath))
-            {
-                Assert.Fail("account.txt file not found: " + _accountPath);
-            }
-        }
 
         public Tuple<string, string> GetAccount()
         {
@@ -45,139 +28,13 @@ namespace GoogleMusicApi.Tests
             var file = File.ReadAllLines(_accountPath);
             return new Tuple<string, string>(file[0], file[1]);
         }
-
         [TestMethod]
-        public async Task GetAlbum()
+        public void FindFile()
         {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.GetAlbumAsync("Bdyocq5dfo3a72heswzl7nhni64")); // Lunch Money - EP, By: SoySauce
-        }
-
-        [TestMethod]
-        public async Task GetConfig()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.GetConfigAsync());
-        }
-
-        [TestMethod]
-        public async Task GetTrack()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.GetTrackAsync("Tkou6ps7lrj2wz3c2ejrgar337m")); // Essence, By: Skrux
-        }
-
-        [TestMethod]
-        public async Task ListListenNowSituations()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.ListListenNowSituationsAsync());
-        }
-
-        [TestMethod]
-        public async Task ListListenNowTracks()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.ListListenNowTracksAsync());
-        }
-
-        [TestMethod]
-        public async Task ListPlaylists()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.ListPlaylistsAsync());
-        }
-
-        [TestMethod]
-        public async Task ListPromotedTracksAsync()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.ListPromotedTracksAsync());
-        }
-
-        [TestMethod]
-        public async Task ListStationCategories()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(await mc.ListStationCategoriesAsync());
-        }
-
-        [TestMethod]
-        public async Task CreateDeletePlaylist()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Playlist item;
-            Assert.IsNotNull(item = await mc.CreatePlaylist(Guid.NewGuid().ToString(), ""));
-            Assert.IsNotNull(await mc.DetelePlaylist(item));
-        }
-
-        [TestMethod]
-        public async Task GetStationfeed()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            Assert.IsNotNull(
-                await
-                    mc.GetStationFeed(ExplicitType.Explicit,
-                        new StationFeedStation
-                        {
-                            LibraryContentOnly = false,
-                            NumberOfEntries = 25,
-                            RecentlyPlayed = new Track[0],
-                            Seed = new StationSeed
-                            {
-                                SeedType = 6
-                            }
-                        }
-                    ));
-        }
-        [TestMethod]
-        public async Task LikeDislikeTrack()
-        {
-            var account = GetAccount();
-            var mc = new MobileClient();
-            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
-            RadioFeed tracks; 
-            Assert.IsNotNull(tracks = await
-                    mc.GetStationFeed(ExplicitType.Explicit,
-                        new StationFeedStation
-                        {
-                            LibraryContentOnly = false,
-                            NumberOfEntries = 25,
-                            RecentlyPlayed = new Track[0],
-                            Seed = new StationSeed
-                            {
-                                SeedType = 6
-                            }
-                        }
-                    ));
-            var track = tracks.Data.Stations.First().Tracks.First();
-            RecordRealTimeResponse data;
-            Assert.IsNotNull(data = await mc.SetTrackRating(Rating.FiveStars, track));
-            Assert.IsTrue(data.EventResults.All(x=> x.Code != ResponseCode.Invalid));
-            Assert.IsNotNull(data = await mc.SetTrackRating(Rating.OneStar, track));
-            Assert.IsTrue(data.EventResults.All(x => x.Code != ResponseCode.Invalid));
-            Assert.IsNotNull(data = await mc.SetTrackRating(Rating.NoRating, track));
-            Assert.IsTrue(data.EventResults.All(x => x.Code != ResponseCode.Invalid));
+            if (!File.Exists(_accountPath))
+            {
+                Assert.Fail("account.txt file not found: " + _accountPath);
+            }
         }
 
         [TestMethod]
