@@ -67,6 +67,8 @@
     <Compile Include="Playback\PlaybackManager.cs" />
     <Compile Include="Playback\ReadFullyStream.cs" />
     <Compile Include="RequestMethod.cs" />
+    <Compile Include="Requests\Data\PlaylistsRequest.cs" />
+    <Compile Include="Requests\Data\FeedRequest.cs" />
     <Compile Include="Structure\Mutations\Mutate.cs" />
     <Compile Include="Structure\Mutations\CreateMutation.cs" />
     <Compile Include="Requests\Data\RecordRealTimeRequest.cs" />
@@ -126,7 +128,7 @@
     <Compile Include="Requests\Data\GetRadioStationAnnotationResponse.cs" />
     <Compile Include="Requests\ListListenNowSituations.cs" />
     <Compile Include="Requests\ListListenNowTracks.cs" />
-    <Compile Include="Requests\ListPlaylistEntries.cs" />
+    <Compile Include="Requests\PlentryFeed.cs" />
     <Compile Include="Requests\ListPromotedTracks.cs" />
     <Compile Include="Requests\ListStationCategories.cs" />
     <Compile Include="Requests\ListTrackFeed.cs" />
@@ -137,8 +139,8 @@
     <Compile Include="Requests\Data\ListStationCategoriesResponse.cs" />
     <Compile Include="Requests\Data\ListListenNowSituationResponse.cs" />
     <Compile Include="Requests\Data\ListListenNowTracksResponse.cs" />
-    <Compile Include="Requests\ListPlaylists.cs" />
-    <Compile Include="ResultListRequest.cs" />
+    <Compile Include="Requests\PlaylistFeed.cs" />
+    <Compile Include="Requests\Data\ResultListRequest.cs" />
     <Compile Include="Requests\GetTrack.cs" />
     <Compile Include="Structure\Album.cs" />
     <Compile Include="Structure\Artist.cs" />

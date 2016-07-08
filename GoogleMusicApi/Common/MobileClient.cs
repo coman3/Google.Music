@@ -28,6 +28,10 @@ namespace GoogleMusicApi.Common
         /// </summary>
         public StreamQuality StreamQuality { get; set; }
 
+
+
+        private ResultList<Plentry> _plentry;
+        private string _lastUpdatedPlentry = "-1";
         /// <summary>
         /// Create a new <see cref="MobileClient"/>.
         /// </summary>
@@ -185,10 +189,12 @@ namespace GoogleMusicApi.Common
         {
             if (!CheckSession())
                 return null;
-            var request = MakeRequest<ListPlaylists>();
-            var data = await request.GetAsync(new ResultListRequest(Session)
+            var request = MakeRequest<PlaylistFeed>();
+            var data = await request.GetAsync(new FeedRequest(Session)
             {
-                MaxResults = numberOfResults
+                MaxResults = numberOfResults,
+                NewResultsExpected = false,
+                UpdatedMin = "-1"
             });
             return data;
         }
@@ -250,6 +256,31 @@ namespace GoogleMusicApi.Common
                 NumberOfItems = numberOfItems,
             });
             return data;
+        }
+        public async Task<List<Track>> ListTracksFromPlaylist(Playlist playlist)
+        {
+            if (!CheckSession() || playlist == null)
+                return null;
+            var request = MakeRequest<PlentryFeed>();
+            var data = await request.GetAsync(new FeedRequest(Session)
+            {
+                UpdatedMin = "-1",
+                NewResultsExpected = false
+            });
+            if (_plentry == null)
+            {
+                _plentry = data;
+            }
+            else
+            {
+                foreach (var plentryItem in data.Data.Items)
+                {
+                    _plentry.Data.Items.Add(plentryItem);
+                }
+                _plentry.NextPageToken = data.NextPageToken;
+            }
+            _lastUpdatedPlentry = Time.GetCurrentTimestamp();
+            return _plentry.Data.Items.Where(x => x.PlaylistId == playlist.Id).Select(x=> x.Track).ToList();
         }
 
         #endregion List Requests
