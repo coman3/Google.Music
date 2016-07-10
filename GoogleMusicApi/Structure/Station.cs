@@ -57,6 +57,9 @@ namespace GoogleMusicApi.Structure
         [JsonProperty("inLibrary")]
         public bool InLibrary { get; set; }
 
+        [JsonProperty("byline")]
+        public string ByLine { get; set; }
+
 
         public override string ToString()
         {
