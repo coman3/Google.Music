@@ -16,10 +16,9 @@ namespace GoogleMusicApi.Tests
     [TestClass]
     public class CommonTests
     {
-        private readonly string _accountPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "account.txt");
+        private static readonly string _accountPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "account.txt");
 
-
-        public Tuple<string, string> GetAccount()
+        public static Tuple<string, string> GetAccount()
         {
             if (!File.Exists(_accountPath))
             {
@@ -36,11 +35,11 @@ namespace GoogleMusicApi.Tests
                 Assert.Fail("account.txt file not found: " + _accountPath);
             }
         }
-
+        
         [TestMethod]
         public async Task Login()
         {
-            var account = GetAccount();
+            var account = CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
         }

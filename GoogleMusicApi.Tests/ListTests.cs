@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task ListListenNowSituations()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListListenNowSituationsAsync());
@@ -40,16 +41,27 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task ListListenNowTracks()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListListenNowTracksAsync());
+        }
+        [TestMethod]
+        public async Task ListPlaylistItems()
+        {
+            var account =CommonTests.GetAccount();
+            var mc = new MobileClient();
+            Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
+            ResultList<Playlist> playlist;
+            Assert.IsNotNull(playlist = await mc.ListPlaylistsAsync());
+            Assert.IsNotNull(await mc.ListTracksFromPlaylist(playlist.Data.Items.First()));
+
         }
 
         [TestMethod]
         public async Task ListPlaylists()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListPlaylistsAsync());
@@ -58,7 +70,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task ListPromotedTracksAsync()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListPromotedTracksAsync());
@@ -67,7 +79,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task ListStationCategories()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ListStationCategoriesAsync());

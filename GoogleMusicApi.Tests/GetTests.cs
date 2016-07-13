@@ -21,7 +21,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task ExploreTabs()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.ExploreTabsAsync());
@@ -40,7 +40,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task GetAlbum()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.GetAlbumAsync("Bdyocq5dfo3a72heswzl7nhni64")); // Lunch Money - EP, By: SoySauce
@@ -49,7 +49,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task GetConfig()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.GetConfigAsync());
@@ -58,7 +58,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task GetTrack()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(await mc.GetTrackAsync("Tkou6ps7lrj2wz3c2ejrgar337m")); // Essence, By: Skrux
@@ -67,7 +67,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task GetStationfeed()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             Assert.IsNotNull(
@@ -89,7 +89,7 @@ namespace GoogleMusicApi.Tests
         [TestMethod]
         public async Task GetStreamUrl()
         {
-            var account = GetAccount();
+            var account =CommonTests.GetAccount();
             var mc = new MobileClient();
             Assert.IsTrue(await mc.LoginAsync(account.Item1, account.Item2));
             RadioFeed tracks;
