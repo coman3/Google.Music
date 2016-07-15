@@ -1,5 +1,7 @@
 # Google.Music Desktop Application (Client) & API Written in C Sharp
 
+Build Status: [![google-music-api MyGet Build Status](https://www.myget.org/BuildSource/Badge/google-music-api?identifier=4920bf3e-a903-4f38-b8ca-2672c6b14dad)](https://www.myget.org/)
+
 An Unofficial Google Play Music API Engineered from:
 
 	- The Google Play Music Android App (GoogleMusicApi.Common.MobileClient)
