@@ -1,0 +1,18 @@
+using GoogleMusicApi.UWP.Structure.Enums;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace GoogleMusicApi.UWP.Structure.Mutations
+{
+    public class ResponseMutation : Mutation
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+        [JsonProperty("client_Id")]
+        public string ClientId { get; set; }
+
+        [JsonProperty("response_code")]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public ResponseCode ResponseCode { get; set; }
+    }
+}
