@@ -2,6 +2,8 @@
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using GoogleMusicApi.UWP.Common;
 
 namespace GoogleMusicApi.UWP.Authentication
 {
@@ -35,7 +37,7 @@ namespace GoogleMusicApi.UWP.Authentication
 
         public static string GetPcMacAddress()
         {
-            return "";
+            return DeviceInfo.Instance.Id;
         }
         // perform_master_login
         public static async Task<Dictionary<string, string>> PerformMasterLoginAsync(UserDetails userDetails, LocaleDetails localeDetails,
