@@ -167,6 +167,7 @@
     <Compile Include="Requests\Playlists.cs" />
     <Compile Include="Requests\PlentryFeed.cs" />
     <Compile Include="Requests\RecordRealTime.cs" />
+    <Compile Include="Requests\Signup.cs" />
     <Compile Include="Sessions\MobileSession.cs" />
     <Compile Include="Sessions\Session.cs" />
     <Compile Include="StructuredRequest.cs" />

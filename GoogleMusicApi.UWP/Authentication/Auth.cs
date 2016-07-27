@@ -24,6 +24,7 @@ namespace GoogleMusicApi.UWP.Authentication
                                       "6rmf5AAAAAwEAAQ==";
 
         private const string version = "3019";
+        private const string playServicesVersion = "9246440";
 
         private static readonly RSAParameters androidKey = GoogleKeyUtils.KeyFromB64(b64Key);
 
@@ -33,30 +34,34 @@ namespace GoogleMusicApi.UWP.Authentication
         {
             httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(UserAgent);
+            
         }
 
-        public static string GetPcMacAddress()
+        public static string GetDeviceId()
         {
-            return DeviceInfo.Instance.Id;
+            return DeviceInfo.CalculateMD5Hash(DeviceInfo.Instance.Id);
         }
         // perform_master_login
         public static async Task<Dictionary<string, string>> PerformMasterLoginAsync(UserDetails userDetails, LocaleDetails localeDetails,
-            string service = "ac2dm", int sdkVersion = 17)
+            string service = "ac2dm", int sdkVersion = 21)
         {
             var signature = GoogleKeyUtils.CreateSignature(userDetails.Email, userDetails.Password, androidKey);
-
+            httpClient.DefaultRequestHeaders.Add("device", userDetails.AndroidId);
             var dict = new Dictionary<string, string>
             {
                 {"accountType", "HOSTED_OR_GOOGLE"},
                 {"Email", userDetails.Email},
                 {"has_permission", "1"},
+                {"system_partition", "1"},
                 {"add_account", "1"},
                 {"EncryptedPasswd", signature},
                 {"service", service},
                 {"source", "android"},
                 {"androidId", userDetails.AndroidId},
+                {"parentAndroidId", userDetails.AndroidId},
                 {"device_country", localeDetails.DeviceCountry},
                 {"operatorCountry", localeDetails.OperatorCountry},
+                {"google_play_services_version", playServicesVersion},
                 {"lang", localeDetails.Language},
                 {"sdk_version", sdkVersion.ToString()}
             };
@@ -68,6 +73,7 @@ namespace GoogleMusicApi.UWP.Authentication
         public static async Task<Dictionary<string, string>> PerformOAuthAsync(UserDetails userDetails, LocaleDetails localeDetails,
             string masterToken, string service, string app, string clientSig, int sdkVersion = 21)
         {
+            httpClient.DefaultRequestHeaders.Add("device", userDetails.AndroidId);
             var dict = new Dictionary<string, string>
             {
                 {"accountType", "HOSTED_OR_GOOGLE"},
@@ -75,9 +81,13 @@ namespace GoogleMusicApi.UWP.Authentication
                 {"has_permission", "1"},
                 {"EncryptedPasswd", masterToken},
                 {"service", service},
+                {"callerPkg", service},
                 {"source", "android"},
                 {"app", app},
                 {"client_sig", clientSig},
+                {"caller_sig", clientSig},
+                {"androidId", userDetails.AndroidId},
+                {"parentAndroidId", userDetails.AndroidId},
                 {"device_country", localeDetails.DeviceCountry},
                 {"operatorCountry", localeDetails.OperatorCountry},
                 {"lang", localeDetails.Language},

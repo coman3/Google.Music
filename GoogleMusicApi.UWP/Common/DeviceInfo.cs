@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Security.Cryptography;
+using System.Text;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.System.Profile;
 
@@ -50,5 +52,18 @@ namespace GoogleMusicApi.UWP.Common
 
             throw new Exception("NO API FOR DEVICE ID PRESENT!");
         }
+        public static string CalculateMD5Hash(string input)
+
+        {
+            var md5 = MD5.Create();
+            var hash = md5.ComputeHash(Encoding.ASCII.GetBytes(input));
+            var sb = new StringBuilder();
+            foreach (var t in hash)
+            {
+                sb.Append(t.ToString("X2"));
+            }
+            return sb.ToString().ToLower();
+        }
+
     }
 }

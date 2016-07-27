@@ -21,6 +21,7 @@ namespace GoogleMusicApi.UWP
                 new WebRequestHeader("dv", "3109"),
                 new WebRequestHeader("tier", "aa"));
             
+            
         }
 
         public Session Session { get; set; }
@@ -52,6 +53,7 @@ namespace GoogleMusicApi.UWP
         public GetRequest(Session session) : base(session, RequestMethod.GET)
         {
         }
+
     }
 
     [JsonObject(MemberSerialization.OptIn)]

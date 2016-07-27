@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
 using GoogleMusicApi.UWP.Authentication;
 using GoogleMusicApi.UWP.Requests;
@@ -77,8 +78,16 @@ namespace GoogleMusicApi.UWP.Common
             {
                 Debug.WriteLine($"Attempting Login ({email})...");
 
-                Session = new MobileSession(new UserDetails(email, password, GoogleAuth.GetPcMacAddress()));
-                return await Session.LoginAsync();
+                Session = new MobileSession(new UserDetails(email, password, GoogleAuth.GetDeviceId()));
+                var status = await Session.LoginAsync();
+                if (!status)
+                {
+                    Debug.WriteLine("Login Failed.");
+                    return false;
+                }
+                Debug.WriteLine("Login Success!");
+                return true;
+
             }
             catch (HttpRequestException)
             {
@@ -97,7 +106,7 @@ namespace GoogleMusicApi.UWP.Common
             Debug.WriteLine($"Attempting Login ({email})...");
             try
             {
-                Session = new MobileSession(new UserDetails(email, "", GoogleAuth.GetPcMacAddress()));
+                Session = new MobileSession(new UserDetails(email, "", GoogleAuth.GetDeviceId()));
                 return await Session.LoginAsync(token);
             }
             catch (HttpRequestException)
@@ -106,6 +115,25 @@ namespace GoogleMusicApi.UWP.Common
             }
 
 
+        }
+
+        public async Task<SignupResponse> Signup()
+        {
+            if (!CheckSession())
+                return null;
+            Debug.WriteLine($"Attempting Signup...");
+            try
+            {
+
+                var request = MakeRequest<Signup>();
+                var data = await request.GetAsync(new SignupRequest(Session));
+                return data;
+            }
+            catch (HttpRequestException)
+            {
+                Debug.WriteLine("Signup Request Failed!");
+                return null;
+            }
         }
 
         #endregion Account
