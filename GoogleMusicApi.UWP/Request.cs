@@ -74,4 +74,28 @@ namespace GoogleMusicApi.UWP
             return new StringContent(json, Encoding.UTF8, "application/json");
         }
     }
+
+    [JsonObject(MemberSerialization.OptIn)]
+    public abstract class PutRequest : Request
+    {
+        public string Id { get; }
+        protected PutRequest(string id, Session session) : base(session, RequestMethod.PUT)
+        {
+            Id = id;
+        }
+
+        public virtual HttpContent GetRequestContent()
+        {
+            return BuildHttpContent(this);
+        }
+
+        protected static HttpContent BuildHttpContent(object data)
+        {
+            var json = JsonConvert.SerializeObject(data, Formatting.Indented, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+            return new StringContent(json, Encoding.UTF8, "application/json");
+        }
+    }
 }

@@ -3,7 +3,7 @@
 namespace GoogleMusicApi.UWP.Structure
 {
     [JsonObject]
-    public class Plentry
+    public class PlaylistEntry
     {
         [JsonProperty("absolutePosition")]
         public string AbsolutePosition { get; set; }

@@ -29,7 +29,7 @@ namespace GoogleMusicApi.UWP.Common
 
 
 
-        private ResultList<Plentry> _plentry;
+        private ResultList<PlaylistEntry> _plentry;
         private string _lastUpdatedPlentry = "-1";
         /// <summary>
         /// Create a new <see cref="MobileClient"/>.
@@ -46,8 +46,7 @@ namespace GoogleMusicApi.UWP.Common
             if (Session == null)
                 throw new InvalidOperationException("Session Not Set! Try logging in again.");
             if (Session.AuthorizationToken == null)
-                throw new InvalidOperationException(
-                    "Session does not contain an Authorization Token! Try logging in again.");
+                throw new InvalidOperationException("Session does not contain an Authorization Token! Try logging in again.");
             return true;
 #else
             if (Session?.AuthorizationToken != null)
@@ -283,6 +282,20 @@ namespace GoogleMusicApi.UWP.Common
             });
             return data;
         }
+
+        /// <summary>
+        /// Gets the <see cref="PlaylistEntry"/> from the internal Plentry Feed.
+        /// You must call <see cref="ListTracksFromPlaylist"/> before this method.
+        /// 
+        /// </summary>
+        /// <param name="playlist"></param>
+        /// <param name="track"></param>
+        /// <returns></returns>
+        public PlaylistEntry GetTrackPlaylistEntry(Playlist playlist, Track track)
+        {
+            return _plentry.Data.Items.FirstOrDefault(x => x.PlaylistId == playlist.Id && x.TrackId == track.StoreId);
+        }
+
         public async Task<List<Track>> ListTracksFromPlaylist(Playlist playlist)
         {
             if (!CheckSession() || playlist == null)
@@ -301,7 +314,14 @@ namespace GoogleMusicApi.UWP.Common
             {
                 foreach (var plentryItem in data.Data.Items)
                 {
-                    _plentry.Data.Items.Add(plentryItem);
+                    if (_plentry.Data.Items.Any(x => x.Id == plentryItem.Id))
+                    {
+                        _plentry.Data.Items[_plentry.Data.Items.IndexOf(_plentry.Data.Items.First(x => x.Id == plentryItem.Id))] = plentryItem;
+                    }
+                    else
+                    {
+                        _plentry.Data.Items.Add(plentryItem);
+                    }
                 }
                 _plentry.NextPageToken = data.NextPageToken;
             }
@@ -423,6 +443,31 @@ namespace GoogleMusicApi.UWP.Common
         #endregion Gets
 
         #region Other
+        /// <summary>
+        /// Ask if a <see cref="Playlist"/> is public
+        /// </summary>
+        /// <param name="playlist">The <see cref="Playlist"/> to check</param>
+        public async Task<bool> IsPlaylistSharedAsync(Playlist playlist)
+        {
+            if (!CheckSession() || playlist == null)
+                return false;
+            var request = MakeRequest<IsPlaylistShared>();
+            var data = await request.GetAsync(new IsPlaylistSharedRequest(playlist, Session));
+            return data.IsPlaylistShared;
+        }
+
+        /// <summary>
+        /// Updates a <see cref="Playlist"/>
+        /// </summary>
+        /// <param name="playlist">The <see cref="Playlist"/> to update</param>
+        public async Task<Playlist> UpdatePlaylistAsync(Playlist playlist)
+        {
+            if (!CheckSession() || playlist == null)
+                return null;
+            var request = MakeRequest<EditPlaylist>();
+            var data = await request.GetAsync(new EditPlaylistRequest(playlist, Session));
+            return data;
+        }
 
         /// <summary>
         /// Search for a <see cref="Track"/> / <see cref="Album"/> / <see cref="Artist"/> / <see cref="Station"/> / <see cref="Genre"/>
@@ -537,6 +582,24 @@ namespace GoogleMusicApi.UWP.Common
             });
             return data;
         }
+        public async Task<MutateResponse> RemoveSongsFromPlaylist(params PlaylistEntry[] trackPlaylistPairs)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<MutatePlentries>();
+            var data = await request.GetAsync(new MutateRequest(Session)
+            {
+                Mutations = trackPlaylistPairs.Select(
+                    x => new Mutate
+                    {
+                        Delete = x.Id
+                    }).ToArray(),
+            });
+            _plentry.Data.Items.RemoveAll(x => trackPlaylistPairs.Any(c => c.Id == x.Id) || x.Deleted);
+            return data;
+        }
+
         public async Task<RecordRealTimeResponse> SetTrackRating(Structure.Enums.Rating rating, Track track)
         {
             return await SetTrackRating(new Tuple<Track, Structure.Enums.Rating>(track, rating));

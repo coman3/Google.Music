@@ -16,6 +16,15 @@ namespace GoogleMusicApi.UWP.Common
         {
             return (long) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
         }
+        public static string GetCurrentTimestampMicros()
+        {
+            return GetCurrentUnixTimestampMicros().ToString("#");
+        }
+
+        public static long GetCurrentUnixTimestampMicros()
+        {
+            return (long)(DateTime.UtcNow - UnixEpoch).TotalMilliseconds * 1000;
+        }
 
         public static DateTime DateTimeFromUnixTimestampMillis(long millis)
         {

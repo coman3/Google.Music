@@ -6,6 +6,7 @@ namespace GoogleMusicApi.UWP
     public enum RequestMethod
     {
         POST,
-        GET
+        GET,
+        PUT
     }
 }
