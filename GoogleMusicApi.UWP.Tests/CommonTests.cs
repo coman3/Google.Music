@@ -17,7 +17,7 @@ namespace GoogleMusicApi.UWP.Tests
             //    Assert.Fail("account.txt file not found: " + _accountPath);
             //}
             //var file = File.ReadAllLines(_accountPath);
-            return new Tuple<string, string>();
+            return new Tuple<string, string>("dev.lvelden", "197355p!!");
         }
         [TestMethod]
         public void FindFile()
@@ -26,6 +26,7 @@ namespace GoogleMusicApi.UWP.Tests
             //{
             //    Assert.Fail("account.txt file not found: " + _accountPath);
             //}
+            Assert.IsTrue(true);
         }
         
         [TestMethod]

@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "CryptoRT": "1.0.1",
+    "CryptoRT": "1.0.2",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "Newtonsoft.Json": "9.0.1"
   },
