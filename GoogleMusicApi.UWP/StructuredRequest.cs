@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using GoogleMusicApi.UWP.Sessions;
 using Newtonsoft.Json;
 
 namespace GoogleMusicApi.UWP
@@ -55,21 +56,26 @@ namespace GoogleMusicApi.UWP
                     }
                 }
 
-                if (data.Method == RequestMethod.POST && data is PostRequest)
+                if (data is PostRequest || data is PutRequest)
                 {
                     var postRequest = data as PostRequest;
-                    using (
-                        var response =
-                            await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent()))
-                    {
-                        if (IsCustomResponse)
-                            return await ProcessReponse(response);
+                    var putRequest = data as PutRequest;
+                    HttpResponseMessage response;
 
-                        response.EnsureSuccessStatusCode();
-                        var json = await response.Content.ReadAsStringAsync();
+                    if (data.Method == RequestMethod.POST && postRequest != null)
+                        response = await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent());
+                    else if (data.Method == RequestMethod.PUT && putRequest != null)
+                        response = await data.Session.HttpClient.PutAsync(requestUrl, putRequest.GetRequestContent());
+                    else return default(TResponse);
 
-                        return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
-                    }
+                    if (IsCustomResponse)
+                        return await ProcessReponse(response);
+
+                    response.EnsureSuccessStatusCode();
+                    var json = await response.Content.ReadAsStringAsync();
+
+                    return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
+
                 }
             }
             return default(TResponse);
@@ -78,6 +84,13 @@ namespace GoogleMusicApi.UWP
         protected virtual string GetRequestUrl(TRequest request)
         {
             var urlParams = GetParams(request);
+
+            var putRequest = request as PutRequest;
+            if (putRequest != null)
+            {
+                return BaseApiUrl + RelativeRequestUrl + "/" + putRequest.Id + urlParams;
+            }
+
             return BaseApiUrl + RelativeRequestUrl + urlParams;
         }
 
@@ -89,7 +102,8 @@ namespace GoogleMusicApi.UWP
         protected static string GetParams(TRequest request)
         {
             var urlParams = "";
-            if (request?.UrlData == null) return null; //if not GetRe
+            if (request.UrlData == null)
+                return urlParams; // Add no Url data
 
             var first = true;
             foreach (var pair in request.UrlData)

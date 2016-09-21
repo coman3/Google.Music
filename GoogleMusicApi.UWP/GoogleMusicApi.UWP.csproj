@@ -145,6 +145,7 @@
     <Compile Include="Requests\Data\ResultListRequest.cs" />
     <Compile Include="Requests\Data\SearchGetRequest.cs" />
     <Compile Include="Requests\Data\StreamUrlGetRequest.cs" />
+    <Compile Include="Requests\EditPlaylist.cs" />
     <Compile Include="Requests\EditRadioStation.cs" />
     <Compile Include="Requests\ExecuteSearch.cs" />
     <Compile Include="Requests\ExploreTabs.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Requests\GetTopChartGenres.cs" />
     <Compile Include="Requests\GetTopCharts.cs" />
     <Compile Include="Requests\GetTrack.cs" />
+    <Compile Include="Requests\IsPlaylistShared.cs" />
     <Compile Include="Requests\ListListenNowSituations.cs" />
     <Compile Include="Requests\ListListenNowTracks.cs" />
     <Compile Include="Requests\ListPromotedTracks.cs" />
@@ -203,7 +205,7 @@
     <Compile Include="Structure\Mutations\Mutation.cs" />
     <Compile Include="Structure\Mutations\MutationResponse.cs" />
     <Compile Include="Structure\Playlist.cs" />
-    <Compile Include="Structure\Plentry.cs" />
+    <Compile Include="Structure\PlaylistEntry.cs" />
     <Compile Include="Structure\RadioFeed.cs" />
     <Compile Include="Structure\Rating.cs" />
     <Compile Include="Structure\RequestSignal.cs" />

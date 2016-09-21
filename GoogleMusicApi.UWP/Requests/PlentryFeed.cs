@@ -3,7 +3,7 @@ using GoogleMusicApi.UWP.Structure;
 
 namespace GoogleMusicApi.UWP.Requests
 {
-    public class PlentryFeed : StructuredRequest<FeedRequest, ResultList<Plentry>>
+    public class PlentryFeed : StructuredRequest<FeedRequest, ResultList<PlaylistEntry>>
     {
         public override string RelativeRequestUrl => "plentryfeed";
     }
