@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoogleMusicApi.UWP.Common
+namespace GoogleMusicApi.Common
 {
     public static class Time
     {
@@ -11,19 +11,14 @@ namespace GoogleMusicApi.UWP.Common
         {
             return GetCurrentUnixTimestampMillis().ToString("#");
         }
+        public static string GetCurrentTimestampMicros()
+        {
+            return (GetCurrentUnixTimestampMillis() * 1000).ToString("#");
+        }
 
         public static long GetCurrentUnixTimestampMillis()
         {
             return (long) (DateTime.UtcNow - UnixEpoch).TotalMilliseconds;
-        }
-        public static string GetCurrentTimestampMicros()
-        {
-            return GetCurrentUnixTimestampMicros().ToString("#");
-        }
-
-        public static long GetCurrentUnixTimestampMicros()
-        {
-            return (long)(DateTime.UtcNow - UnixEpoch).TotalMilliseconds * 1000;
         }
 
         public static DateTime DateTimeFromUnixTimestampMillis(long millis)

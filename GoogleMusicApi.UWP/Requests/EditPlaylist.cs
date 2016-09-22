@@ -1,12 +1,9 @@
 ﻿using System.Net.Http;
-using GoogleMusicApi.UWP.Common;
-using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
-using GoogleMusicApi.UWP.Structure.Enums;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using GoogleMusicApi.Common;
+using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
 
     public class EditPlaylist : StructuredRequest<EditPlaylistRequest, Playlist>

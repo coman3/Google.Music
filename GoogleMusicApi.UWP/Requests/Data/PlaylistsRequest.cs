@@ -1,9 +1,9 @@
-﻿using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure.Enums;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GoogleMusicApi.UWP.Requests.Data
+namespace GoogleMusicApi.Requests.Data
 {
     public class PlaylistsRequest : PostRequest
     {

@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.UWP.Requests.Data;
-using GoogleMusicApi.UWP.Structure;
+﻿using GoogleMusicApi.Requests.Data;
+using GoogleMusicApi.Structure;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
     public class ListPromotedTracks : StructuredRequest<ResultListRequest, ResultList<Track>>
     {

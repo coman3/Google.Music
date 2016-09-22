@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Structure
+namespace GoogleMusicApi.Structure
 {
     [JsonObject]
     public class Video

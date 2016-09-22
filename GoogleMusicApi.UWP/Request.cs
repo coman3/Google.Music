@@ -2,10 +2,10 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using GoogleMusicApi.UWP.Sessions;
+using GoogleMusicApi.Sessions;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP
+namespace GoogleMusicApi
 {
     public abstract class Request : IDisposable
     {

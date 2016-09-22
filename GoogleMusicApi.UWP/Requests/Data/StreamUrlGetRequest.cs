@@ -3,11 +3,11 @@ using System.Globalization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
-using GoogleMusicApi.UWP.Structure.Enums;
+using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
+using GoogleMusicApi.Structure.Enums;
 
-namespace GoogleMusicApi.UWP.Requests.Data
+namespace GoogleMusicApi.Requests.Data
 {
     public class StreamUrlGetRequest : GetRequest
     {

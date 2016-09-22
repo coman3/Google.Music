@@ -2,9 +2,9 @@
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GoogleMusicApi.UWP.Requests.Data;
+using GoogleMusicApi.Requests.Data;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
     public class GetStreamUrl : StructuredRequest<StreamUrlGetRequest, Uri>
     {

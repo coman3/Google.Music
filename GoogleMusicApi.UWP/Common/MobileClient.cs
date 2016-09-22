@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading.Tasks;
-using GoogleMusicApi.UWP.Authentication;
-using GoogleMusicApi.UWP.Requests;
-using GoogleMusicApi.UWP.Requests.Data;
-using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
-using GoogleMusicApi.UWP.Structure.Enums;
-using GoogleMusicApi.UWP.Structure.Mutations;
-using Rating = GoogleMusicApi.UWP.Structure.Rating;
+using GoogleMusicApi.Authentication;
+using GoogleMusicApi.Requests;
+using GoogleMusicApi.Requests.Data;
+using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
+using GoogleMusicApi.Structure.Enums;
+using GoogleMusicApi.Structure.Mutations;
+using Rating = GoogleMusicApi.Structure.Rating;
 
-namespace GoogleMusicApi.UWP.Common
+namespace GoogleMusicApi.Common
 {
     /// <summary>
     /// An Easy to use Google Play Music Client, that can do everything but upload music.
@@ -29,7 +28,7 @@ namespace GoogleMusicApi.UWP.Common
 
 
 
-        private ResultList<PlaylistEntry> _plentry;
+        private ResultList<Plentry> _plentry;
         private string _lastUpdatedPlentry = "-1";
         /// <summary>
         /// Create a new <see cref="MobileClient"/>.
@@ -46,7 +45,8 @@ namespace GoogleMusicApi.UWP.Common
             if (Session == null)
                 throw new InvalidOperationException("Session Not Set! Try logging in again.");
             if (Session.AuthorizationToken == null)
-                throw new InvalidOperationException("Session does not contain an Authorization Token! Try logging in again.");
+                throw new InvalidOperationException(
+                    "Session does not contain an Authorization Token! Try logging in again.");
             return true;
 #else
             if (Session?.AuthorizationToken != null)
@@ -204,37 +204,36 @@ namespace GoogleMusicApi.UWP.Common
         /// <summary>
         /// Gets a list of <see cref="Playlist"/>'s associated to the account
         /// </summary>
-        /// <param name="numberOfResults">How many playlists you wish to receive</param>
         /// <returns>
         /// A DataSet of <see cref="Playlist"/>'s
         ///
         /// Future - TODO (Medium): Add Support for NextPageToken
         /// </returns>
-        public async Task<ResultList<Playlist>> ListPlaylistsAsync(int numberOfResults = 50)
+        public async Task<ResultList<Playlist>> ListPlaylistsAsync()
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<PlaylistFeed>();
             var data = await request.GetAsync(new FeedRequest(Session)
             {
-                MaxResults = numberOfResults,
                 NewResultsExpected = false,
-                UpdatedMin = "-1"
+                UpdatedMin = Time.GetCurrentTimestamp(),
+                Refresh = true
+
             });
             return data;
         }
 
         /// <summary>
-        /// Gets a list of promoted <see cref="Track"/>'s
+        /// Gets a list of Thumbed Up Tracks <see cref="Track"/>'s
         /// </summary>
-        /// <param name="numberOfResults">How many playlists you wish to receive</param>
+        /// <param name="numberOfResults">How many Tracks you wish to receive</param>
         /// <returns>
         /// A DataSet of <see cref="Playlist"/>'s
-        /// Future - TODO (Low): Maybe Thumbs Up List?
         /// Future - TODO (Medium): Add Support for NextPageToken
         /// </returns>
 
-        public async Task<ResultList<Track>> ListPromotedTracksAsync(int numberOfResults = 1000)
+        public async Task<ResultList<Track>> ListThumbsUpTracksAsync(int numberOfResults = 1000)
         {
             if (!CheckSession())
                 return null;
@@ -243,6 +242,46 @@ namespace GoogleMusicApi.UWP.Common
             var data = await request.GetAsync(new ResultListRequest(Session)
             {
                 MaxResults = numberOfResults
+            });
+            return data;
+        }
+        /// <summary>
+        /// Gets a list of Top Charts <see cref="Track"/>'s
+        /// </summary>
+        /// <param name="numberOfResults">How many Tracks you wish to receive</param>
+        /// <returns>
+        /// A DataSet of <see cref="Playlist"/>'s
+        /// Future - TODO (Medium): Add Support for NextPageToken
+        /// </returns>
+
+        public async Task<ChartResponse> ListPromotedTracksAsync(int numberOfResults = 1000)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<GetTopCharts>();
+            var data = await request.GetAsync(new GetRequest(Session)
+            {
+            });
+            return data;
+        }
+        /// <summary>
+        /// Gets a list of Top Charts Genres <see cref="Track"/>'s
+        /// </summary>
+        /// <param name="numberOfResults">How many Tracks you wish to receive</param>
+        /// <returns>
+        /// A DataSet of <see cref="Playlist"/>'s
+        /// Future - TODO (Medium): Add Support for NextPageToken
+        /// </returns>
+
+        public async Task<GetTopChartGenresResponse> ListPromotedGenresAsync(int numberOfResults = 1000)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<GetTopChartGenres>();
+            var data = await request.GetAsync(new GetRequest(Session)
+            {
             });
             return data;
         }
@@ -291,7 +330,7 @@ namespace GoogleMusicApi.UWP.Common
         /// <param name="playlist"></param>
         /// <param name="track"></param>
         /// <returns></returns>
-        public PlaylistEntry GetTrackPlaylistEntry(Playlist playlist, Track track)
+        public Plentry GetTrackPlaylistEntry(Playlist playlist, Track track)
         {
             return _plentry.Data.Items.FirstOrDefault(x => x.PlaylistId == playlist.Id && x.TrackId == track.StoreId);
         }
@@ -300,30 +339,17 @@ namespace GoogleMusicApi.UWP.Common
         {
             if (!CheckSession() || playlist == null)
                 return null;
-            var request = MakeRequest<PlentryFeed>();
-            var data = await request.GetAsync(new FeedRequest(Session)
-            {
-                UpdatedMin = "-1",
-                NewResultsExpected = false
-            });
+            
             if (_plentry == null)
             {
-                _plentry = data;
-            }
-            else
-            {
-                foreach (var plentryItem in data.Data.Items)
+                var request = MakeRequest<PlentryFeed>();
+                var data = await request.GetAsync(new FeedRequest(Session)
                 {
-                    if (_plentry.Data.Items.Any(x => x.Id == plentryItem.Id))
-                    {
-                        _plentry.Data.Items[_plentry.Data.Items.IndexOf(_plentry.Data.Items.First(x => x.Id == plentryItem.Id))] = plentryItem;
-                    }
-                    else
-                    {
-                        _plentry.Data.Items.Add(plentryItem);
-                    }
-                }
-                _plentry.NextPageToken = data.NextPageToken;
+                    UpdatedMin = Time.GetCurrentTimestamp(),
+                    NewResultsExpected = false,
+                    Refresh = true,
+                });
+                _plentry = data;
             }
             _lastUpdatedPlentry = Time.GetCurrentTimestamp();
             return _plentry.Data.Items.Where(x => x.PlaylistId == playlist.Id).Select(x=> x.Track).ToList();
@@ -582,7 +608,8 @@ namespace GoogleMusicApi.UWP.Common
             });
             return data;
         }
-        public async Task<MutateResponse> RemoveSongsFromPlaylist(params PlaylistEntry[] trackPlaylistPairs)
+
+        public async Task<MutateResponse> RemoveSongsFromPlaylist(params Plentry[] trackPlaylistPairs)
         {
             if (!CheckSession())
                 return null;

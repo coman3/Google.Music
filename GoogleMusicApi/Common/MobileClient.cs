@@ -204,37 +204,36 @@ namespace GoogleMusicApi.Common
         /// <summary>
         /// Gets a list of <see cref="Playlist"/>'s associated to the account
         /// </summary>
-        /// <param name="numberOfResults">How many playlists you wish to receive</param>
         /// <returns>
         /// A DataSet of <see cref="Playlist"/>'s
         ///
         /// Future - TODO (Medium): Add Support for NextPageToken
         /// </returns>
-        public async Task<ResultList<Playlist>> ListPlaylistsAsync(int numberOfResults = 50)
+        public async Task<ResultList<Playlist>> ListPlaylistsAsync()
         {
             if (!CheckSession())
                 return null;
             var request = MakeRequest<PlaylistFeed>();
             var data = await request.GetAsync(new FeedRequest(Session)
             {
-                MaxResults = numberOfResults,
                 NewResultsExpected = false,
-                UpdatedMin = "-1"
+                UpdatedMin = Time.GetCurrentTimestamp(),
+                Refresh = true
+
             });
             return data;
         }
 
         /// <summary>
-        /// Gets a list of promoted <see cref="Track"/>'s
+        /// Gets a list of Thumbed Up Tracks <see cref="Track"/>'s
         /// </summary>
-        /// <param name="numberOfResults">How many playlists you wish to receive</param>
+        /// <param name="numberOfResults">How many Tracks you wish to receive</param>
         /// <returns>
         /// A DataSet of <see cref="Playlist"/>'s
-        /// Future - TODO (Low): Maybe Thumbs Up List?
         /// Future - TODO (Medium): Add Support for NextPageToken
         /// </returns>
 
-        public async Task<ResultList<Track>> ListPromotedTracksAsync(int numberOfResults = 1000)
+        public async Task<ResultList<Track>> ListThumbsUpTracksAsync(int numberOfResults = 1000)
         {
             if (!CheckSession())
                 return null;
@@ -243,6 +242,46 @@ namespace GoogleMusicApi.Common
             var data = await request.GetAsync(new ResultListRequest(Session)
             {
                 MaxResults = numberOfResults
+            });
+            return data;
+        }
+        /// <summary>
+        /// Gets a list of Top Charts <see cref="Track"/>'s
+        /// </summary>
+        /// <param name="numberOfResults">How many Tracks you wish to receive</param>
+        /// <returns>
+        /// A DataSet of <see cref="Playlist"/>'s
+        /// Future - TODO (Medium): Add Support for NextPageToken
+        /// </returns>
+
+        public async Task<ChartResponse> ListPromotedTracksAsync(int numberOfResults = 1000)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<GetTopCharts>();
+            var data = await request.GetAsync(new GetRequest(Session)
+            {
+            });
+            return data;
+        }
+        /// <summary>
+        /// Gets a list of Top Charts Genres <see cref="Track"/>'s
+        /// </summary>
+        /// <param name="numberOfResults">How many Tracks you wish to receive</param>
+        /// <returns>
+        /// A DataSet of <see cref="Playlist"/>'s
+        /// Future - TODO (Medium): Add Support for NextPageToken
+        /// </returns>
+
+        public async Task<GetTopChartGenresResponse> ListPromotedGenresAsync(int numberOfResults = 1000)
+        {
+            if (!CheckSession())
+                return null;
+
+            var request = MakeRequest<GetTopChartGenres>();
+            var data = await request.GetAsync(new GetRequest(Session)
+            {
             });
             return data;
         }
@@ -286,23 +325,17 @@ namespace GoogleMusicApi.Common
         {
             if (!CheckSession() || playlist == null)
                 return null;
-            var request = MakeRequest<PlentryFeed>();
-            var data = await request.GetAsync(new FeedRequest(Session)
-            {
-                UpdatedMin = "-1",
-                NewResultsExpected = false
-            });
+            
             if (_plentry == null)
             {
-                _plentry = data;
-            }
-            else
-            {
-                foreach (var plentryItem in data.Data.Items)
+                var request = MakeRequest<PlentryFeed>();
+                var data = await request.GetAsync(new FeedRequest(Session)
                 {
-                    _plentry.Data.Items.Add(plentryItem);
-                }
-                _plentry.NextPageToken = data.NextPageToken;
+                    UpdatedMin = Time.GetCurrentTimestamp(),
+                    NewResultsExpected = false,
+                    Refresh = true,
+                });
+                _plentry = data;
             }
             _lastUpdatedPlentry = Time.GetCurrentTimestamp();
             return _plentry.Data.Items.Where(x => x.PlaylistId == playlist.Id).Select(x=> x.Track).ToList();

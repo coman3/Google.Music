@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Structure.Mutations
+namespace GoogleMusicApi.Structure.Mutations
 {
     public class CreateMutation : Mutation
     {

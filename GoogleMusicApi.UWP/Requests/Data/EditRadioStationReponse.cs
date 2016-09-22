@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.UWP.Structure.Mutations;
+﻿using GoogleMusicApi.Structure.Mutations;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Requests.Data
+namespace GoogleMusicApi.Requests.Data
 {
     public class EditRadioStationReponse
     {

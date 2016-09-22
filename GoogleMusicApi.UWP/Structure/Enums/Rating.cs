@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GoogleMusicApi.UWP.Structure.Enums
+namespace GoogleMusicApi.Structure.Enums
 {
     public enum Rating
     {

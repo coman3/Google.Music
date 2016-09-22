@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
     public class GetAlbum : StructuredRequest<GetAlbumRequest, Album>
     {

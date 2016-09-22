@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace GoogleMusicApi.UWP.Authentication
+namespace GoogleMusicApi.Authentication
 {
     internal static class DataTypeUtils
     {

@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using GoogleMusicApi.UWP.Common;
-using GoogleMusicApi.UWP.Structure;
+using GoogleMusicApi.Common;
+using GoogleMusicApi.Structure;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace GoogleMusicApi.UWP.Tests

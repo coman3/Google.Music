@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Structure
+namespace GoogleMusicApi.Structure
 {
     [JsonObject]
     public class SearchResult

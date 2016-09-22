@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Runtime.Serialization;
 
-namespace GoogleMusicApi.UWP.Common
+namespace GoogleMusicApi.Common
 {
     public class Enumerations
     {

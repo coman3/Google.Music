@@ -1,11 +1,8 @@
-﻿using System;
-using System.Net.Http.Headers;
-using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
-using GoogleMusicApi.UWP.Structure.Mutations;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
     public class Signup : StructuredRequest<SignupRequest, SignupResponse>
     {

@@ -1,6 +1,6 @@
-﻿using GoogleMusicApi.UWP.Requests.Data;
+﻿using GoogleMusicApi.Requests.Data;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
     //TODO (Low): Get Working
     public class EditRadioStation : StructuredRequest<EditRadioStationRequest, EditRadioStationReponse>

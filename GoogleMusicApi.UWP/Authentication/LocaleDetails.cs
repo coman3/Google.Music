@@ -1,4 +1,4 @@
-﻿namespace GoogleMusicApi.UWP.Authentication
+﻿namespace GoogleMusicApi.Authentication
 {
     public sealed class LocaleDetails
     {

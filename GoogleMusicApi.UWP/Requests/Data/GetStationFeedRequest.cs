@@ -1,9 +1,9 @@
-﻿using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
-using GoogleMusicApi.UWP.Structure.Enums;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
+using GoogleMusicApi.Structure.Enums;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Requests.Data
+namespace GoogleMusicApi.Requests.Data
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class GetStationFeedRequest : PostRequest

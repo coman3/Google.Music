@@ -1,8 +1,8 @@
-﻿using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
     public class IsPlaylistShared : StructuredRequest<IsPlaylistSharedRequest, IsPlaylistSharedResponse>
     {

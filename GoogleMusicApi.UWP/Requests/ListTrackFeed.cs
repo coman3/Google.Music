@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.UWP.Requests.Data;
-using GoogleMusicApi.UWP.Structure;
+﻿using GoogleMusicApi.Requests.Data;
+using GoogleMusicApi.Structure;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
     //TODO (Low): Context-Token when played top charts, figure out where that came from
     public class ListTrackFeed : StructuredRequest<ResultListRequest, ResultList<Track>>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-using GoogleMusicApi.UWP.Common;
+using GoogleMusicApi.Common;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
 namespace GoogleMusicApi.UWP.Tests
@@ -17,7 +17,7 @@ namespace GoogleMusicApi.UWP.Tests
             //    Assert.Fail("account.txt file not found: " + _accountPath);
             //}
             //var file = File.ReadAllLines(_accountPath);
-            return new Tuple<string, string>("", "");
+            return new Tuple<string, string>("dev.lvelden", "^GHrudk90");
         }
         [TestMethod]
         public void FindFile()

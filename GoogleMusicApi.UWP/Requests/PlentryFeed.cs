@@ -1,9 +1,9 @@
-﻿using GoogleMusicApi.UWP.Requests.Data;
-using GoogleMusicApi.UWP.Structure;
+﻿using GoogleMusicApi.Requests.Data;
+using GoogleMusicApi.Structure;
 
-namespace GoogleMusicApi.UWP.Requests
+namespace GoogleMusicApi.Requests
 {
-    public class PlentryFeed : StructuredRequest<FeedRequest, ResultList<PlaylistEntry>>
+    public class PlentryFeed : StructuredRequest<FeedRequest, ResultList<Plentry>>
     {
         public override string RelativeRequestUrl => "plentryfeed";
     }

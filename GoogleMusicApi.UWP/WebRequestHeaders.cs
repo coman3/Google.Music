@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GoogleMusicApi.UWP
+namespace GoogleMusicApi
 {
     public class WebRequestHeader
     {

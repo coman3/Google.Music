@@ -39,38 +39,48 @@ namespace GoogleMusicApi
             else data.Session.ResetHeaders();
             data.UrlData = data.GetUrlContent();
             var requestUrl = GetRequestUrl(data);
-            using (data) // so you cant use the same request twice, after we are finished dispose it.
+            try
             {
-                if (data.Method == RequestMethod.GET)
+
+
+                using (data) // so you cant use the same request twice, after we are finished dispose it.
                 {
-                    using (var response = await data.Session.HttpClient.GetAsync(requestUrl))
+                    if (data.Method == RequestMethod.GET)
                     {
-                        if (IsCustomResponse)
-                            return await ProcessReponse(response);
+                        using (var response = await data.Session.HttpClient.GetAsync(requestUrl))
+                        {
+                            if (IsCustomResponse)
+                                return await ProcessReponse(response);
 
-                        response.EnsureSuccessStatusCode();
-                        var json = await response.Content.ReadAsStringAsync();
+                            response.EnsureSuccessStatusCode();
+                            var json = await response.Content.ReadAsStringAsync();
 
-                        return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
+                            return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
+                        }
+                    }
+
+                    if (data.Method == RequestMethod.POST && data is PostRequest)
+                    {
+                        var postRequest = data as PostRequest;
+                        using (
+                            var response =
+                                await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent()))
+                        {
+                            if (IsCustomResponse)
+                                return await ProcessReponse(response);
+
+                            response.EnsureSuccessStatusCode();
+                            var json = await response.Content.ReadAsStringAsync();
+
+                            return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
 
-                if (data.Method == RequestMethod.POST && data is PostRequest)
-                {
-                    var postRequest = data as PostRequest;
-                    using (
-                        var response =
-                            await data.Session.HttpClient.PostAsync(requestUrl, postRequest.GetRequestContent()))
-                    {
-                        if (IsCustomResponse)
-                            return await ProcessReponse(response);
-
-                        response.EnsureSuccessStatusCode();
-                        var json = await response.Content.ReadAsStringAsync();
-
-                        return Serializer.Deserialize<TResponse>(new JsonTextReader(new StringReader(json)));
-                    }
-                }
+                throw;
             }
             return default(TResponse);
         }

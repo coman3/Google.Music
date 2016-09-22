@@ -11,6 +11,10 @@ namespace GoogleMusicApi.Common
         {
             return GetCurrentUnixTimestampMillis().ToString("#");
         }
+        public static string GetCurrentTimestampMicros()
+        {
+            return (GetCurrentUnixTimestampMillis() * 1000).ToString("#");
+        }
 
         public static long GetCurrentUnixTimestampMillis()
         {

@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 
-namespace GoogleMusicApi.UWP
+namespace GoogleMusicApi
 {
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public enum RequestMethod

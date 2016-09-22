@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace GoogleMusicApi.UWP.Sessions
+namespace GoogleMusicApi.Sessions
 {
     public abstract class Session
     {

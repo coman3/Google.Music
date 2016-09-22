@@ -1,8 +1,8 @@
-﻿using GoogleMusicApi.UWP.Structure.Enums;
+﻿using GoogleMusicApi.Structure.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GoogleMusicApi.UWP.Structure
+namespace GoogleMusicApi.Structure
 {
     [JsonObject]
     public class Playlist

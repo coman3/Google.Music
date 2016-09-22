@@ -1,6 +1,6 @@
-﻿using GoogleMusicApi.UWP.Sessions;
+﻿using GoogleMusicApi.Sessions;
 
-namespace GoogleMusicApi.UWP.Requests.Data
+namespace GoogleMusicApi.Requests.Data
 {
     public class GetTrackRequest : GetRequest
     {

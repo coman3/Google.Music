@@ -1,8 +1,8 @@
-﻿using GoogleMusicApi.UWP.Sessions;
-using GoogleMusicApi.UWP.Structure;
+﻿using GoogleMusicApi.Sessions;
+using GoogleMusicApi.Structure;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Requests.Data
+namespace GoogleMusicApi.Requests.Data
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class ListListenNowSituationsRequest : PostRequest

@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 
-namespace GoogleMusicApi.UWP.Structure
+namespace GoogleMusicApi.Structure
 {
     [JsonObject]
-    public class PlaylistEntry
+    public class Plentry
     {
         [JsonProperty("absolutePosition")]
         public string AbsolutePosition { get; set; }

@@ -7,8 +7,8 @@
     <ProjectGuid>{387F13AE-D8EA-4476-9FD7-49B03A7EE335}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleMusicApi.UWP</RootNamespace>
-    <AssemblyName>GoogleMusicApi.UWP</AssemblyName>
+    <RootNamespace>GoogleMusicApi</RootNamespace>
+    <AssemblyName>GoogleMusicApi</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -205,7 +205,7 @@
     <Compile Include="Structure\Mutations\Mutation.cs" />
     <Compile Include="Structure\Mutations\MutationResponse.cs" />
     <Compile Include="Structure\Playlist.cs" />
-    <Compile Include="Structure\PlaylistEntry.cs" />
+    <Compile Include="Structure\Plentry.cs" />
     <Compile Include="Structure\RadioFeed.cs" />
     <Compile Include="Structure\Rating.cs" />
     <Compile Include="Structure\RequestSignal.cs" />
