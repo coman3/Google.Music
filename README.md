@@ -8,8 +8,10 @@ Please go checkout the [Wiki](https://github.com/coman3/Google.Music/wiki) it co
 
 # Installation
 #### NuGet
-- .NET 4.5.2+ : `Install-Package GoogleMusicApi`
-- UWP (Windows 10): `Install-Package GoogleMusicApi.UWP`
+- .NET 4.5.2+ / UWP (Windows 10): `Install-Package Google.Music.Api`
+
+#### Manual Reference
+- Download [Release](https://github.com/coman3/Google.Music/releases)
 
 # Usage
 Checkout the Wiki for full information, but basic usage (getting a stream URL) looks like:
