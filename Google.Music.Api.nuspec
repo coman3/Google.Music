@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Google.Music.Api</id>
-        <version>1.0.0.1</version>
+        <version>$version$</version>
         <title>Google Play Music Api</title>
         <authors>Lachlan van der Velden</authors>
         <owners>coman3</owners>
@@ -21,7 +21,7 @@ Google Music Api allows you to:
         <language>en-AU</language>
         <tags>api, google, c#, stream, private, radio</tags>
         <dependencies>
-            <dependency id="Newtownsoft.Json" version="9.0.1" />
+            <dependency id="Newtonsoft.Json" version="9.0.1" />
         </dependencies>
     </metadata>
     <files>
