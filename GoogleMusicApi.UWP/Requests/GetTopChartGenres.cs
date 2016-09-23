@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.UWP.Structure;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.UWP.Requests
 {
     public class GetTopChartGenres : StructuredRequest<GetRequest, GetTopChartGenresResponse>
     {

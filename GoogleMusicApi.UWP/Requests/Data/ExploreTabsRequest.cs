@@ -1,8 +1,8 @@
-﻿using GoogleMusicApi.Common;
-using GoogleMusicApi.Sessions;
-using GoogleMusicApi.Structure.Enums;
+﻿using GoogleMusicApi.UWP.Common;
+using GoogleMusicApi.UWP.Sessions;
+using GoogleMusicApi.UWP.Structure.Enums;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.UWP.Requests.Data
 {
     public class ExploreTabsRequest : GetRequest
     {

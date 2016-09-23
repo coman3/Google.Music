@@ -1,6 +1,6 @@
-using GoogleMusicApi.Structure;
+using GoogleMusicApi.UWP.Structure;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.UWP.Requests.Data
 {
     public class GetRadioStationAnnotationResponse
     {

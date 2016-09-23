@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using GoogleMusicApi.Common;
+using GoogleMusicApi.UWP.Common;
 
-namespace GoogleMusicApi.Authentication
+namespace GoogleMusicApi.UWP.Authentication
 {
     /// <summary>
     /// Provides methods for logging into the Google services.

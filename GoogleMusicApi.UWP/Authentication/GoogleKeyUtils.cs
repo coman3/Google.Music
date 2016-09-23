@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace GoogleMusicApi.Authentication
+namespace GoogleMusicApi.UWP.Authentication
 {
     // gpsoauth:google.py
     // URL: https://github.com/simon-weber/gpsoauth/blob/master/gpsoauth/google.py

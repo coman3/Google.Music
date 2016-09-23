@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.Sessions;
+﻿using GoogleMusicApi.UWP.Sessions;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.UWP.Requests.Data
 {
     
     [JsonObject(MemberSerialization.OptIn)]

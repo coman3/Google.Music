@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.UWP.Requests.Data
 {
     public class ListStationCategoriesResponse
     {

@@ -2,12 +2,12 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using GoogleMusicApi.Common;
-using GoogleMusicApi.Requests.Data;
-using GoogleMusicApi.Structure;
-using GoogleMusicApi.Structure.Enums;
+using GoogleMusicApi.UWP.Common;
+using GoogleMusicApi.UWP.Requests.Data;
+using GoogleMusicApi.UWP.Structure;
+using GoogleMusicApi.UWP.Structure.Enums;
 using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using Rating = GoogleMusicApi.Structure.Enums.Rating;
+using Rating = GoogleMusicApi.UWP.Structure.Enums.Rating;
 
 namespace GoogleMusicApi.UWP.Tests
 {

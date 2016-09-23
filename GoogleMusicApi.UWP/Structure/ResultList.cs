@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.UWP.Structure
 {
     public class DataSet<T>
     {

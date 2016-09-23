@@ -1,11 +1,11 @@
 ﻿using System.IO;
 using System.Net.Http;
 using System.Text;
-using GoogleMusicApi.Sessions;
-using GoogleMusicApi.Structure.Mutations;
+using GoogleMusicApi.UWP.Sessions;
+using GoogleMusicApi.UWP.Structure.Mutations;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.UWP.Requests.Data
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class MutateRequest : PostRequest

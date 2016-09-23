@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.UWP.Structure
 {
     public class Rating
     {

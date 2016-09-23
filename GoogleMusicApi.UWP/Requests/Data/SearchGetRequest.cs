@@ -1,7 +1,7 @@
 ﻿using System.Net;
-using GoogleMusicApi.Sessions;
+using GoogleMusicApi.UWP.Sessions;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.UWP.Requests.Data
 {
     public class SearchGetRequest : GetRequest
     {

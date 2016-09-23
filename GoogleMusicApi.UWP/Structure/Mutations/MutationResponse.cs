@@ -1,8 +1,8 @@
-using GoogleMusicApi.Structure.Enums;
+using GoogleMusicApi.UWP.Structure.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GoogleMusicApi.Structure.Mutations
+namespace GoogleMusicApi.UWP.Structure.Mutations
 {
     public class ResponseMutation : Mutation
     {

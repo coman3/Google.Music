@@ -7,8 +7,8 @@
     <ProjectGuid>{387F13AE-D8EA-4476-9FD7-49B03A7EE335}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleMusicApi</RootNamespace>
-    <AssemblyName>GoogleMusicApi</AssemblyName>
+    <RootNamespace>GoogleMusicApi.UWP</RootNamespace>
+    <AssemblyName>GoogleMusicApi.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>

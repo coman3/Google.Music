@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.UWP.Structure
 {
     [JsonObject(MemberSerialization.OptIn)]
     public class RadioFeed

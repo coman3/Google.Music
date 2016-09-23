@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace GoogleMusicApi.Structure.Enums
+namespace GoogleMusicApi.UWP.Structure.Enums
 {
     public enum TabGenre
     {

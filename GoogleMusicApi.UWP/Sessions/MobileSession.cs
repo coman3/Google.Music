@@ -2,9 +2,9 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using GoogleMusicApi.Authentication;
+using GoogleMusicApi.UWP.Authentication;
 
-namespace GoogleMusicApi.Sessions
+namespace GoogleMusicApi.UWP.Sessions
 {
     public sealed class MobileSession : Session
     {

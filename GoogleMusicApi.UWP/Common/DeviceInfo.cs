@@ -4,7 +4,7 @@ using System.Text;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.System.Profile;
 
-namespace GoogleMusicApi.Common
+namespace GoogleMusicApi.UWP.Common
 {
     public sealed class DeviceInfo
     {

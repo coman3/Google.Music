@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.Structure.Enums;
+﻿using GoogleMusicApi.UWP.Structure.Enums;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi.Requests.Data
+namespace GoogleMusicApi.UWP.Requests.Data
 {
     public class EventResult
     {

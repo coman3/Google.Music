@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace GoogleMusicApi
+namespace GoogleMusicApi.UWP
 {
     public abstract class StructuredRequest
     {

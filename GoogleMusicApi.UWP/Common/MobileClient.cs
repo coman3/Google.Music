@@ -4,16 +4,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using GoogleMusicApi.Authentication;
-using GoogleMusicApi.Requests;
-using GoogleMusicApi.Requests.Data;
-using GoogleMusicApi.Sessions;
-using GoogleMusicApi.Structure;
-using GoogleMusicApi.Structure.Enums;
-using GoogleMusicApi.Structure.Mutations;
-using Rating = GoogleMusicApi.Structure.Rating;
+using GoogleMusicApi.UWP.Authentication;
+using GoogleMusicApi.UWP.Requests;
+using GoogleMusicApi.UWP.Requests.Data;
+using GoogleMusicApi.UWP.Sessions;
+using GoogleMusicApi.UWP.Structure;
+using GoogleMusicApi.UWP.Structure.Enums;
+using GoogleMusicApi.UWP.Structure.Mutations;
+using Rating = GoogleMusicApi.UWP.Structure.Rating;
 
-namespace GoogleMusicApi.Common
+namespace GoogleMusicApi.UWP.Common
 {
     /// <summary>
     /// An Easy to use Google Play Music Client, that can do everything but upload music.

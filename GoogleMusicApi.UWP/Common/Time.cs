@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GoogleMusicApi.Common
+namespace GoogleMusicApi.UWP.Common
 {
     public static class Time
     {

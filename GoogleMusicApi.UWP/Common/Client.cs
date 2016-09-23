@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using GoogleMusicApi.Sessions;
+using GoogleMusicApi.UWP.Sessions;
 
-namespace GoogleMusicApi.Common
+namespace GoogleMusicApi.UWP.Common
 {
     /// <summary>
     /// A Client to access Google Play Music

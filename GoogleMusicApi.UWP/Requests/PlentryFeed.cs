@@ -1,7 +1,7 @@
-﻿using GoogleMusicApi.Requests.Data;
-using GoogleMusicApi.Structure;
+﻿using GoogleMusicApi.UWP.Requests.Data;
+using GoogleMusicApi.UWP.Structure;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.UWP.Requests
 {
     public class PlentryFeed : StructuredRequest<FeedRequest, ResultList<Plentry>>
     {

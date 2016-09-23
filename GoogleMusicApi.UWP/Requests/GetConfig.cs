@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using GoogleMusicApi.Structure;
+using GoogleMusicApi.UWP.Structure;
 
-namespace GoogleMusicApi.Requests
+namespace GoogleMusicApi.UWP.Requests
 {
     public class GetConfig : StructuredRequest<GetRequest, Config>
     {

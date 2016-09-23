@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using GoogleMusicApi.Structure.Enums;
+using GoogleMusicApi.UWP.Structure.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace GoogleMusicApi.Structure
+namespace GoogleMusicApi.UWP.Structure
 {
     [JsonObject]
     public class Track
