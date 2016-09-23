@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Google.Music.Api</id>
@@ -20,5 +20,13 @@ Google Music Api allows you to:
         <copyright>Lachlan van der Velden</copyright>
         <language>en-AU</language>
         <tags>api, google, c#, stream, private, radio</tags>
+        <dependencies>
+            <dependency id="Newtownsoft.Json" version="9.0.1" />
+        </dependencies>
     </metadata>
+    <files>
+        <file src="GoogleMusicApi\bin\Release\GoogleMusicApi.dll" target="lib\net452\" />
+        <file src="GoogleMusicApi.UWP\bin\Release\GoogleMusicApi.UWP.dll" target="lib\uap10.0\" />
+    </files>
+
 </package>
