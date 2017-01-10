@@ -1,5 +1,11 @@
 # Google Play Music API Written in C Sharp (C\#)
+---
+# PROJECT DEAD - Google Blocked.
+Google as blocked any packet tracing / decrypting from their mobile app, preventing me to continue updating this API. I have been unsuccessful in bypassing this protection, and don’t see it becoming something I can do in my spare time anymore… Sorry for any inconveniences. 
 
+
+
+---
 # Build Status: ![GoogleMusicApi MyGet Build Status](https://www.myget.org/BuildSource/Badge/google-music-api?identifier=4920bf3e-a903-4f38-b8ca-2672c6b14dad)
 An Unofficial Google Play Music API Developed from the Google Play Music Android App (GoogleMusicApi.Common.MobileClient).
 
